@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using Enemies;
+using Managers;
 using UnityEngine;
 
 namespace Player
@@ -6,7 +7,7 @@ namespace Player
     public class PlayerIdleState : IState
     {
         public Player _player;
-        public PlayerIdleState(Player player) => this._player = player;
+        public PlayerIdleState(Player player) => _player = player;
 
         public void Enter()
         {
@@ -27,35 +28,59 @@ namespace Player
             _player.BodyAnimator.SetBool("Idle", false);
         }
     }
-    
     public class PlayerSpellState : IState
     {
-        public Player _player;
-        public PlayerSpellState(Player player) => this._player = player;
+        private Player _player;
+        private bool _hasPoppedBalloon;
+
+        public PlayerSpellState(Player player)
+        {
+            _player = player;
+        }
 
         public void Enter()
         {
+            _hasPoppedBalloon = false;
+
             _player.BodyAnimator.SetBool("Spell", true);
+
+            Enemy.OnBalloonPop += HandleBalloonPop;
+            GestureResultHandler.OnRecognitionFinished += HandleRecognitionFinished;
         }
 
         public void Update()
         {
-            if (Input.GetMouseButtonUp(0))
-            {
-                _player.StateMachine.ChangeState(_player.IdleState);
-            }
+            
         }
 
         public void Exit()
         {
             _player.BodyAnimator.SetBool("Spell", false);
+
+            Enemy.OnBalloonPop -= HandleBalloonPop;
+            GestureResultHandler.OnRecognitionFinished -= HandleRecognitionFinished;
+        }
+
+        private void HandleBalloonPop()
+        {
+            _hasPoppedBalloon = true;
+            _player.StateMachine.ChangeState(_player.SnapState);
+        }
+
+        private void HandleRecognitionFinished()
+        {
+            if (_hasPoppedBalloon)
+                return;
+
+            _player.StateMachine.ChangeState(_player.IdleState);
         }
     }
+    
     
     public class PlayerSnapState : IState
     {
         public Player _player;
-        public PlayerSnapState(Player player) => this._player = player;
+        public PlayerSnapState(Player player) => _player = player;
 
         public void Enter()
         {
@@ -64,15 +89,11 @@ namespace Player
 
         public void Update()
         {
-            if (Input.GetMouseButtonUp(0))
-            {
-                _player.StateMachine.ChangeState(_player.IdleState);
-            }
+            
         }
 
         public void Exit()
         {
-            _player.BodyAnimator.SetBool("Spell", false);
         }
     }
 }

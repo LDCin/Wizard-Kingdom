@@ -118,11 +118,19 @@ namespace GestureRecognizer {
 			}
 		}
 
-		public void OnDrag (PointerEventData eventData) {
-			var fixedPos = FixedPosition (eventData.position);
-			if (data.LastLine.points.Count == 0 || data.LastLine.points.Last () != fixedPos) {
-				data.LastLine.points.Add (fixedPos);
-				UpdateLines ();
+		public void OnDrag(PointerEventData eventData)
+		{
+			if (data.lines.Count == 0)
+			{
+				return;
+			}
+
+			var fixedPos = FixedPosition(eventData.position);
+
+			if (data.LastLine.points.Count == 0 || data.LastLine.points.Last() != fixedPos)
+			{
+				data.LastLine.points.Add(fixedPos);
+				UpdateLines();
 			}
 		}
 
@@ -131,10 +139,15 @@ namespace GestureRecognizer {
 			StartCoroutine (OnEndDragCoroutine (eventData));
 		}
 
-		IEnumerator OnEndDragCoroutine(PointerEventData eventData){
+		IEnumerator OnEndDragCoroutine(PointerEventData eventData)
+		{
+			if (data.lines.Count == 0)
+			{
+				yield break;
+			}
 
-			data.LastLine.points.Add (FixedPosition(eventData.position));
-			UpdateLines ();
+			data.LastLine.points.Add(FixedPosition(eventData.position));
+			UpdateLines();
 
 			for (int size = data.lines.Count; size >= 1 && size >= minLines; size--) {
 				//last [size] lines
@@ -167,11 +180,16 @@ namespace GestureRecognizer {
 				}
 
 				if (result.gesture != null && result.score.score >= scoreToAccept) {
-					OnRecognize.Invoke (result);
+					OnRecognize.Invoke(result);
+
 					if (clearNotRecognizedLines) {
 						data = sizedData;
-						UpdateLines ();
+						UpdateLines();
 					}
+
+					yield return new WaitForSeconds(0.2f);
+					ClearLines();
+
 					break;
 				} else {
 					OnRecognize.Invoke (RecognitionResult.Empty);

@@ -33,5 +33,12 @@ namespace Player
         {
             _stateMachine.Update();
         }
+        public void OnSnapAnimationFinished()
+        {
+            if (_stateMachine.CurrentState == _snapState)
+            {
+                _stateMachine.ChangeState(_idleState);
+            }
+        }
     }
 }

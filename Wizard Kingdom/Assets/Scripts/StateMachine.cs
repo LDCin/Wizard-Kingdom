@@ -4,6 +4,8 @@
     {
         private IState _currentState;
 
+        public IState CurrentState => _currentState;
+
         public void ChangeState(IState newState)
         {
             _currentState?.Exit();

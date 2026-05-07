@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafb7f55bc148e084e84e2e32bb75a3, type: 3}
+  m_Name: Lilguy01
+  m_EditorClassIdentifier: 
+  enemyName: Lilguy01
+  sprite: {fileID: 21300000, guid: a057c077fba616a499b89c2014faac50, type: 3}
+  runtimeAnimatorController: {fileID: 9100000, guid: 13a80b7256ea95a4c91fecfba1b0a383, type: 2}
+  possibleBalloonSymbols: 000000000100000002000000030000000400000005000000
+  balloonSpawnCount: 1
+  goldReward: 1
+  scoreReward: 1
+  moveSpeed: 1
