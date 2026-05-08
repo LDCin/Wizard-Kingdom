@@ -47,11 +47,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - Enemy Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62e36de395e85a843be8506aebc322e7
+    m_Address: Panel - Menu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7b36e059716314f45bd8e8bc165e441f
     m_Address: Assets/SOs/Balloons/VLineBalloon.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balloon Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80b7fb615bcc8a647a903058e9b3ce87
+    m_Address: Panel - Pause
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c8f683e7dcfffe44a259c9eff4ebfb0
+    m_Address: Panel - Transition
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8d4a9787939452a4ea8a5a315fd3e380
     m_Address: Assets/SOs/Balloons/GammaLineBalloon.asset
@@ -70,6 +85,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balloon Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de2a11782f928da4d9b981ce21e476d9
+    m_Address: Panel - Game
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7940920d1a48b7428205adc43a4dd46
     m_Address: Assets/SOs/Balloons/HorizontalLineBalloon.asset

@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 30
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -95,7 +95,217 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 749
+        width: 432
+        height: 613
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25b5ced400c5776458217080f2c84bd6
+      internalID: -1834583084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_1
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 520
+        width: 362
+        height: 226
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7ebb9b325b54f4e955314ac49a5cb9
+      internalID: -953449554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_2
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 291
+        width: 362
+        height: 226
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 597d69305b4b7d84f9e217ededff4e95
+      internalID: -1338037487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_3
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 154
+        width: 108
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcb4d06cd01cdb04880646f14cd350e6
+      internalID: -1302120478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_4
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 154
+        width: 104
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcceb344cc9e2e243a1f95245eb98044
+      internalID: -1733900347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_5
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 154
+        width: 107
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b42ece471fb70a744bf7e194b228c7b1
+      internalID: 23019969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_6
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 154
+        width: 107
+        height: 135
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab9cc3c0e8fd31e4e8ec30ac53d94f76
+      internalID: 189983087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_7
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 158
+        height: 149
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9137fb51e37e80e4d871012a7a4a5107
+      internalID: 1479340205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_8
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 45
+        width: 104
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dee21e0111344e74181ee7592c7cec8f
+      internalID: 61937575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_9
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 16
+        width: 91
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e33da011a9171524087e694536ef4f12
+      internalID: -1441386753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +316,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_0: -1834583084
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_1: -953449554
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_2: -1338037487
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_3: -1302120478
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_4: -1733900347
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_5: 23019969
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_6: 189983087
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_7: 1479340205
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_8: 61937575
+      Mobile - Magic Touch_ Wizard for Hire - Miscellaneous - Title Screen_9: -1441386753
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
