@@ -74,6 +74,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Balloon Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93ec8a3a00686ad49b3f4acbd51c6e56
+    m_Address: Panel - Intro
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9ff800f2e82d985459102a28b464d335
     m_Address: Assets/SOs/Balloons/LoopLineBalloon.asset
     m_ReadOnly: 0
@@ -85,6 +90,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balloon Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7790b1b739939940b8362b87fc4b6b3
+    m_Address: Panel - Draw Area Free
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: de2a11782f928da4d9b981ce21e476d9
     m_Address: Panel - Game

@@ -134,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99be9b15a16416996995c394a480a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyOnClose: 1
+  _destroyOnClose: 0
+  uiLayer: 0
   backgroundFillImage: {fileID: 5187004019309296600}
   duration: 1
 --- !u!114 &5627191035818887905

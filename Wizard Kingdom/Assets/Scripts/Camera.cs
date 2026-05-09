@@ -2,10 +2,11 @@
 using DG.Tweening;
 using Enemies;
 using UnityEngine;
+using Utils;
 
 namespace Managers
 {
-    public class Camera : MonoBehaviour
+    public class Camera : Singleton<Camera>
     {
         [SerializeField] private float _shakeDuration = 0.1f;
         [SerializeField] private float _shakeStrength = 0.08f;

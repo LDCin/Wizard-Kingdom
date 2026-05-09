@@ -455,7 +455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22289ce1b6cd4a2cba36476a27bed66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyOnClose: 1
+  _destroyOnClose: 0
+  uiLayer: 0
 --- !u!114 &5821940830994438934
 MonoBehaviour:
   m_ObjectHideFlags: 0

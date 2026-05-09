@@ -927,7 +927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62617faddcea4f5db60bcdd16312ba71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyOnClose: 1
+  _destroyOnClose: 0
+  uiLayer: 0
 --- !u!114 &2079467725043914281
 MonoBehaviour:
   m_ObjectHideFlags: 0

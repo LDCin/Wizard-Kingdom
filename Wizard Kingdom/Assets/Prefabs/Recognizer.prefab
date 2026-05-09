@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1119066697415939768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5120280692100505398}
+  - component: {fileID: 616209415827842829}
+  m_Layer: 0
+  m_Name: Recognizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5120280692100505398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119066697415939768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3340292, y: 0.52503455, z: -0.021812957}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &616209415827842829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119066697415939768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e33ddafc2c92b43a2a607faf95848c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfThreads: 1
+  patterns:
+  - {fileID: 11400000, guid: d064051cb0761704c8254b9cac875317, type: 2}
+  - {fileID: 11400000, guid: dd6c24792475f5f4a8e7fb68e3643432, type: 2}
+  - {fileID: 11400000, guid: 6e9a47e187145ca4b820df048550a8c8, type: 2}
+  - {fileID: 11400000, guid: dae8588a1d0e5f14782fe94dd8769c91, type: 2}
+  - {fileID: 11400000, guid: e9c3c696e9fe0ad49b86caa34334f854, type: 2}
+  - {fileID: 11400000, guid: 681b1697a3806154b88f91f4bf25b89e, type: 2}
+  - {fileID: 11400000, guid: 0748d6f5d5ca5d24a9966b12f1847f53, type: 2}
+  - {fileID: 11400000, guid: c68989ac7db5b874db77c9371a1211e9, type: 2}
+  - {fileID: 11400000, guid: c4fae34a2e83fc341b04be595da96d53, type: 2}

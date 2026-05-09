@@ -9,6 +9,10 @@ namespace UI
 {
     public class UIManager : Singleton<UIManager>
     {
+        [Header("UI Roots")]
+        [SerializeField] private Transform overlayCanvasRoot;
+        [SerializeField] private Transform cameraCanvasRoot;
+
         private Dictionary<string, Panel> _panelDict = new();
         private HashSet<string> _loadingPanels = new();
 
@@ -29,6 +33,15 @@ namespace UI
                     Debug.LogWarning($"Duplicate panel name: {panel.name}");
                 }
             }
+        }
+
+        private Transform GetRoot(UILayer layer)
+        {
+            return layer switch
+            {
+                UILayer.Overlay => overlayCanvasRoot,
+                UILayer.Camera => cameraCanvasRoot,
+            };
         }
 
         public IEnumerator LoadPanel(string panelName)
@@ -65,6 +78,18 @@ namespace UI
                 Addressables.ReleaseInstance(panelHandle.Result);
                 yield break;
             }
+
+            Transform root = GetRoot(newPanel.UILayer);
+
+            if (root == null)
+            {
+                Debug.LogError($"Root is missing for UI layer: {newPanel.UILayer}");
+                Addressables.ReleaseInstance(panelHandle.Result);
+                yield break;
+            }
+
+            newPanel.transform.SetParent(root, false);
+            newPanel.transform.SetAsLastSibling();
 
             _panelDict[panelName] = newPanel;
         }

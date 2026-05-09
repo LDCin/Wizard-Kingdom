@@ -18,6 +18,7 @@ namespace Enemies
         [SerializeField] private BalloonPool _balloonPoolPrefab;
         private BalloonPool _balloonPool;
         public bool IsReady { get; private set; }
+        private AsyncOperationHandle<IList<EnemyData>> _enemyLoadHandle;
         
         private void OnEnable()
         {
@@ -40,7 +41,7 @@ namespace Enemies
         {
             IsReady = false;
 
-            var enemyLoadHandle = Addressables.LoadAssetsAsync<EnemyData>(
+            _enemyLoadHandle = Addressables.LoadAssetsAsync<EnemyData>(
                 _enemyDataLabel,
                 loadedEnemy =>
                 {
@@ -50,9 +51,9 @@ namespace Enemies
                 true
             );
 
-            yield return enemyLoadHandle;
+            yield return _enemyLoadHandle;
 
-            if (enemyLoadHandle.Status == AsyncOperationStatus.Succeeded)
+            if (_enemyLoadHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 Debug.Log("Load Enemy Data Successfully!");
 
@@ -167,6 +168,13 @@ namespace Enemies
             enemy.gameObject.SetActive(false);
 
             _enemyDict[enemy.EnemyName].Enqueue(enemy);
+        }
+        private void OnDestroy()
+        {
+            if (_enemyLoadHandle.IsValid())
+            {
+                Addressables.Release(_enemyLoadHandle);
+            }
         }
     }
 }

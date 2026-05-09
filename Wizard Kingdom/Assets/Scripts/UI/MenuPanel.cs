@@ -23,13 +23,13 @@ namespace UI
         public void ArcadeGameMode()
         {
             Close();
-            SceneLoader.LoadScene("Game", "Panel - Game");
+            SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
         }
 
         public void TimeAttackGameMode()
         {
             Close();
-            SceneLoader.LoadScene("Game", "Panel - Game");
+            SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
         }
 
         public void Shop()
