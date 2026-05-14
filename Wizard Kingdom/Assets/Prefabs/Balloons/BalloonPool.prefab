@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dacabf944e4585bb3da3ffd559d56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _balloonPrefab: {fileID: 7740653552775015242, guid: 9e29875252c66e646ad3220b8384e24e, type: 3}
-  _balloonDataLabel: Balloon Data
-  _numberOfEachBalloon: 20
+  _prefab: {fileID: 7740653552775015242, guid: 9e29875252c66e646ad3220b8384e24e, type: 3}
+  _dataLabel: Balloon Data
+  _numberOfEachItem: 15

@@ -44,11 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43511b6f895f45389217c8d4f4146c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDataList:
-  - {fileID: 11400000, guid: 60c3e7897c34811499adfd3cab52c849, type: 2}
-  - {fileID: 11400000, guid: 0553568614a9c934781d9d4b0d0e9e8a, type: 2}
-  - {fileID: 11400000, guid: 4846742616c1f6344bc82aa783fb1028, type: 2}
-  _enemyPrefab: {fileID: 871550906622450629, guid: 1a09f1edea248224bb0eb12b2e9cc94d, type: 3}
-  _enemyDataLabel: Enemy Data
-  numberOfEachEnemy: 10
+  _prefab: {fileID: 871550906622450629, guid: 1a09f1edea248224bb0eb12b2e9cc94d, type: 3}
+  _dataLabel: Enemy Data
+  _numberOfEachItem: 15
   _balloonPoolPrefab: {fileID: 3816974114113211745, guid: 10d72696e26dfae4997aa0c1aafc86e1, type: 3}
