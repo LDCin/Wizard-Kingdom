@@ -204,14 +204,12 @@ namespace Enemies
         public void SetupBalloons(List<Balloon> balloons)
         {
             _balloonList.Clear();
-
-            Transform parent = transform;
-
+            
             for (int i = 0; i < balloons.Count; i++)
             {
                 Balloon balloon = balloons[i];
 
-                balloon.transform.SetParent(parent, false);
+                balloon.transform.SetParent(transform, false);
                 balloon.transform.localPosition = GetBalloonLocalPosition(i, balloons.Count);
                 balloon.transform.localRotation = Quaternion.identity;
 

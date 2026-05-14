@@ -10,11 +10,13 @@ namespace UI
     public class UIManager : Singleton<UIManager>
     {
         [Header("UI Roots")]
-        [SerializeField] private Transform overlayCanvasRoot;
-        [SerializeField] private Transform cameraCanvasRoot;
+        [SerializeField] private Transform _overlayCanvasRoot;
+        [SerializeField] private Transform _cameraCanvasRoot;
 
         private Dictionary<string, Panel> _panelDict = new();
         private HashSet<string> _loadingPanels = new();
+
+        [SerializeField] private float _delayTime = 0f;
 
         private void Awake()
         {
@@ -39,8 +41,8 @@ namespace UI
         {
             return layer switch
             {
-                UILayer.Overlay => overlayCanvasRoot,
-                UILayer.Camera => cameraCanvasRoot,
+                UILayer.Overlay => _overlayCanvasRoot,
+                UILayer.Camera => _cameraCanvasRoot,
             };
         }
 
@@ -123,6 +125,12 @@ namespace UI
 
         public void ClosePanel(string panelName)
         {
+            StartCoroutine(ClosePanelRoutine(panelName));
+        }
+        private IEnumerator ClosePanelRoutine(string panelName)
+        {
+            yield return new WaitForSeconds(_delayTime);
+
             Panel panel = GetPanel(panelName);
 
             if (panel != null)
@@ -134,13 +142,21 @@ namespace UI
                 Debug.LogWarning($"Cannot close unloaded panel: {panelName}");
             }
         }
-
-        public void CloseAllPanel()
+        private IEnumerator CloseAllPanelExceptRoutine(string panelName)
         {
-            foreach (var panel in _panelDict.Values)
+            yield return new WaitForSeconds(_delayTime);
+
+            foreach (var panel in _panelDict.Keys)
             {
-                panel.Close();
+                if (!panel.Equals(panelName))
+                {
+                    _panelDict[panel].Close();
+                }
             }
+        }
+        public void CloseAllPanelExcept(string panelName)
+        {
+            StartCoroutine(CloseAllPanelExceptRoutine(panelName));   
         }
     }
 }

@@ -377,8 +377,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 1
-  overlayCanvasRoot: {fileID: 1094464226}
-  cameraCanvasRoot: {fileID: 62952392}
+  _overlayCanvasRoot: {fileID: 1094464226}
+  _cameraCanvasRoot: {fileID: 62952392}
+  _delayTime: 0.8
 --- !u!1 &1739980911
 GameObject:
   m_ObjectHideFlags: 0
