@@ -12,7 +12,7 @@ namespace UI
         {
             if (_isLoading) return;
 
-            UIManager.Instance.CloseAllPanel();
+            UIManager.Instance.CloseAllPanelExcept("Panel - Transition");
             UIManager.Instance.StartCoroutine(TransitionAndLoad(sceneName, panelNames));
         }
 

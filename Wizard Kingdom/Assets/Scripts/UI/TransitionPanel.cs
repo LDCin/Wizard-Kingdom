@@ -8,13 +8,13 @@ namespace UI
     public class TransitionPanel : Panel
     {
         [SerializeField] private Image backgroundFillImage;
-        [SerializeField] private float duration = 0.6f;
+        [SerializeField] private float duration = 0.8f;
 
         public void ShowTransition(Action onComplete)
         {
             gameObject.SetActive(true);
             backgroundFillImage.fillAmount = 0f;
-            backgroundFillImage.fillOrigin = (int)Image.OriginVertical.Top;
+            backgroundFillImage.fillOrigin = (int)Image.OriginVertical.Bottom;
 
             backgroundFillImage.DOFillAmount(1f, duration)
                 .SetEase(Ease.OutCubic)
@@ -28,7 +28,7 @@ namespace UI
             backgroundFillImage.fillOrigin = (int)Image.OriginVertical.Bottom;
 
             backgroundFillImage.DOFillAmount(0f, duration)
-                .SetEase(Ease.InCubic)
+                .SetEase(Ease.OutCubic)
                 .OnComplete(() =>
                 {
                     gameObject.SetActive(false);
