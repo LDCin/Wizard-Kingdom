@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Player
+namespace Players
 {
     public class PlayerBodyAnimationEventReceiver : MonoBehaviour
     {

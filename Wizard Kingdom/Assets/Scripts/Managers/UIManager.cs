@@ -16,9 +16,9 @@ namespace UI
         private Dictionary<string, Panel> _panelDict = new();
         private HashSet<string> _loadingPanels = new();
 
-        [SerializeField] private float _delayTime = 0f;
+        [SerializeField] private float _delayTime = 0.8f;
 
-        private void Awake()
+        public override void Awake()
         {
             base.Awake();
 
@@ -43,6 +43,7 @@ namespace UI
             {
                 UILayer.Overlay => _overlayCanvasRoot,
                 UILayer.Camera => _cameraCanvasRoot,
+                _ => _overlayCanvasRoot
             };
         }
 

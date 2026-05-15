@@ -1,7 +1,8 @@
 ﻿using Managers;
 using UnityEngine;
+using StateMachines;
 
-namespace Player
+namespace Players
 {
     public class Player : MonoBehaviour
     {
@@ -33,6 +34,12 @@ namespace Player
         {
             _stateMachine.Update();
         }
+
+        private void OnDestroy()
+        {
+            _stateMachine?.CurrentState?.Exit();
+        }
+
         public void OnSnapAnimationFinished()
         {
             if (_stateMachine.CurrentState == _snapState)

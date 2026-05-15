@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Balloons;
-using ObjectPool;
 using SOs;
 using UnityEngine;
+using Enemies;
 
-namespace Enemies
+namespace ObjectPool
 {
     public class EnemyPool : ObjectPool<Enemy, EnemyData, string>
     {

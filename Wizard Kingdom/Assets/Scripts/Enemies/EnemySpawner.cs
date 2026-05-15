@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ObjectPool;
 
 namespace Enemies
 {
@@ -10,6 +11,41 @@ namespace Enemies
         [SerializeField] private List<GameObject> _spawnPointList = new();
 
         private EnemyPool _enemyPool;
+        private Coroutine _spawnCoroutine;
+        private bool _canSpawn;
+
+        public void StartSpawn(List<string> spawnEnemyNameList, float delayTime)
+        {
+            StopSpawn();
+
+            _canSpawn = true;
+            _spawnCoroutine = StartCoroutine(SpawnRoutine(spawnEnemyNameList, delayTime));
+        }
+
+        public void StopSpawn()
+        {
+            _canSpawn = false;
+
+            if (_spawnCoroutine != null)
+            {
+                StopCoroutine(_spawnCoroutine);
+                _spawnCoroutine = null;
+            }
+        }
+
+        private IEnumerator SpawnRoutine(List<string> spawnEnemyNameList, float delayTime)
+        {
+            yield return new WaitUntil(() => _enemyPool != null && _enemyPool.IsReady);
+            while (_canSpawn)
+            {
+                foreach (var spawnPoint in _spawnPointList)
+                {
+                    int idx = Random.Range(0, spawnEnemyNameList.Count - 1);
+                    SpawnEnemyByName(spawnEnemyNameList[idx], spawnPoint);
+                    yield return new WaitForSeconds(delayTime);
+                }
+            }
+        }
 
         private IEnumerator Start()
         {
@@ -19,7 +55,7 @@ namespace Enemies
 
             Debug.Log("Init Enemy Pool Successfully");
 
-            SpawnEnemyRandom();
+            // SpawnEnemyRandom();
         }
 
         private void SpawnEnemyByName(string enemyName, GameObject spawnPoint)

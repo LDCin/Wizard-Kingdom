@@ -1,26 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace UI
 {
     public class PausePanel : Panel
     {
+        public static event Action OnContinueGame;
+        public static event Action OnBackToMenu;
+        public static event Action OnRestartGame;
         public void ReturnToMenu()
         {
-            Time.timeScale = 1;
-            Close();
+            OnBackToMenu?.Invoke();
             SceneLoader.LoadScene("Menu", "Panel - Menu");
+            Close();
         }
 
         public void Restart()
         {
+            OnRestartGame?.Invoke();
+            SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
             Close();
-            Time.timeScale = 1;
-            SceneLoader.LoadScene("Game", "Panel - Game");
         }
 
         public void Continue()
         {
-            Time.timeScale = 1;
+            OnContinueGame?.Invoke();
             Close();
         }
     }

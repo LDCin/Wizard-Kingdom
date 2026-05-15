@@ -122,6 +122,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &593788249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 593788250}
+  - component: {fileID: 593788251}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &593788250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593788249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &593788251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593788249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b5ef2ac14e458e8a1a6592e56341fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroyOnLoad: 1
+  _enemySpawnerPrefab: {fileID: 5733546627916897747, guid: 41d75ef8503fcd042b8f20319e55b9da, type: 3}
+  _recognizer: {fileID: 616209415827842829, guid: d409d7c7fefb68643b1ee22b3f338d74, type: 3}
+  _particlePool: {fileID: 5246516253613435651, guid: 997f0f8803260e647b5e31a6f0914a83, type: 3}
+  _spawnEnemyNameList:
+  - Lilguy01
+  - Lilguy02
+  - Lilguy03
+  _delayTime: 1
 --- !u!1 &1442447141
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,3 +333,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1442447144}
   - {fileID: 2122346500}
+  - {fileID: 593788250}

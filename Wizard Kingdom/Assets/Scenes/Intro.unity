@@ -583,6 +583,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _symbol: 1
+  _spriteRenderer: {fileID: 0}
+  _animator: {fileID: 0}
+  _ropeTransform: {fileID: 0}
+  _ropeStartPoint: {fileID: 0}
+  _ropeBaseLength: 1
+  _ropeAngleOffset: 0
 --- !u!212 &465828064600342166
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -670,19 +676,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyName: 
   _sprite: {fileID: 0}
-  _balloonList:
-  - {fileID: 365769903603877426}
   _goldReward: 0
   _scoreReward: 0
   _normalSpeed: 1
   _moveSpeed: 1
-  _isGameOver: 1
-  _isFalling: 0
-  _isDead: 0
-  _balloonCenterOffset: {x: 0, y: 1.2}
-  _balloonHorizontalSpacing: 0.35
-  _balloonVerticalSpacing: 0.35
-  _maxBalloonPerRow: 3
+  _balloonRoot: {fileID: 0}
+  _ropeTargetPoint: {fileID: 0}
+  _balloonList:
+  - {fileID: 365769903603877426}
+  _balloonClusterOffset: {x: 0, y: 0}
+  _balloonSpacingX: 0.28
+  _balloonSpacingY: 0.22
 --- !u!4 &1420814293298785220
 Transform:
   m_ObjectHideFlags: 0
@@ -1074,6 +1078,10 @@ PrefabInstance:
     - target: {fileID: 1941431254692573001, guid: 93ec8a3a00686ad49b3f4acbd51c6e56, type: 3}
       propertyPath: m_Name
       value: Panel - Intro
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750026289828829576, guid: 93ec8a3a00686ad49b3f4acbd51c6e56, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6396445603447901575, guid: 93ec8a3a00686ad49b3f4acbd51c6e56, type: 3}
       propertyPath: canvasRoot

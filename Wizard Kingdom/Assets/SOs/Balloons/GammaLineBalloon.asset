@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GammaLineBalloon
   m_EditorClassIdentifier: 
   symbol: 5
-  sprite: {fileID: 21300000, guid: fea0b3a6f51a0014eb5d7c6743dd4af2, type: 3}
+  sprite: {fileID: 21300000, guid: 524d930c03a3c6248a3e95b921ca82c2, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: 2425b761dc889e941b5692d1929be39d, type: 2}

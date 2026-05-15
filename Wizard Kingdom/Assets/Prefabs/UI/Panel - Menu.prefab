@@ -928,7 +928,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyOnClose: 0
+  _hasEffect: 1
   uiLayer: 0
+  _panelBoard: {fileID: 3926193691721618126}
+  _panelBackground: {fileID: 0}
 --- !u!114 &2079467725043914281
 MonoBehaviour:
   m_ObjectHideFlags: 0

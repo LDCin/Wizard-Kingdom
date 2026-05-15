@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -6,6 +7,8 @@ namespace UI
 {
     public static class SceneLoader
     {
+        public static event Action OnTransitionComplete;
+
         private static bool _isLoading;
 
         public static void LoadScene(string sceneName, params string[] panelNames)
@@ -36,9 +39,8 @@ namespace UI
             bool isDone = false;
             trans.ShowTransition(() => isDone = true);
             yield return new WaitUntil(() => isDone);
-
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-
+            
             while (!asyncLoad.isDone)
             {
                 yield return null;
@@ -68,6 +70,7 @@ namespace UI
             trans.HideTransition(() =>
             {
                 _isLoading = false;
+                OnTransitionComplete?.Invoke();
             });
         }
     }

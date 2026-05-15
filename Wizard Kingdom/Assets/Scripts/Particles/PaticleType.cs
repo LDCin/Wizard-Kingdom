@@ -2,9 +2,6 @@
 {
     public enum ParticleType
     {
-        Explosion,
-        BalloonPop,
-        Hit,
-        Smoke
+        Explosion
     }
 }
