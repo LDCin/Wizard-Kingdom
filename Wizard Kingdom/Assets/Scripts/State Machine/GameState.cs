@@ -56,8 +56,7 @@ namespace StateMachines
         public void Enter()
         {
             // Time.timeScale = 0;
-            _gameManager.StopSpawnEnemy();
-            _gameManager.DestroyEnemySpawner();
+            _gameManager.GameOver();
             Debug.Log("Game Over!");
         }
 

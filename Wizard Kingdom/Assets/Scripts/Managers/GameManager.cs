@@ -5,6 +5,7 @@ using Enemies;
 using GestureRecognizer;
 using ObjectPool;
 using Particles;
+using Players;
 using StateMachines;
 using UI;
 using UnityEngine;
@@ -23,8 +24,10 @@ namespace Managers
         [SerializeField] private float _delayTime = 1f;
         [SerializeField] private float _startSpawnDelayTime = 5f;
         private StateMachine _stateMachine;
+        public StateMachine StateMachine => _stateMachine;
         private IState _playState;
         private IState _pauseState;
+        public IState PauseState => _pauseState;
         private IState _menuState;
         private IState _gameOverState;
         private bool _isNewGame = true;
@@ -36,7 +39,8 @@ namespace Managers
                 _isNewGame = value;
             }
         }
-        private void Awake()
+        [SerializeField] private bool _playerDead = true;
+        public override void Awake()
         {
             base.Awake();
             _stateMachine = new StateMachine();
@@ -55,6 +59,7 @@ namespace Managers
             PausePanel.OnContinueGame += ContinueGame;
             PausePanel.OnRestartGame += RestartGame;
             SceneLoader.OnTransitionComplete += ChangeToPlayState;
+            Player.OnDead += ChangePlayerState;
         }
         private void OnDisable()
         {
@@ -65,6 +70,7 @@ namespace Managers
             PausePanel.OnContinueGame -= ContinueGame;
             PausePanel.OnRestartGame -= RestartGame;
             SceneLoader.OnTransitionComplete -= ChangeToPlayState;
+            Player.OnDead -= ChangePlayerState;
         }
 
         private void Start()
@@ -91,11 +97,15 @@ namespace Managers
         {
             _stateMachine.ChangeState(_pauseState);
         }
-
+        private void ChangePlayerState()
+        {
+            _playerDead = !_playerDead;
+        }
         public void StartGame()
         {
             if (!_isNewGame) return;
             _isNewGame = false;
+            _playerDead = false;
             DestroyEnemySpawner();
             _currentEnemySpawner = Instantiate(_enemySpawnerPrefab, transform);
             StartCoroutine(StartGameRoutine());
@@ -140,10 +150,15 @@ namespace Managers
         }
         public void GameOver()
         {
+            StartCoroutine(GameOverRoutine());
+        }
+        private IEnumerator GameOverRoutine()
+        {
+            StopSpawnEnemy();
             OnGameOver?.Invoke();
-            // _isNewGame = true;
+            yield return new WaitUntil(() => _playerDead);
             // UIManager.Instance.OpenPanel("Panel - Game Over");
-            DestroyEnemySpawner();
+            Debug.Log("GAME OVER!");
         }
     }
 }

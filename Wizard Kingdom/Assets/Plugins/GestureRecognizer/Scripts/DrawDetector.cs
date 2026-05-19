@@ -13,7 +13,9 @@ namespace GestureRecognizer {
 	/// Calls 'OnRecognize' event when something is recognized.
 	/// </summary>
 	public class DrawDetector : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler {
-		
+
+		public static event System.Action OnDrawStart;
+
 		public Recognizer recognizer;
 
 		public UILineRenderer line;
@@ -97,6 +99,8 @@ namespace GestureRecognizer {
 		}
 
 		public void OnBeginDrag (PointerEventData eventData) {
+
+			OnDrawStart?.Invoke();
 
 			if (data.lines.Count >= maxLines) {
 				switch (removeStrategy) {

@@ -1,7 +1,8 @@
 ﻿using Enemies;
+using GestureRecognizer;
 using Managers;
-using UnityEngine;
 using Players;
+using UnityEngine;
 
 namespace StateMachines
 {
@@ -14,19 +15,27 @@ namespace StateMachines
         {
             Debug.Log("Player: Enter Idle State!");
             _player.BodyAnimator.SetBool("Idle", true);
+
+            DrawDetector.OnDrawStart += HandleDrawStart;
         }
 
         public void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                _player.StateMachine.ChangeState(_player.SpellState);
-            }
         }
 
         public void Exit()
         {
             _player.BodyAnimator.SetBool("Idle", false);
+
+            DrawDetector.OnDrawStart -= HandleDrawStart;
+        }
+
+        private void HandleDrawStart()
+        {
+            if (GameManager.Instance.StateMachine.CurrentState == GameManager.Instance.PauseState)
+                return;
+
+            _player.StateMachine.ChangeState(_player.SpellState);
         }
     }
     public class PlayerSpellState : IState
@@ -76,8 +85,6 @@ namespace StateMachines
             _player.StateMachine.ChangeState(_player.IdleState);
         }
     }
-    
-    
     public class PlayerSnapState : IState
     {
         public Player _player;
@@ -86,6 +93,25 @@ namespace StateMachines
         public void Enter()
         {
             _player.BodyAnimator.SetTrigger("Snap");
+        }
+
+        public void Update()
+        {
+            
+        }
+
+        public void Exit()
+        {
+        }
+    }
+    public class PlayerDeadState : IState
+    {
+        public Player _player;
+        public PlayerDeadState(Player player) => _player = player;
+
+        public void Enter()
+        {
+            _player.BodyAnimator.SetBool("Dead", true);
         }
 
         public void Update()
