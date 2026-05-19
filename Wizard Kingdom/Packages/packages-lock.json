@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.como.ide.kiro": {
+      "version": "https://github.com/XinLeng-Como/unity-kiro-integration.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.9"
+      },
+      "hash": "ceb8c041922f46c222abe6696ed347dab5f5f039"
+    },
     "com.unity.2d.animation": {
       "version": "9.2.0",
       "depth": 1,
@@ -161,6 +170,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.ide.visualstudio": {
+      "version": "2.0.27",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.33"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.mathematics": {
       "version": "1.2.6",
       "depth": 2,
@@ -177,7 +195,7 @@
     },
     "com.unity.test-framework": {
       "version": "1.1.33",
-      "depth": 3,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6",

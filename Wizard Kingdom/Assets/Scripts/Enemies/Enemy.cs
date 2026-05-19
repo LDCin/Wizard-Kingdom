@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Balloons;
 using Managers;
-using Particles;
-using UnityEngine;
-using StateMachines;
 using ObjectPool;
+using Particles;
+using StateMachines;
+using UnityEngine;
 
 namespace Enemies
 {
@@ -15,7 +15,6 @@ namespace Enemies
         public static event Action OnEnemyDie;
         public static event Action OnBalloonPop;
         public static event Action<Enemy> OnReturnEnemyToPool;
-        public static event Action<Vector3> OnEnemyExplode;
         public static event Action OnEnemyReachCastle;
 
         [Header("Data")]
@@ -42,8 +41,10 @@ namespace Enemies
             set => _moveSpeed = value;
         }
 
+        [Header("Stat")]
         private int _remainingBalloon = 1;
         public int RemainingBalloon => _remainingBalloon;
+        [SerializeField] private GameObject _fireOnInvadeCastle;
 
         [Header("Balloon")]
         [SerializeField] private Transform _balloonRoot;
@@ -180,7 +181,7 @@ namespace Enemies
             OnEnemyDie?.Invoke();
         }
 
-        public void ReachCastle()
+        public void InvadeCastle()
         {
             if (_stateMachine.CurrentState == _victoryState)
             {
@@ -211,7 +212,7 @@ namespace Enemies
             }
             else
             {
-                ReachCastle();
+                InvadeCastle();
             }
         }
 

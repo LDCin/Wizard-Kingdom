@@ -1,30 +1,41 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using GestureRecognizer;
+using ObjectPool;
 using Particles;
 using StateMachines;
 using UI;
 using UnityEngine;
 using Utils;
-using ObjectPool;
 
 namespace Managers
 {
     public class GameManager : Singleton<GameManager>
     {
+        public static event Action OnGameOver;
         [SerializeField] private EnemySpawner _enemySpawnerPrefab;
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
         [SerializeField] private ParticlePool _particlePool;
         [SerializeField] private List<string> _spawnEnemyNameList;
         [SerializeField] private float _delayTime = 1f;
+        [SerializeField] private float _startSpawnDelayTime = 5f;
         private StateMachine _stateMachine;
         private IState _playState;
         private IState _pauseState;
         private IState _menuState;
         private IState _gameOverState;
-
+        private bool _isNewGame = true;
+        public bool IsNewGame
+        {
+            get => _isNewGame;
+            set
+            {
+                _isNewGame = value;
+            }
+        }
         private void Awake()
         {
             base.Awake();
@@ -41,10 +52,9 @@ namespace Managers
             GamePanel.OnPauseGame += ChangeToPauseState;
             MenuPanel.OnPlayGame += ChangeToPlayState;
             PausePanel.OnBackToMenu += ChangeToMenuState;
-            PausePanel.OnContinueGame += ChangeToPlayState;
-            PausePanel.OnRestartGame += ChangeToPlayState;
-            PausePanel.OnRestartGame += DestroyEnemySpawner;
-            // SceneLoader.OnTransitionComplete += StartGame;
+            PausePanel.OnContinueGame += ContinueGame;
+            PausePanel.OnRestartGame += RestartGame;
+            SceneLoader.OnTransitionComplete += ChangeToPlayState;
         }
         private void OnDisable()
         {
@@ -52,15 +62,17 @@ namespace Managers
             GamePanel.OnPauseGame -= ChangeToPauseState;
             MenuPanel.OnPlayGame -= ChangeToPlayState;
             PausePanel.OnBackToMenu -= ChangeToMenuState;
-            PausePanel.OnContinueGame -= ChangeToPlayState;
-            PausePanel.OnRestartGame -= ChangeToPlayState;
-            PausePanel.OnRestartGame -= DestroyEnemySpawner;
-            // SceneLoader.OnTransitionComplete -= StartGame;
+            PausePanel.OnContinueGame -= ContinueGame;
+            PausePanel.OnRestartGame -= RestartGame;
+            SceneLoader.OnTransitionComplete -= ChangeToPlayState;
         }
 
         private void Start()
         {
+            Debug.Log("Start GameManager");
             _stateMachine.ChangeState(_menuState);
+            ParticlePool newParticlePool = Instantiate(_particlePool, transform);
+            _particlePool = newParticlePool;
         }
         private void ChangeToPlayState()
         {
@@ -82,25 +94,56 @@ namespace Managers
 
         public void StartGame()
         {
-            if (_stateMachine.CurrentState == _playState && _currentEnemySpawner == null)
-            {
-                _currentEnemySpawner = Instantiate(_enemySpawnerPrefab, transform);
-                _currentEnemySpawner.StartSpawn(_spawnEnemyNameList, _delayTime);
-            }
+            if (!_isNewGame) return;
+            _isNewGame = false;
+            DestroyEnemySpawner();
+            _currentEnemySpawner = Instantiate(_enemySpawnerPrefab, transform);
+            StartCoroutine(StartGameRoutine());
+        
+        }
+        public IEnumerator StartGameRoutine()
+        {
+            yield return new WaitForSeconds(_startSpawnDelayTime);
+            _currentEnemySpawner.StartSpawn(_spawnEnemyNameList, _delayTime);
+        }
+        private void ContinueGame()
+        {
+            ChangeToPlayState();
+        }
+        private void RestartGame()
+        {
+            _isNewGame = true;
+            ChangeToPlayState();
         }
 
         public void StopSpawnEnemy()
         {
-            _currentEnemySpawner.StopSpawn();
+            if (_currentEnemySpawner != null)
+            {
+                _currentEnemySpawner.StopSpawn();
+            }
         }
-        
+
         public void DestroyEnemySpawner()
         {
             if (_currentEnemySpawner != null)
             {
+                _currentEnemySpawner.StopSpawn();
                 Destroy(_currentEnemySpawner.gameObject);
                 _currentEnemySpawner = null;
             }
+        }
+        public void BackToMenu()
+        {
+            _isNewGame = true;
+            DestroyEnemySpawner();
+        }
+        public void GameOver()
+        {
+            OnGameOver?.Invoke();
+            // _isNewGame = true;
+            // UIManager.Instance.OpenPanel("Panel - Game Over");
+            DestroyEnemySpawner();
         }
     }
 }

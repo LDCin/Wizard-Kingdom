@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a120bcd7df41b1820eb64c34184243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 4718938598287997182, guid: 15051fa9208c22d45949c73fc8aa9a07, type: 3}
   _dataLabel: Particle Data
   _numberOfEachItem: 10

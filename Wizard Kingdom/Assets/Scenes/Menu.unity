@@ -175,6 +175,7 @@ MonoBehaviour:
   - Lilguy02
   - Lilguy03
   _delayTime: 1
+  _startSpawnDelayTime: 2
 --- !u!1 &1442447141
 GameObject:
   m_ObjectHideFlags: 0

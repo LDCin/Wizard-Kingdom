@@ -79,6 +79,7 @@ namespace StateMachines
         public void Enter()
         {
             Time.timeScale = 1;
+            _gameManager.BackToMenu();
             Debug.Log("In Main Menu!");
         }
 
