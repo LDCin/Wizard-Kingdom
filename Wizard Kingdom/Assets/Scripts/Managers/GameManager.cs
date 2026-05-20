@@ -16,6 +16,7 @@ namespace Managers
     public class GameManager : Singleton<GameManager>
     {
         public static event Action OnGameOver;
+        public static event Action<int, int> OnUpdateScoreAndGold;
         [SerializeField] private EnemySpawner _enemySpawnerPrefab;
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
@@ -23,6 +24,9 @@ namespace Managers
         [SerializeField] private List<string> _spawnEnemyNameList;
         [SerializeField] private float _delayTime = 1f;
         [SerializeField] private float _startSpawnDelayTime = 5f;
+        [SerializeField] private int _score;
+        [SerializeField] private int _highScore;
+        [SerializeField] private int _gold;
         private StateMachine _stateMachine;
         public StateMachine StateMachine => _stateMachine;
         private IState _playState;
@@ -40,6 +44,7 @@ namespace Managers
             }
         }
         [SerializeField] private bool _playerDead = true;
+        private Coroutine _startGameCoroutine;
         public override void Awake()
         {
             base.Awake();
@@ -53,23 +58,25 @@ namespace Managers
         private void OnEnable()
         {
             Enemy.OnEnemyReachCastle += ChangeToGameOverState;
+            Enemy.OnEnemyDie += UpdateScoreAndGold;
             GamePanel.OnPauseGame += ChangeToPauseState;
             MenuPanel.OnPlayGame += ChangeToPlayState;
             PausePanel.OnBackToMenu += ChangeToMenuState;
             PausePanel.OnContinueGame += ContinueGame;
             PausePanel.OnRestartGame += RestartGame;
-            SceneLoader.OnTransitionComplete += ChangeToPlayState;
+            // SceneLoader.OnTransitionComplete += ChangeToPlayState;
             Player.OnDead += ChangePlayerState;
         }
         private void OnDisable()
         {
             Enemy.OnEnemyReachCastle -= ChangeToGameOverState;
+            Enemy.OnEnemyDie -= UpdateScoreAndGold;
             GamePanel.OnPauseGame -= ChangeToPauseState;
             MenuPanel.OnPlayGame -= ChangeToPlayState;
             PausePanel.OnBackToMenu -= ChangeToMenuState;
             PausePanel.OnContinueGame -= ContinueGame;
             PausePanel.OnRestartGame -= RestartGame;
-            SceneLoader.OnTransitionComplete -= ChangeToPlayState;
+            // SceneLoader.OnTransitionComplete -= ChangeToPlayState;
             Player.OnDead -= ChangePlayerState;
         }
 
@@ -101,20 +108,34 @@ namespace Managers
         {
             _playerDead = !_playerDead;
         }
+        private void UpdateScoreAndGold(int newScore, int newGold)
+        {
+            _score += newScore;
+            _gold += newGold;
+            OnUpdateScoreAndGold?.Invoke(_score, _gold);
+        }
+        private void InitGameStat()
+        {
+            UpdateScoreAndGold(-_score, -_gold);
+        }
         public void StartGame()
         {
             if (!_isNewGame) return;
             _isNewGame = false;
             _playerDead = false;
+            InitGameStat();
             DestroyEnemySpawner();
             _currentEnemySpawner = Instantiate(_enemySpawnerPrefab, transform);
-            StartCoroutine(StartGameRoutine());
-        
+            _startGameCoroutine = StartCoroutine(StartGameRoutine());
         }
         public IEnumerator StartGameRoutine()
         {
             yield return new WaitForSeconds(_startSpawnDelayTime);
-            _currentEnemySpawner.StartSpawn(_spawnEnemyNameList, _delayTime);
+            if (_currentEnemySpawner != null)
+            {
+                _currentEnemySpawner.StartSpawn(_spawnEnemyNameList, _delayTime);
+            }
+            _startGameCoroutine = null;
         }
         private void ContinueGame()
         {
@@ -136,6 +157,12 @@ namespace Managers
 
         public void DestroyEnemySpawner()
         {
+            if (_startGameCoroutine != null)
+            {
+                StopCoroutine(_startGameCoroutine);
+                _startGameCoroutine = null;
+            }
+
             if (_currentEnemySpawner != null)
             {
                 _currentEnemySpawner.StopSpawn();

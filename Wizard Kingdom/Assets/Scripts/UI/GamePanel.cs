@@ -1,17 +1,32 @@
 ﻿using System;
-using UnityEngine;
+using Managers;
 using TMPro;
+using UnityEngine;
 
 namespace UI
 {
     public class GamePanel : Panel
     {
         public static event Action OnPauseGame;
-        [SerializeField] private SpriteAssetScoreText _score;
+        [SerializeField] private SpriteAssetNumberText _scoreText;
+        [SerializeField] private SpriteAssetNumberText _goldText;
+        private void OnEnable()
+        {
+            GameManager.OnUpdateScoreAndGold += UpdateScoreAndGoldText;
+        }
+        private void OnDisable()
+        {
+            GameManager.OnUpdateScoreAndGold -= UpdateScoreAndGoldText;
+        }
         public void PauseGame()
         {
             OnPauseGame?.Invoke();
             UIManager.Instance.OpenPanel("Panel - Pause");
+        }
+        public void UpdateScoreAndGoldText(int newScore, int newGold)
+        {
+            _scoreText.SetValue(newScore);
+            _goldText.SetValue(newGold);
         }
     }
 }

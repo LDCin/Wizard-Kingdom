@@ -10,9 +10,21 @@ using UnityEngine;
 
 namespace Enemies
 {
+    // public class EnemyDieInfor
+    // {
+    //     private int _goldReward;
+    //     public int GoldReward => _goldReward;
+    //     private int _scoreReward;
+    //     public int ScoreReward => _scoreReward;
+    //     public EnemyDieInfor()
+    //     {
+    //         _goldReward = 0;
+    //         _scoreReward = 0;
+    //     }
+    // }
     public class Enemy : MonoBehaviour
     {
-        public static event Action OnEnemyDie;
+        public static event Action<int, int> OnEnemyDie;
         public static event Action OnBalloonPop;
         public static event Action<Enemy> OnReturnEnemyToPool;
         public static event Action OnEnemyReachCastle;
@@ -28,6 +40,7 @@ namespace Enemies
 
         [SerializeField] private int _goldReward;
         [SerializeField] private int _scoreReward;
+        // private EnemyDieInfor _enemyDieInfor;
 
         [Header("Movement")]
         [SerializeField] private float _normalSpeed = 1f;
@@ -178,7 +191,7 @@ namespace Enemies
             }
 
             _stateMachine.ChangeState(_deadState);
-            OnEnemyDie?.Invoke();
+            OnEnemyDie?.Invoke(_scoreReward, _goldReward);
         }
 
         public void InvadeCastle()

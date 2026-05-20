@@ -21,7 +21,7 @@ namespace Managers
             Enemy.OnEnemyDie -= Shake;
         }
 
-        public void Shake()
+        public void Shake(int score, int gold)
         {
             transform.DOShakePosition(_shakeDuration, _shakeStrength);
         }
