@@ -3,43 +3,35 @@ using UnityEngine;
 
 namespace SOs
 {
+    public enum GameModeType
+    {
+        Arcade,
+        TimeAttack
+    }
+
     [CreateAssetMenu(fileName = "New Game Mode Data", menuName = "Game/Game Mode Data")]
     public class GameModeData : ScriptableObject
     {
+        public GameModeType modeType = GameModeType.Arcade;
         public string modeName;
-
-        [Header("Visual")]
         public GameObject theme;
-
-        [Header("Base Difficulty")]
-        public float baseSpawnInterval = 2f;
-        public List<EnemySpawnOption> baseEnemies = new();
-
-        [Header("Difficulty Milestones")]
-        public List<DifficultyMilestone> difficultyMilestones = new();
+        public List<DifficultyTier> difficultyTiers = new();
+        public bool hasTime;
+        [Min(0f)] public float playTime = 60f;
     }
 
     [System.Serializable]
-    public class DifficultyMilestone
+    public class DifficultyTier
     {
-        public int requiredScore;
-
-        [Tooltip("Thời gian giữa các lần spawn sau khi đạt mốc này")]
-        public float spawnInterval = 1.5f;
-
-        [Tooltip("Enemy được mở thêm ở mốc này")]
-        public List<EnemySpawnOption> additionalEnemies = new();
+        [Min(0)] public int scoreThreshold;
+        [Min(0f)] public float commonSpawnDelay = 1f;
+        public List<EnemySpawnEntry> enemies = new();
     }
 
     [System.Serializable]
-    public class EnemySpawnOption
+    public class EnemySpawnEntry
     {
         public EnemyData enemyData;
-
-        [Min(1)]
-        public int spawnRatio = 1;
-
-        [Tooltip("Sau khi enemy này được spawn, phải chờ bao nhiêu giây mới được spawn lại")]
-        public float spawnCooldown = 0f;
+        [Min(0f)] public float extraSpawnDelay = 0f;
     }
 }

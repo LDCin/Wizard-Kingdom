@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 315c90bd60d149e489342378496973cf
   m_currentHash:
     serializedVersion: 2
-    Hash: 60133823b4709fdf30fa59cdddea6108
+    Hash: 2dc341d5f75ac8f4834e07ff3b8aa163
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -90,6 +90,7 @@ MonoBehaviour:
     - Enemy Data
     - Balloon Data
     - Particle Data
+    - Game Mode Data
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 2e6d7e5c87841324fbbc80754cceb40d, type: 2}

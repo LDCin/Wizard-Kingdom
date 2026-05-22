@@ -6,9 +6,12 @@ using GestureRecognizer;
 using ObjectPool;
 using Particles;
 using Players;
+using SOs; // ADDED: dùng GameModeData
 using StateMachines;
 using UI;
 using UnityEngine;
+using UnityEngine.AddressableAssets; // ADDED: load GameModeData qua Addressable
+using UnityEngine.ResourceManagement.AsyncOperations; // ADDED
 using Utils;
 
 namespace Managers
@@ -21,12 +24,18 @@ namespace Managers
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
         [SerializeField] private ParticlePool _particlePool;
-        [SerializeField] private List<string> _spawnEnemyNameList;
-        [SerializeField] private float _delayTime = 1f;
+        // [SerializeField] private List<string> _spawnEnemyNameList;
+        // [SerializeField] private float _delayTime = 1f;
+        private GameModeData _currentModeData;
+        private AsyncOperationHandle<GameModeData> _currentModeHandle;
+        private Coroutine _timeAttackCoroutine;
+
         [SerializeField] private float _startSpawnDelayTime = 5f;
         [SerializeField] private int _score;
         [SerializeField] private int _highScore;
         [SerializeField] private int _gold;
+        public int Score => _score;
+        public int Gold => _gold;
         private StateMachine _stateMachine;
         public StateMachine StateMachine => _stateMachine;
         private IState _playState;
@@ -60,11 +69,10 @@ namespace Managers
             Enemy.OnEnemyReachCastle += ChangeToGameOverState;
             Enemy.OnEnemyDie += UpdateScoreAndGold;
             GamePanel.OnPauseGame += ChangeToPauseState;
-            MenuPanel.OnPlayGame += ChangeToPlayState;
+            MenuPanel.OnPlayGame += OnPlayGameSelected;
             PausePanel.OnBackToMenu += ChangeToMenuState;
             PausePanel.OnContinueGame += ContinueGame;
             PausePanel.OnRestartGame += RestartGame;
-            // SceneLoader.OnTransitionComplete += ChangeToPlayState;
             Player.OnDead += ChangePlayerState;
         }
         private void OnDisable()
@@ -72,11 +80,10 @@ namespace Managers
             Enemy.OnEnemyReachCastle -= ChangeToGameOverState;
             Enemy.OnEnemyDie -= UpdateScoreAndGold;
             GamePanel.OnPauseGame -= ChangeToPauseState;
-            MenuPanel.OnPlayGame -= ChangeToPlayState;
+            MenuPanel.OnPlayGame -= OnPlayGameSelected;
             PausePanel.OnBackToMenu -= ChangeToMenuState;
             PausePanel.OnContinueGame -= ContinueGame;
             PausePanel.OnRestartGame -= RestartGame;
-            // SceneLoader.OnTransitionComplete -= ChangeToPlayState;
             Player.OnDead -= ChangePlayerState;
         }
 
@@ -90,6 +97,42 @@ namespace Managers
         private void ChangeToPlayState()
         {
             _stateMachine.ChangeState(_playState);
+        }
+        private void OnPlayGameSelected(string modeKey)
+        {
+            StartCoroutine(LoadModeAndPlayRoutine(modeKey));
+        }
+        private IEnumerator LoadModeAndPlayRoutine(string modeKey)
+        {
+            ReleaseCurrentModeHandle();
+
+            if (string.IsNullOrEmpty(modeKey))
+            {
+                Debug.LogWarning("GameManager: modeKey rỗng, không load được GameModeData.");
+                yield break;
+            }
+
+            _currentModeHandle = Addressables.LoadAssetAsync<GameModeData>(modeKey);
+            yield return _currentModeHandle;
+
+            if (_currentModeHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _currentModeData = _currentModeHandle.Result;
+                ChangeToPlayState();
+            }
+            else
+            {
+                Debug.LogError($"GameManager: load GameModeData thất bại với key '{modeKey}'.");
+                ReleaseCurrentModeHandle();
+            }
+        }
+        private void ReleaseCurrentModeHandle()
+        {
+            if (_currentModeHandle.IsValid())
+            {
+                Addressables.Release(_currentModeHandle);
+            }
+            _currentModeData = null;
         }
         private void ChangeToGameOverState()
         {
@@ -113,6 +156,11 @@ namespace Managers
             _score += newScore;
             _gold += newGold;
             OnUpdateScoreAndGold?.Invoke(_score, _gold);
+
+            if (_currentEnemySpawner != null)
+            {
+                _currentEnemySpawner.OnScoreChanged(_score);
+            }
         }
         private void InitGameStat()
         {
@@ -133,9 +181,30 @@ namespace Managers
             yield return new WaitForSeconds(_startSpawnDelayTime);
             if (_currentEnemySpawner != null)
             {
-                _currentEnemySpawner.StartSpawn(_spawnEnemyNameList, _delayTime);
+                if (_currentModeData != null)
+                {
+                    _currentEnemySpawner.StartSpawn(_currentModeData);
+
+                    // ADDED: nếu là chế độ Time Attack thì start countdown
+                    if (_currentModeData.hasTime)
+                    {
+                        _timeAttackCoroutine = StartCoroutine(TimeAttackCountdownRoutine(_currentModeData.playTime));
+                    }
+                }
+                else
+                {
+                    // _currentEnemySpawner.StartSpawn(_spawnEnemyNameList, _delayTime);
+                    Debug.LogWarning("GameManager: _currentModeData chưa được set.");
+                }
             }
             _startGameCoroutine = null;
+        }
+
+        private IEnumerator TimeAttackCountdownRoutine(float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            _timeAttackCoroutine = null;
+            ChangeToGameOverState();
         }
         private void ContinueGame()
         {
@@ -163,6 +232,12 @@ namespace Managers
                 _startGameCoroutine = null;
             }
 
+            if (_timeAttackCoroutine != null)
+            {
+                StopCoroutine(_timeAttackCoroutine);
+                _timeAttackCoroutine = null;
+            }
+
             if (_currentEnemySpawner != null)
             {
                 _currentEnemySpawner.StopSpawn();
@@ -174,6 +249,7 @@ namespace Managers
         {
             _isNewGame = true;
             DestroyEnemySpawner();
+            ReleaseCurrentModeHandle();
         }
         public void GameOver()
         {

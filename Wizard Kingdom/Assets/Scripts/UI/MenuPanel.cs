@@ -8,16 +8,20 @@ namespace UI
 {
     public class MenuPanel : Panel
     {
-        public static event Action OnPlayGame;
+        public static event Action<string> OnPlayGame;
+        [SerializeField] private string _arcadeModeKey = "ArcadeMode";
+        [SerializeField] private string _timeAttackModeKey = "TimeAttackMode";
+
         public void ArcadeGameMode()
         {
-            OnPlayGame?.Invoke();
+            OnPlayGame?.Invoke(_arcadeModeKey);
             SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
         }
 
         public void TimeAttackGameMode()
         {
-            OnPlayGame?.Invoke();
+            // CHANGED: gửi key, không gửi SO
+            OnPlayGame?.Invoke(_timeAttackModeKey);
             SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
         }
 
@@ -29,12 +33,12 @@ namespace UI
 
         public void MoreNitrome()
         {
-            
+
         }
 
         public void RemoveAds()
         {
-            
+
         }
     }
 }

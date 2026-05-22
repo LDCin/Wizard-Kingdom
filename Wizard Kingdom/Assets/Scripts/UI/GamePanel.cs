@@ -13,6 +13,11 @@ namespace UI
         private void OnEnable()
         {
             GameManager.OnUpdateScoreAndGold += UpdateScoreAndGoldText;
+
+            if (GameManager.Instance != null)
+            {
+                UpdateScoreAndGoldText(GameManager.Instance.Score, GameManager.Instance.Gold);
+            }
         }
         private void OnDisable()
         {

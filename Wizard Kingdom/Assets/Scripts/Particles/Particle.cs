@@ -39,6 +39,11 @@ namespace Particles
                 return;
             }
 
+            if (!_particleSystem.gameObject.activeSelf)
+            {
+                _particleSystem.gameObject.SetActive(true);
+            }
+
             _particleSystem.Clear(true);
             _particleSystem.Play(true);
         }

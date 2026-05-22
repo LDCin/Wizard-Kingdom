@@ -75,6 +75,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 81a1132ff1495844c94bd9eaad682027
+    m_Address: ArcadeMode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c8f683e7dcfffe44a259c9eff4ebfb0
     m_Address: Panel - Transition
     m_ReadOnly: 0
