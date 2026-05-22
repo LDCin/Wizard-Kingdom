@@ -185,7 +185,6 @@ namespace Managers
                 {
                     _currentEnemySpawner.StartSpawn(_currentModeData);
 
-                    // ADDED: nếu là chế độ Time Attack thì start countdown
                     if (_currentModeData.hasTime)
                     {
                         _timeAttackCoroutine = StartCoroutine(TimeAttackCountdownRoutine(_currentModeData.playTime));
