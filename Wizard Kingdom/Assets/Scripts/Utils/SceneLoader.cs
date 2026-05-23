@@ -67,6 +67,8 @@ namespace UI
                 }
             }
 
+            trans.transform.SetAsLastSibling();
+
             trans.HideTransition(() =>
             {
                 _isLoading = false;

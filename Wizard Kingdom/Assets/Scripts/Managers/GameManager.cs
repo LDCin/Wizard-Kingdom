@@ -9,6 +9,7 @@ using Players;
 using SOs; // ADDED: dùng GameModeData
 using StateMachines;
 using UI;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AddressableAssets; // ADDED: load GameModeData qua Addressable
 using UnityEngine.ResourceManagement.AsyncOperations; // ADDED
@@ -73,6 +74,7 @@ namespace Managers
             PausePanel.OnBackToMenu += ChangeToMenuState;
             PausePanel.OnContinueGame += ContinueGame;
             PausePanel.OnRestartGame += RestartGame;
+            GameOverPanel.OnRestartGame += RestartGame;
             Player.OnDead += ChangePlayerState;
         }
         private void OnDisable()
@@ -84,6 +86,7 @@ namespace Managers
             PausePanel.OnBackToMenu -= ChangeToMenuState;
             PausePanel.OnContinueGame -= ContinueGame;
             PausePanel.OnRestartGame -= RestartGame;
+            GameOverPanel.OnRestartGame -= RestartGame;
             Player.OnDead -= ChangePlayerState;
         }
 
@@ -259,7 +262,8 @@ namespace Managers
             StopSpawnEnemy();
             OnGameOver?.Invoke();
             yield return new WaitUntil(() => _playerDead);
-            // UIManager.Instance.OpenPanel("Panel - Game Over");
+            DestroyEnemySpawner();
+            SceneLoader.LoadScene("Game Over", "Panel - Game Over");
             Debug.Log("GAME OVER!");
         }
     }

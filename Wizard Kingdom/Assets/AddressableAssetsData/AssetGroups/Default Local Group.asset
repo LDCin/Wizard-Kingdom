@@ -96,6 +96,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 973fa5a6bf872d74488836031a5572de
+    m_Address: Panel - Game Over
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9ff800f2e82d985459102a28b464d335
     m_Address: Assets/SOs/Balloons/LoopLineBalloon.asset
     m_ReadOnly: 0
