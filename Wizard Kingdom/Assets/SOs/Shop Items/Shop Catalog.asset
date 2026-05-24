@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Shop Catalog
   m_EditorClassIdentifier: 
   spells:
-  - {fileID: 11400000, guid: 628ce65ab93381f4eab8778229d8f05b, type: 2}
   - {fileID: 11400000, guid: 6debfd6695bb25542bb9bd2ae20efa9b, type: 2}
+  - {fileID: 11400000, guid: 628ce65ab93381f4eab8778229d8f05b, type: 2}
   backgrounds:
   - {fileID: 11400000, guid: 3ca22a3fec6e88a45a6aa8f98661f14c, type: 2}
   - {fileID: 11400000, guid: 0eb968e73ea1862448ceab9704da0431, type: 2}

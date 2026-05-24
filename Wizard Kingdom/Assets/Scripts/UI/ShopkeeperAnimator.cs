@@ -21,11 +21,13 @@ namespace UI
         }
         public void SetHandSpriteImmediate(Sprite sprite)
         {
+            Debug.Log($"[Shopkeeper] SetHandSpriteImmediate: sprite={(sprite != null ? sprite.name : "null")}");
             _pendingHandSprite = null;
             ApplyHandSprite(sprite);
         }
         public void PlaySwapTo(Sprite sprite)
         {
+            Debug.Log($"[Shopkeeper] PlaySwapTo: sprite={(sprite != null ? sprite.name : "null")}, animator={(_animator != null ? _animator.name : "null")}, isActive={(_animator != null && _animator.isActiveAndEnabled)}");
             _pendingHandSprite = sprite;
 
             if (_animator != null && _animator.isActiveAndEnabled)
@@ -40,8 +42,19 @@ namespace UI
         }
         public void OnSwapMidpoint()
         {
+            Debug.Log($"[Shopkeeper] OnSwapMidpoint called. pending={(_pendingHandSprite != null ? _pendingHandSprite.name : "null")}");
             ApplyHandSprite(_pendingHandSprite);
             _pendingHandSprite = null;
+        }
+
+        public void OnSwapStart()
+        {
+            if (_handImage != null) _handImage.enabled = false;
+        }
+
+        public void OnSwapEnd()
+        {
+            if (_handImage != null) _handImage.enabled = _handImage.sprite != null;
         }
 
         private void ApplyHandSprite(Sprite sprite)

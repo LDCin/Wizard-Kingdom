@@ -16,9 +16,8 @@ MonoBehaviour:
   displayName: Default Wizard
   category: 2
   price: 0
-  displayOrder: 0
   handSprite: {fileID: 21300000, guid: 363b545e6fce40a4aa50a0c8c2d99f74, type: 3}
   lockedFullBodySprite: {fileID: 21300000, guid: a6ffa37a3d038074f9ce2f73bf75c67b, type: 3}
   unlockedFullBodySprite: {fileID: 21300000, guid: a6ffa37a3d038074f9ce2f73bf75c67b, type: 3}
-  unlockedPortraitSprite: {fileID: 21300000, guid: 67fd9dba329d46749a842ad45a5ed73f, type: 3}
+  unlockedPortraitSprite: {fileID: 21300000, guid: 8752e74b3198b344b83ccb30c3cf1026, type: 3}
   nameSprite: {fileID: 0}

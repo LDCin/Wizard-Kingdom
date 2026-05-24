@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 8652248855545312454}
   - component: {fileID: 5921444404798069770}
   m_Layer: 5
-  m_Name: Panel - Shop Spell Board
+  m_Name: Panel - Shop Background Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

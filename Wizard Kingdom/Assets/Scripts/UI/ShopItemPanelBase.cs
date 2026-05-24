@@ -14,7 +14,7 @@ namespace UI
         protected const string CatalogAddress = "Shop Catalog";
 
         [SerializeField] private SpriteAssetNumberText _totalCoinText;
-        [SerializeField] private GameObject _priceContainer;
+        [SerializeField] private GameObject _priceIcon;
         [SerializeField] private SpriteAssetNumberText _priceText;
         [SerializeField] private Button _buyButton;
         [SerializeField] private Button _equipButton;
@@ -163,7 +163,7 @@ namespace UI
                 RenderEmpty();
                 HideNpcHand();
                 HideAllActionButtons();
-                if (_priceContainer != null) _priceContainer.SetActive(false);
+                SetPriceVisible(false);
                 return;
             }
 
@@ -173,10 +173,18 @@ namespace UI
             RenderNpcHand(item);
 
             bool showPrice = item.price > 0;
-            if (_priceContainer != null) _priceContainer.SetActive(showPrice);
-            if (_priceText != null && showPrice) _priceText.SetValue(item.price);
+            SetPriceVisible(showPrice);
+            if (showPrice && _priceText != null) _priceText.SetValue(item.price);
 
             UpdateActionButton(item, owned);
+        }
+
+        private void SetPriceVisible(bool visible)
+        {
+            // Yellow bar luôn hiển thị (là một phần của Preview Frame sprite).
+            // Chỉ ẩn nội dung bên trong: gold icon + price text.
+            if (_priceIcon != null) _priceIcon.SetActive(visible);
+            if (_priceText != null) _priceText.gameObject.SetActive(visible);
         }
 
         private void UpdateActionButton(TItem item, bool owned)

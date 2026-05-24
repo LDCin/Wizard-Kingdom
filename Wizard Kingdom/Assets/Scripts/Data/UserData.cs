@@ -64,7 +64,7 @@ namespace Data
     public static class UserDataDefaults
     {
         public const string DefaultBackgroundId = "background_classic";
-        public const string DefaultWizardId = "default_wizard";
+        public const string DefaultWizardId = "wizard_default";
         public const int StartingCoin = 0;
     }
 }

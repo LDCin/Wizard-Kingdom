@@ -2393,7 +2393,7 @@ MonoBehaviour:
   _panelBoard: {fileID: 5494542140197205227}
   _panelBackground: {fileID: 3013111934809793736}
   _totalCoinText: {fileID: 8837698285000883560}
-  _priceContainer: {fileID: 7876332912553232474}
+  _priceIcon: {fileID: 4505470048526006616}
   _priceText: {fileID: 6429912821867845449}
   _buyButton: {fileID: 6123595259493115582}
   _equipButton: {fileID: 8893130217180991363}

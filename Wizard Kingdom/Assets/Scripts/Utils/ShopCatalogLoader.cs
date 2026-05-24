@@ -7,10 +7,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Utils
 {
-    /// <summary>
-    /// Helper load ShopCatalog asset qua Addressables.
-    /// 1 catalog duy nhất chứa toàn bộ items, mỗi shop panel lấy list theo category mình cần.
-    /// </summary>
     public static class ShopCatalogLoader
     {
         public static IEnumerator Load(

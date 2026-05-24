@@ -891,7 +891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7277076118294558871, guid: 73a0f29dc908352489002ee51fe33801, type: 3}
       propertyPath: m_Name
-      value: Background - Arcade Mode
+      value: Background
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

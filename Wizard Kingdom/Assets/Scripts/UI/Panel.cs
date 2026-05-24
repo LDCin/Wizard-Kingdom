@@ -30,7 +30,7 @@ namespace UI
                 rect.DOKill();
 
                 Vector2 endPos = rect.anchoredPosition;
-                rect.anchoredPosition = endPos + new Vector2(0f, -500f);
+                rect.anchoredPosition = endPos + new Vector2(0f, -3000f);
 
                 rect.DOAnchorPos(endPos, 0.35f).SetEase(Ease.OutCubic).SetUpdate(true);
 
@@ -55,7 +55,7 @@ namespace UI
                 
                 rect.DOKill();
 
-                Vector2 endPos = rect.anchoredPosition + new Vector2(0f, -1500f);
+                Vector2 endPos = rect.anchoredPosition + new Vector2(0f, -3000f);
 
                 rect.DOAnchorPos(endPos, 0.35f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() =>
                 {
@@ -67,7 +67,7 @@ namespace UI
                     else
                     {
                         gameObject.SetActive(false);
-                        rect.anchoredPosition = endPos + new Vector2(0f, 1500f);
+                        rect.anchoredPosition = endPos + new Vector2(0f, 3000f);
                     }
                 });
                 

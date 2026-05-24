@@ -6,12 +6,6 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    /// <summary>
-    /// Shop panel cho Wizard. Items lấy từ ShopCatalog.wizards.
-    /// Khung preview chia 2 nửa: full body (per-item locked/unlocked) + portrait.
-    /// Locked portrait dùng sprite chung; unlocked portrait per-item, tràn xuống đè nameSprite.
-    /// Có equip — BUY / SELECT / ✓.
-    /// </summary>
     public class WizardShopPanel : ShopItemPanelBase<WizardItemData>
     {
         [Header("Full body (nửa trái)")]
@@ -42,15 +36,12 @@ namespace UI
                 _portraitImage.enabled = _portraitImage.sprite != null;
             }
 
-            bool showName = !owned;
             if (_nameImage != null)
             {
-                _nameImage.gameObject.SetActive(showName);
-                if (showName)
-                {
-                    _nameImage.sprite = item.nameSprite;
-                    if (item.nameSprite != null) _nameImage.SetNativeSize();
-                }
+                _nameImage.gameObject.SetActive(true);
+                _nameImage.sprite = item.nameSprite;
+                _nameImage.enabled = item.nameSprite != null;
+                if (item.nameSprite != null) _nameImage.SetNativeSize();
             }
         }
 
@@ -58,7 +49,7 @@ namespace UI
         {
             if (_fullBodyImage != null) _fullBodyImage.enabled = false;
             if (_portraitImage != null) _portraitImage.enabled = false;
-            if (_nameImage != null) _nameImage.gameObject.SetActive(false);
+            if (_nameImage != null) _nameImage.enabled = false;
         }
 
         protected override bool IsOwned(WizardItemData item)

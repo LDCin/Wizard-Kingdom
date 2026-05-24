@@ -1561,10 +1561,10 @@ MonoBehaviour:
   _destroyOnClose: 1
   _hasEffect: 1
   uiLayer: 0
-  _panelBoard: {fileID: 4003372017910991348}
+  _panelBoard: {fileID: 450832990832824864}
   _panelBackground: {fileID: 2342722049727067240}
   _totalCoinText: {fileID: 4317072364703801337}
-  _priceContainer: {fileID: 2541458044059710293}
+  _priceIcon: {fileID: 0}
   _priceText: {fileID: 5579246758362040032}
   _buyButton: {fileID: 3179265640895081043}
   _equipButton: {fileID: 7216628171703066229}
