@@ -1,0 +1,70 @@
+using System.Collections.Generic;
+
+namespace Data
+{
+    [System.Serializable]
+    public class UserData
+    {
+        public StatsData stats = new();
+        public InventoryData inventory = new();
+        public SettingsData settings = new();
+        public static UserData CreateDefault()
+        {
+            return new UserData
+            {
+                stats = new StatsData
+                {
+                    highScores = new Dictionary<string, int>(),
+                    currentCoin = UserDataDefaults.StartingCoin
+                },
+                inventory = new InventoryData
+                {
+                    ownedBackgrounds = new List<string> { UserDataDefaults.DefaultBackgroundId },
+                    ownedWizards = new List<string> { UserDataDefaults.DefaultWizardId },
+                    ownedSpells = new List<string>(),
+                    equippedBackground = UserDataDefaults.DefaultBackgroundId,
+                    equippedWizard = UserDataDefaults.DefaultWizardId
+                },
+                settings = new SettingsData
+                {
+                    bgmEnabled = true,
+                    sfxEnabled = true,
+                    vibrationEnabled = true
+                }
+            };
+        }
+    }
+
+    [System.Serializable]
+    public class StatsData
+    {
+        public Dictionary<string, int> highScores = new();
+        public int currentCoin;
+    }
+
+    [System.Serializable]
+    public class InventoryData
+    {
+        public List<string> ownedBackgrounds = new();
+        public List<string> ownedWizards = new();
+        public List<string> ownedSpells = new();
+
+        public string equippedBackground;
+        public string equippedWizard;
+    }
+
+    [System.Serializable]
+    public class SettingsData
+    {
+        public bool bgmEnabled = true;
+        public bool sfxEnabled = true;
+        public bool vibrationEnabled = true;
+    }
+
+    public static class UserDataDefaults
+    {
+        public const string DefaultBackgroundId = "background_classic";
+        public const string DefaultWizardId = "default_wizard";
+        public const int StartingCoin = 0;
+    }
+}

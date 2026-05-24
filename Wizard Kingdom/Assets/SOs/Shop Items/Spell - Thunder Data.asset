@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a48c41f8fb05fc4281e99697a82d3f7, type: 3}
+  m_Name: Spell - Thunder Data
+  m_EditorClassIdentifier: 
+  id: spell_thunder
+  displayName: Thunder Spell
+  category: 0
+  price: 1000
+  displayOrder: 10
+  handSprite: {fileID: 21300000, guid: 09e3804864fa39b4e93bfde805526175, type: 3}
+  lockedItemSprite: {fileID: 21300000, guid: 1bd1b88800bf4f64c89af8ab0dc7178a, type: 3}
+  unlockedItemSprite: {fileID: 21300000, guid: 6628f2c02ca2b6449b43d008d3c1b462, type: 3}

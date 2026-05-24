@@ -17,17 +17,40 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 315c90bd60d149e489342378496973cf
   m_SerializeEntries:
+  - m_GUID: 048e30a42d0ae1a42bbde91831b994a0
+    m_Address: Assets/SOs/Shop Items/Wizard - Skull.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Wizard Item Data
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0553568614a9c934781d9d4b0d0e9e8a
     m_Address: Assets/SOs/Enemies/Lilguy02.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Enemy Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0eb968e73ea1862448ceab9704da0431
+    m_Address: Assets/SOs/Shop Items/Background - Gunbrick.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Background Item Data
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1c6e86a1e4b4a7444a01c472460f0259
     m_Address: Assets/SOs/Balloons/VerticalLineBalloon.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balloon Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26026e2b613e80545a1572436d97df0a
+    m_Address: Panel - Shop Spell
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ca22a3fec6e88a45a6aa8f98661f14c
+    m_Address: Assets/SOs/Shop Items/Background - Classic.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Background Item Data
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 44277c4bde9846f4c9dcfe406a52439f
     m_Address: Assets/SOs/Balloons/ZLineBalloon.asset
@@ -47,6 +70,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Particle Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4eb48f582b0550a4082e722b214b4b42
+    m_Address: Assets/SOs/Shop Items/Wizard - Default.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Wizard Item Data
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 54f8a46362f76944dab46d3c28ced1fc
     m_Address: Assets/SOs/Balloons/DeltaLineBalloon.asset
     m_ReadOnly: 0
@@ -59,10 +88,21 @@ MonoBehaviour:
     m_SerializedLabels:
     - Enemy Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 628ce65ab93381f4eab8778229d8f05b
+    m_Address: Assets/SOs/Shop Items/Spell - Thunder Data.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 62e36de395e85a843be8506aebc322e7
     m_Address: Panel - Menu
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6debfd6695bb25542bb9bd2ae20efa9b
+    m_Address: Assets/SOs/Shop Items/Spell - Time Slow Data.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Spell Item Data
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7b36e059716314f45bd8e8bc165e441f
     m_Address: Assets/SOs/Balloons/VLineBalloon.asset
@@ -101,11 +141,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97f62bc6419c0564fbc15c9d735d6ae6
+    m_Address: Panel - Setting
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9ff800f2e82d985459102a28b464d335
     m_Address: Assets/SOs/Balloons/LoopLineBalloon.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balloon Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad25bf08e6d27e0498bb634349fc37da
+    m_Address: Panel - Shop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c43a48638abea34439ef567285b20b1b
     m_Address: Assets/SOs/Balloons/Boss1Balloon.asset
@@ -118,8 +168,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da3050ebdc85b2d4b96f5eb389efe17f
+    m_Address: Panel - Shop Wizard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc67d2fe62555db46907c0d2059866f4
+    m_Address: Panel - Shop Background
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: de2a11782f928da4d9b981ce21e476d9
     m_Address: Panel - Game
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0ef0e4737a4942409aa90f1477dbde8
+    m_Address: Shop Catalog
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

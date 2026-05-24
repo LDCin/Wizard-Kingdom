@@ -82,6 +82,8 @@ namespace UI
                 yield break;
             }
 
+            newPanel.gameObject.name = panelName;
+
             Transform root = GetRoot(newPanel.UILayer);
 
             if (root == null)
@@ -101,6 +103,11 @@ namespace UI
         {
             _panelDict.TryGetValue(panelName, out Panel panel);
             return panel;
+        }
+        public void UnregisterPanel(string panelName)
+        {
+            if (string.IsNullOrEmpty(panelName)) return;
+            _panelDict.Remove(panelName);
         }
 
         public void OpenPanel(string panelName)
@@ -126,12 +133,6 @@ namespace UI
 
         public void ClosePanel(string panelName)
         {
-            StartCoroutine(ClosePanelRoutine(panelName));
-        }
-        private IEnumerator ClosePanelRoutine(string panelName)
-        {
-            yield return new WaitForSeconds(_delayTime);
-
             Panel panel = GetPanel(panelName);
 
             if (panel != null)
@@ -143,21 +144,16 @@ namespace UI
                 Debug.LogWarning($"Cannot close unloaded panel: {panelName}");
             }
         }
-        private IEnumerator CloseAllPanelExceptRoutine(string panelName)
-        {
-            yield return new WaitForSeconds(_delayTime);
-
-            foreach (var panel in _panelDict.Keys)
-            {
-                if (!panel.Equals(panelName))
-                {
-                    _panelDict[panel].Close();
-                }
-            }
-        }
         public void CloseAllPanelExcept(string panelName)
         {
-            StartCoroutine(CloseAllPanelExceptRoutine(panelName));   
+            var keys = new List<string>(_panelDict.Keys);
+            foreach (var key in keys)
+            {
+                if (!key.Equals(panelName) && _panelDict.TryGetValue(key, out Panel panel))
+                {
+                    panel.Close();
+                }
+            }
         }
     }
 }

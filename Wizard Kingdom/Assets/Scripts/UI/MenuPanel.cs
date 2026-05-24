@@ -20,7 +20,6 @@ namespace UI
 
         public void TimeAttackGameMode()
         {
-            // CHANGED: gửi key, không gửi SO
             OnPlayGame?.Invoke(_timeAttackModeKey);
             SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
         }
@@ -28,7 +27,7 @@ namespace UI
         public void Shop()
         {
             UIManager.Instance.ClosePanel("Panel - Menu");
-            // UIManager.Instance.OpenPanel("Panel - Shop");
+            UIManager.Instance.OpenPanel("Panel - Shop");
         }
 
         public void MoreNitrome()
@@ -39,6 +38,11 @@ namespace UI
         public void RemoveAds()
         {
 
+        }
+        public void Setting()
+        {
+            UIManager.Instance.ClosePanel("Panel - Menu");
+            UIManager.Instance.OpenPanel("Panel - Setting");
         }
     }
 }

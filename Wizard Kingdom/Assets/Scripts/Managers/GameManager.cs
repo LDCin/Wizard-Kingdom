@@ -31,6 +31,8 @@ namespace Managers
         private AsyncOperationHandle<GameModeData> _currentModeHandle;
         private Coroutine _timeAttackCoroutine;
 
+        public string CurrentModeKey => _currentModeData != null ? _currentModeData.modeName : null;
+
         [SerializeField] private float _startSpawnDelayTime = 5f;
         [SerializeField] private int _score;
         [SerializeField] private int _highScore;
@@ -262,6 +264,17 @@ namespace Managers
             StopSpawnEnemy();
             OnGameOver?.Invoke();
             yield return new WaitUntil(() => _playerDead);
+
+            if (_gold > 0)
+            {
+                DataManager.Instance.AddCoin(_gold);
+            }
+
+            if (_currentModeData != null)
+            {
+                DataManager.Instance.TrySetHighScore(_currentModeData.modeName, _score);
+            }
+
             DestroyEnemySpawner();
             SceneLoader.LoadScene("Game Over", "Panel - Game Over");
             Debug.Log("GAME OVER!");

@@ -6,8 +6,8 @@ public class SpriteAssetNumberText : MonoBehaviour
 {
     private enum SpriteNumberMode
     {
-        SingleSpriteAsset,   // 1 TMP Sprite Asset chứa đủ 0 -> 9
-        SeparateSpriteAssets // 10 TMP Sprite Asset riêng cho 0 -> 9
+        SingleSpriteAsset,
+        SeparateSpriteAssets
     }
 
     [SerializeField] private TMP_Text numberText;

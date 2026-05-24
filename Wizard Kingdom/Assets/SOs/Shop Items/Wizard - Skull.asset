@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245e8d36e21a5d1408c1c7d7d02857a3, type: 3}
+  m_Name: Wizard - Skull
+  m_EditorClassIdentifier: 
+  id: wizard_skull
+  displayName: Skull Wizard
+  category: 2
+  price: 2000
+  displayOrder: 10
+  handSprite: {fileID: 21300000, guid: 1001a3c4c33d3a54db33ebf036888547, type: 3}
+  lockedFullBodySprite: {fileID: 21300000, guid: 5787e6d15dd19e6499f2feece22da6b6, type: 3}
+  unlockedFullBodySprite: {fileID: 21300000, guid: 5d53d817880c44b4388191fa6800ea6a, type: 3}
+  unlockedPortraitSprite: {fileID: 21300000, guid: bb19588431c736a4bb0cad7d7dfdd5af, type: 3}
+  nameSprite: {fileID: 21300000, guid: 1d9de2aba469fd148979763f37cecd5a, type: 3}

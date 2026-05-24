@@ -1,6 +1,5 @@
 using System;
 using Managers;
-using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -11,9 +10,14 @@ namespace UI
         [SerializeField] private SpriteAssetNumberText _totalCoin;
         [SerializeField] private SpriteAssetNumberText _highScore;
         [SerializeField] private SpriteAssetNumberText _score;
-        public void OnEnable(){
-            // _totalCoin.SetValue();
-            // _highScore.SetValue();
+
+        public void OnEnable()
+        {
+            _totalCoin.SetValue(DataManager.Instance.GetCoin());
+
+            string modeKey = GameManager.Instance.CurrentModeKey;
+            _highScore.SetValue(DataManager.Instance.GetHighScore(modeKey));
+
             _score.SetValue(GameManager.Instance.Score);
         }
         public void Shop(){

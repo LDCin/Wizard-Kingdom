@@ -61,6 +61,7 @@ namespace UI
                 {
                     if (_destroyOnClose)
                     {
+                        UIManager.Instance?.UnregisterPanel(name);
                         Destroy(gameObject);
                     }
                     else
@@ -86,6 +87,7 @@ namespace UI
             {
                 if (_destroyOnClose)
                 {
+                    UIManager.Instance?.UnregisterPanel(name);
                     Destroy(gameObject);
                 }
                 else
