@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using Data;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -24,6 +25,11 @@ namespace Managers
         private JsonSerializerSettings _jsonSettings;
         public UserData Data => _data;
 
+#if UNITY_EDITOR
+        [Header("Editor Debug")]
+        [SerializeField] private EditorUserData _editorData = new EditorUserData();
+#endif
+
         public override void Awake()
         {
             base.Awake();
@@ -37,6 +43,9 @@ namespace Managers
             };
 
             Load();
+#if UNITY_EDITOR
+            LoadEditorDataFromUserData();
+#endif
         }
         private void Load()
         {
@@ -221,6 +230,121 @@ namespace Managers
 
             Debug.Log($"DataManager: reset user data tại {_filePath}");
         }
+
+#if UNITY_EDITOR
+        public void LoadEditorDataFromUserData()
+        {
+            if (_data == null)
+            {
+                _data = UserData.CreateDefault();
+            }
+
+            _editorData.currentCoin = _data.stats.currentCoin;
+
+            _editorData.highScores = new List<HighScoreEntry>();
+            foreach (KeyValuePair<string, int> entry in _data.stats.highScores)
+            {
+                _editorData.highScores.Add(new HighScoreEntry
+                {
+                    modeKey = entry.Key,
+                    score = entry.Value
+                });
+            }
+
+            _editorData.ownedBackgrounds = new List<string>(_data.inventory.ownedBackgrounds);
+            _editorData.ownedWizards = new List<string>(_data.inventory.ownedWizards);
+            _editorData.ownedSpells = new List<string>(_data.inventory.ownedSpells);
+            _editorData.equippedBackground = _data.inventory.equippedBackground;
+            _editorData.equippedWizard = _data.inventory.equippedWizard;
+
+            _editorData.bgmEnabled = _data.settings.bgmEnabled;
+            _editorData.sfxEnabled = _data.settings.sfxEnabled;
+            _editorData.vibrationEnabled = _data.settings.vibrationEnabled;
+        }
+
+        public void ApplyEditorDataToUserData(bool triggerEvents = true)
+        {
+            if (_data == null)
+            {
+                _data = UserData.CreateDefault();
+            }
+
+            _data.stats.currentCoin = Mathf.Max(0, _editorData.currentCoin);
+            _data.stats.highScores = new Dictionary<string, int>();
+
+            if (_editorData.highScores != null)
+            {
+                foreach (HighScoreEntry entry in _editorData.highScores)
+                {
+                    if (string.IsNullOrEmpty(entry.modeKey))
+                    {
+                        continue;
+                    }
+
+                    _data.stats.highScores[entry.modeKey] = entry.score;
+                }
+            }
+
+            _data.inventory.ownedBackgrounds = _editorData.ownedBackgrounds != null
+                ? new List<string>(_editorData.ownedBackgrounds)
+                : new List<string>();
+            _data.inventory.ownedWizards = _editorData.ownedWizards != null
+                ? new List<string>(_editorData.ownedWizards)
+                : new List<string>();
+            _data.inventory.ownedSpells = _editorData.ownedSpells != null
+                ? new List<string>(_editorData.ownedSpells)
+                : new List<string>();
+            _data.inventory.equippedBackground = _editorData.equippedBackground;
+            _data.inventory.equippedWizard = _editorData.equippedWizard;
+
+            _data.settings.bgmEnabled = _editorData.bgmEnabled;
+            _data.settings.sfxEnabled = _editorData.sfxEnabled;
+            _data.settings.vibrationEnabled = _editorData.vibrationEnabled;
+
+            Save();
+
+            if (triggerEvents)
+            {
+                OnCoinChanged?.Invoke(_data.stats.currentCoin);
+                OnEquippedBackgroundChanged?.Invoke(_data.inventory.equippedBackground);
+                OnEquippedWizardChanged?.Invoke(_data.inventory.equippedWizard);
+                OnSettingsChanged?.Invoke();
+
+                foreach (KeyValuePair<string, int> entry in _data.stats.highScores)
+                {
+                    OnHighScoreChanged?.Invoke(entry.Key, entry.Value);
+                }
+            }
+        }
+
+        public void SaveUserData()
+        {
+            Save();
+        }
+
+        [Serializable]
+        public class HighScoreEntry
+        {
+            public string modeKey;
+            public int score;
+        }
+
+        [Serializable]
+        public class EditorUserData
+        {
+            public int currentCoin;
+            public List<HighScoreEntry> highScores = new List<HighScoreEntry>();
+            public List<string> ownedBackgrounds = new List<string>();
+            public List<string> ownedWizards = new List<string>();
+            public List<string> ownedSpells = new List<string>();
+            public string equippedBackground;
+            public string equippedWizard;
+            public bool bgmEnabled = true;
+            public bool sfxEnabled = true;
+            public bool vibrationEnabled = true;
+        }
+
+#endif
 
 #if UNITY_EDITOR
         [ContextMenu("Reset User Data")]

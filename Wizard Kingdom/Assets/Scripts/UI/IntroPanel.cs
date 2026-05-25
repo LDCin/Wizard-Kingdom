@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UI;
+using Utils;
 
 namespace UI
 {
@@ -18,7 +19,7 @@ namespace UI
         }
 
         [Header("Scene")]
-        public string mainMenuSceneName = "Menu";
+        public string mainMenuSceneName = GameConfig.Scene.Menu;
 
         [Header("UI")]
         public RectTransform canvasRoot;
@@ -252,7 +253,7 @@ namespace UI
             startSeq.OnComplete(() =>
             {
                 SceneManager.LoadScene(mainMenuSceneName);
-                UIManager.Instance.OpenPanel("Panel - Menu");
+                UIManager.Instance.OpenPanel(GameConfig.Panel.Menu);
                 Close();
             });
         }

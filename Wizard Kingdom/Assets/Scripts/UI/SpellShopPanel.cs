@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    /// <summary>
-    /// Shop panel cho Spell. Items lấy từ ShopCatalog.spells.
-    /// Khung preview: 2 layer (BG chung + item sprite per-item).
-    /// Spell không có equip — mua xong là dùng được.
-    /// </summary>
     public class SpellShopPanel : ShopItemPanelBase<SpellItemData>
     {
         [Header("Spell preview layers")]

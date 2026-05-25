@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    /// <summary>
-    /// Shop panel cho Background. Items lấy từ ShopCatalog.backgrounds.
-    /// Khung preview chỉ có 1 ảnh full-fill. Bar phụ luôn hiển thị nameSprite.
-    /// Có equip — BUY / SELECT / ✓.
-    /// </summary>
     public class BackgroundShopPanel : ShopItemPanelBase<BackgroundItemData>
     {
         [Header("Background preview")]

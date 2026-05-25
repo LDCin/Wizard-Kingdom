@@ -9,7 +9,6 @@ namespace BackgroundSystem
 {
     public class BackgroundLoader : MonoBehaviour
     {
-        [Tooltip("Parent transform để spawn prefab BG vào. Mặc định = transform của GameObject này.")]
         [SerializeField] private Transform _backgroundRoot;
 
         private AsyncOperationHandle<GameplayCatalog> _catalogHandle;
@@ -50,13 +49,13 @@ namespace BackgroundSystem
 
                 if (data == null)
                 {
-                    Debug.LogWarning($"BackgroundLoader: không tìm thấy BackgroundData cho id '{id}' trong GameplayCatalog.");
+                    Debug.LogWarning($"BackgroundLoader: not found BackgroundData for id '{id}' in GameplayCatalog.");
                     return;
                 }
 
                 if (data.prefab == null)
                 {
-                    Debug.LogWarning($"BackgroundLoader: BackgroundData '{id}' chưa gán prefab.");
+                    Debug.LogWarning($"BackgroundLoader: BackgroundData '{id}' not set up prefab.");
                     return;
                 }
 

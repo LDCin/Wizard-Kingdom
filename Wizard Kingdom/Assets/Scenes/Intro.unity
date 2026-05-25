@@ -379,7 +379,6 @@ MonoBehaviour:
   _dontDestroyOnLoad: 1
   _overlayCanvasRoot: {fileID: 1094464226}
   _cameraCanvasRoot: {fileID: 62952392}
-  _delayTime: 0.8
 --- !u!1 &1561417956
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,13 +388,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1561417957}
+  - component: {fileID: 1561417958}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: UserDataEdtior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1561417957
 Transform:
   m_ObjectHideFlags: 0
@@ -411,6 +411,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1561417958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561417956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8554714028e15274093e3ac7a3831ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroyOnLoad: 0
+  _editorData:
+    currentCoin: 0
+    highScores: []
+    ownedBackgrounds: []
+    ownedWizards: []
+    ownedSpells: []
+    equippedBackground: 
+    equippedWizard: 
+    bgmEnabled: 1
+    sfxEnabled: 1
+    vibrationEnabled: 1
 --- !u!1 &1739980911
 GameObject:
   m_ObjectHideFlags: 0

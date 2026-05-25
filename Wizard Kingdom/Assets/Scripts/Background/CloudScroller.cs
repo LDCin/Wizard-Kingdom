@@ -2,19 +2,10 @@ using UnityEngine;
 
 namespace BackgroundSystem
 {
-    /// <summary>
-    /// Infinite horizontal scroll cho N sprite nối tiếp.
-    /// Designer set vị trí các cloud trong scene/prefab. Khi 1 cloud bay đủ xa
-    /// (ra hoàn toàn ngoài camera), snap về sau cloud xa nhất theo hướng nguồn.
-    /// halfSpriteWidth được auto-detect từ SpriteRenderer.bounds.
-    /// </summary>
     public class CloudScroller : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer[] _clouds;
-
-        [Tooltip("Tốc độ scroll (đơn vị world unit / giây). Dương = bay sang phải, âm = sang trái.")]
         [SerializeField] private float _speed = 1f;
-
         [Tooltip("Camera dùng để check ra khỏi màn hình. Để trống = Camera.main.")]
         [SerializeField] private Camera _camera;
 
@@ -24,7 +15,6 @@ namespace BackgroundSystem
         {
             if (_camera == null) _camera = Camera.main;
 
-            // Auto-detect half-width từ cloud đầu tiên có sprite hợp lệ.
             for (int i = 0; i < _clouds.Length; i++)
             {
                 if (_clouds[i] != null && _clouds[i].sprite != null)
@@ -33,7 +23,7 @@ namespace BackgroundSystem
                     break;
                 }
             }
-            if (_halfSpriteWidth <= 0f) _halfSpriteWidth = 1f; // safety
+            if (_halfSpriteWidth <= 0f) _halfSpriteWidth = 1f;
         }
 
         private void Update()

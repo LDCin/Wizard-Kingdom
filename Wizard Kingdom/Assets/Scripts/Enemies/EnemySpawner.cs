@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Managers;
 using ObjectPool;
-using SOs; // ADDED: dùng GameModeData
+using SOs;
 using UnityEngine;
 
 namespace Enemies

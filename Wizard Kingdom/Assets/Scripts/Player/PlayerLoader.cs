@@ -7,12 +7,6 @@ using Utils;
 
 namespace Players
 {
-    /// <summary>
-    /// Gắn trên GameObject Wizard trong scene Game.
-    /// Khi Start, đọc equipped wizard id từ DataManager,
-    /// lookup WizardData trong GameplayCatalog, gán AnimatorOverrideController
-    /// cho Body và Head animator.
-    /// </summary>
     public class PlayerLoader : MonoBehaviour
     {
         [Header("Animators (drag từ scene)")]
@@ -51,7 +45,7 @@ namespace Players
 
                 if (data == null)
                 {
-                    Debug.LogWarning($"PlayerLoader: không tìm thấy WizardData cho id '{id}' trong GameplayCatalog.");
+                    Debug.LogWarning($"PlayerLoader: not found WizardData for id '{id}' in GameplayCatalog.");
                     return;
                 }
 

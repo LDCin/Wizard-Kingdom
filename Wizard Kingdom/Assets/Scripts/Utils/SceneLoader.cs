@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Utils;
 
 namespace UI
 {
@@ -15,7 +16,7 @@ namespace UI
         {
             if (_isLoading) return;
 
-            UIManager.Instance.CloseAllPanelExcept("Panel - Transition");
+            UIManager.Instance.CloseAllPanelExcept(GameConfig.Panel.Transition);
             UIManager.Instance.StartCoroutine(TransitionAndLoad(sceneName, panelNames));
         }
 
@@ -23,7 +24,7 @@ namespace UI
         {
             _isLoading = true;
 
-            string pName = "Panel - Transition";
+            string pName = GameConfig.Panel.Transition;
 
             yield return UIManager.Instance.LoadPanel(pName);
 

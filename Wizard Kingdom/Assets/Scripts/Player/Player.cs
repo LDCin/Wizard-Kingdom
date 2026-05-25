@@ -3,6 +3,7 @@ using System.Collections;
 using Managers;
 using StateMachines;
 using UnityEngine;
+using Utils;
 
 namespace Players
 {
@@ -59,7 +60,7 @@ namespace Players
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Fire"))
+            if (other.gameObject.CompareTag(GameConfig.Tags.Fire))
             {
                 StartCoroutine(DeadRoutine());
             }

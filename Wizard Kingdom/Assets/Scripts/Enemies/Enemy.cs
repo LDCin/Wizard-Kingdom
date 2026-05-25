@@ -7,6 +7,7 @@ using ObjectPool;
 using Particles;
 using StateMachines;
 using UnityEngine;
+using Utils;
 
 namespace Enemies
 {
@@ -68,6 +69,10 @@ namespace Enemies
         [SerializeField] private Vector2 _balloonClusterOffset = Vector2.zero;
         [SerializeField] private float _balloonSpacingX = 0.28f;
         [SerializeField] private float _balloonSpacingY = 0.22f;
+        [SerializeField] private float _balloonAttractionStrength = 6f;
+        [SerializeField] private float _balloonSeparationStrength = 4f;
+        [SerializeField] private float _balloonMinSeparation = 0.18f;
+        [SerializeField] private float _balloonReflowDuration = 0.25f;
 
         [Header("State")]
         private StateMachine _stateMachine;
@@ -214,7 +219,7 @@ namespace Enemies
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag(GameConfig.GROUND_TAG))
+            if (!other.gameObject.CompareTag(GameConfig.Tags.Ground))
             {
                 return;
             }
@@ -260,6 +265,8 @@ namespace Enemies
                 Debug.Log("Pop balloon has symbol: " + drawnSymbol);
 
                 _remainingBalloon -= 1;
+
+                StartCoroutine(ReflowBalloonsCoroutine());
 
                 if (_remainingBalloon <= 0)
                 {
@@ -430,6 +437,67 @@ namespace Enemies
             yield return null;
 
             OnReturnEnemyToPool?.Invoke(this);
+        }
+
+        private IEnumerator ReflowBalloonsCoroutine()
+        {
+            if (_balloonList.Count <= 1)
+            {
+                yield break;
+            }
+
+            float elapsed = 0f;
+            Vector3 center = _balloonClusterOffset;
+
+            while (elapsed < _balloonReflowDuration)
+            {
+                float deltaTime = Time.deltaTime;
+
+                for (int i = 0; i < _balloonList.Count; i++)
+                {
+                    Balloon balloon = _balloonList[i];
+
+                    if (balloon == null || !balloon.gameObject.activeSelf)
+                    {
+                        continue;
+                    }
+
+                    Vector3 position = balloon.transform.localPosition;
+                    Vector3 attraction = (center - position) * _balloonAttractionStrength;
+                    Vector3 separation = Vector3.zero;
+
+                    for (int j = 0; j < _balloonList.Count; j++)
+                    {
+                        if (i == j)
+                        {
+                            continue;
+                        }
+
+                        Balloon other = _balloonList[j];
+
+                        if (other == null || !other.gameObject.activeSelf)
+                        {
+                            continue;
+                        }
+
+                        Vector3 otherPosition = other.transform.localPosition;
+                        Vector3 delta = position - otherPosition;
+                        float distance = delta.magnitude;
+
+                        if (distance > 0f && distance < _balloonMinSeparation)
+                        {
+                            float push = (_balloonMinSeparation - distance) / _balloonMinSeparation;
+                            separation += delta.normalized * push * _balloonSeparationStrength;
+                        }
+                    }
+
+                    Vector3 velocity = (attraction + separation) * deltaTime;
+                    balloon.transform.localPosition = position + velocity;
+                }
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using Managers;
 using TMPro;
 using UnityEngine;
+using Utils;
 
 namespace UI
 {
@@ -26,7 +27,7 @@ namespace UI
         public void PauseGame()
         {
             OnPauseGame?.Invoke();
-            UIManager.Instance.OpenPanel("Panel - Pause");
+            UIManager.Instance.OpenPanel(GameConfig.Panel.Pause);
         }
         public void UpdateScoreAndGoldText(int newScore, int newGold)
         {

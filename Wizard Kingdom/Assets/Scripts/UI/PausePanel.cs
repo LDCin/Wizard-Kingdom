@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Utils;
 
 namespace UI
 {
@@ -11,14 +12,14 @@ namespace UI
         public void ReturnToMenu()
         {
             OnBackToMenu?.Invoke();
-            SceneLoader.LoadScene("Menu", "Panel - Menu");
+            SceneLoader.LoadScene(GameConfig.Scene.Menu, GameConfig.Panel.Menu);
             Close();
         }
 
         public void Restart()
         {
             OnRestartGame?.Invoke();
-            SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
+            SceneLoader.LoadScene(GameConfig.Scene.Game, GameConfig.Panel.Game, GameConfig.Panel.DrawAreaFree);
             Close();
         }
 

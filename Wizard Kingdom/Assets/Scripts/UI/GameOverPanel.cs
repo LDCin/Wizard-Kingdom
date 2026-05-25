@@ -1,6 +1,7 @@
 using System;
 using Managers;
 using UnityEngine;
+using Utils;
 
 namespace UI
 {
@@ -22,21 +23,21 @@ namespace UI
             _score.SetValue(GameManager.Instance.Score);
         }
         public void Shop(){
-            UIManager.Instance.ClosePanel("Panel - Game Over");
-            UIManager.Instance.OpenPanel("Panel - Shop");
+            UIManager.Instance.ClosePanel(GameConfig.Panel.GameOver);
+            UIManager.Instance.OpenPanel(GameConfig.Panel.Shop);
         }
         public void Share(){
-            Application.OpenURL("facebook.com");
+            Application.OpenURL(GameConfig.Links.Facebook);
         }
         public void Restart()
         {
             OnRestartGame?.Invoke();
-            SceneLoader.LoadScene("Game", "Panel - Game", "Panel - Draw Area Free");
+            SceneLoader.LoadScene(GameConfig.Scene.Game, GameConfig.Panel.Game, GameConfig.Panel.DrawAreaFree);
             Close();
         }
         public void BackToMenu(){
             OnBackToMenu?.Invoke();
-            SceneLoader.LoadScene("Menu", "Panel - Menu");
+            SceneLoader.LoadScene(GameConfig.Scene.Menu, GameConfig.Panel.Menu);
         }
         public void MoreNitrome(){
 

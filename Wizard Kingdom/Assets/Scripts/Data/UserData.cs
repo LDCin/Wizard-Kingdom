@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Utils;
 
 namespace Data
 {
@@ -63,8 +64,8 @@ namespace Data
 
     public static class UserDataDefaults
     {
-        public const string DefaultBackgroundId = "background_classic";
-        public const string DefaultWizardId = "wizard_default";
+        public const string DefaultBackgroundId = GameConfig.UserDataDefaults.DefaultBackgroundId;
+        public const string DefaultWizardId = GameConfig.UserDataDefaults.DefaultWizardId;
         public const int StartingCoin = 0;
     }
 }

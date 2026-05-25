@@ -3,6 +3,7 @@ using GestureRecognizer;
 using Managers;
 using Players;
 using UnityEngine;
+using Utils;
 
 namespace StateMachines
 {
@@ -14,7 +15,7 @@ namespace StateMachines
         public void Enter()
         {
             Debug.Log("Player: Enter Idle State!");
-            _player.BodyAnimator.SetBool("Idle", true);
+            _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
 
             DrawDetector.OnDrawStart += HandleDrawStart;
         }
@@ -25,7 +26,7 @@ namespace StateMachines
 
         public void Exit()
         {
-            _player.BodyAnimator.SetBool("Idle", false);
+            _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
 
             DrawDetector.OnDrawStart -= HandleDrawStart;
         }
@@ -52,7 +53,7 @@ namespace StateMachines
         {
             _hasPoppedBalloon = false;
 
-            _player.BodyAnimator.SetBool("Spell", true);
+            _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Spell, true);
 
             Enemy.OnBalloonPop += HandleBalloonPop;
             GestureResultHandler.OnRecognitionFinished += HandleRecognitionFinished;
@@ -65,7 +66,7 @@ namespace StateMachines
 
         public void Exit()
         {
-            _player.BodyAnimator.SetBool("Spell", false);
+            _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Spell, false);
 
             Enemy.OnBalloonPop -= HandleBalloonPop;
             GestureResultHandler.OnRecognitionFinished -= HandleRecognitionFinished;
@@ -92,7 +93,7 @@ namespace StateMachines
 
         public void Enter()
         {
-            _player.BodyAnimator.SetTrigger("Snap");
+            _player.BodyAnimator.SetTrigger(GameConfig.AnimatorParams.Snap);
         }
 
         public void Update()
@@ -111,7 +112,7 @@ namespace StateMachines
 
         public void Enter()
         {
-            _player.BodyAnimator.SetBool("Dead", true);
+            _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Dead, true);
         }
 
         public void Update()

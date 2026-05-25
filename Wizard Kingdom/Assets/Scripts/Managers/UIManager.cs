@@ -16,7 +16,7 @@ namespace UI
         private Dictionary<string, Panel> _panelDict = new();
         private HashSet<string> _loadingPanels = new();
 
-        [SerializeField] private float _delayTime = 0.8f;
+        // [SerializeField] private float _delayTime = 0.8f;
 
         public override void Awake()
         {

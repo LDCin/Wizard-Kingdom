@@ -3,13 +3,6 @@ using UnityEngine;
 
 namespace SOs
 {
-    /// <summary>
-    /// Catalog gom toàn bộ wizard/background data dùng trong gameplay.
-    /// Tách khỏi ShopCatalog vì 2 mục đích khác nhau:
-    /// - ShopCatalog: data hiển thị shop (sprite preview, price...)
-    /// - GameplayCatalog: data load lên scene (animator override, sprite render...)
-    /// Cả 2 link với nhau qua field id string.
-    /// </summary>
     [CreateAssetMenu(fileName = "Gameplay Catalog", menuName = "Gameplay/Gameplay Catalog")]
     public class GameplayCatalog : ScriptableObject
     {

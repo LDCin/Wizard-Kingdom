@@ -1,4 +1,5 @@
 ﻿using Enemies;
+using Utils;
 
 namespace StateMachines
 {
@@ -13,7 +14,7 @@ namespace StateMachines
 
         public void Enter()
         {
-            _enemy.Animator.SetBool("Idle", true);
+            _enemy.Animator.SetBool(GameConfig.AnimatorParams.Idle, true);
             _enemy.MoveSpeed = _enemy.NormalSpeed;
         }
 
@@ -24,7 +25,7 @@ namespace StateMachines
 
         public void Exit()
         {
-            _enemy.Animator.SetBool("Idle", false);
+            _enemy.Animator.SetBool(GameConfig.AnimatorParams.Idle, false);
         }
     }
 
@@ -39,7 +40,7 @@ namespace StateMachines
 
         public void Enter()
         {
-            _enemy.Animator.SetBool("Fall", true);
+            _enemy.Animator.SetBool(GameConfig.AnimatorParams.Fall, true);
             _enemy.MoveSpeed = _enemy.NormalSpeed * 2f;
         }
 
@@ -50,7 +51,7 @@ namespace StateMachines
 
         public void Exit()
         {
-            _enemy.Animator.SetBool("Fall", false);
+            _enemy.Animator.SetBool(GameConfig.AnimatorParams.Fall, false);
         }
     }
 
@@ -65,7 +66,7 @@ namespace StateMachines
 
         public void Enter()
         {
-            _enemy.Animator.SetBool("Victory", true);
+            _enemy.Animator.SetBool(GameConfig.AnimatorParams.Victory, true);
             _enemy.MoveSpeed = 0f;
         }
 
@@ -75,7 +76,7 @@ namespace StateMachines
 
         public void Exit()
         {
-            _enemy.Animator.SetBool("Victory", false);
+            _enemy.Animator.SetBool(GameConfig.AnimatorParams.Victory, false);
         }
     }
 

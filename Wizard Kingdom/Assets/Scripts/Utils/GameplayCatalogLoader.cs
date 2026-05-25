@@ -7,23 +7,17 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Utils
 {
-    /// <summary>
-    /// Helper load GameplayCatalog asset qua Addressables.
-    /// Dùng pattern giống ShopCatalogLoader: caller giữ handle để release đúng lúc.
-    /// </summary>
     public static class GameplayCatalogLoader
     {
-        public const string CatalogAddress = "Gameplay Catalog";
-
         public static IEnumerator Load(
             Action<GameplayCatalog, AsyncOperationHandle<GameplayCatalog>> onLoaded)
         {
-            var handle = Addressables.LoadAssetAsync<GameplayCatalog>(CatalogAddress);
+            var handle = Addressables.LoadAssetAsync<GameplayCatalog>(GameConfig.Addressables.GameplayCatalog);
             yield return handle;
 
             if (handle.Status != AsyncOperationStatus.Succeeded || handle.Result == null)
             {
-                Debug.LogError($"GameplayCatalogLoader: load failed cho address '{CatalogAddress}'.");
+                Debug.LogError($"GameplayCatalogLoader: load failed cho address '{GameConfig.Addressables.GameplayCatalog}'.");
                 onLoaded?.Invoke(null, handle);
                 yield break;
             }

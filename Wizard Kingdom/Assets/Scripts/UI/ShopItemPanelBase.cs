@@ -11,7 +11,7 @@ namespace UI
 {
     public abstract class ShopItemPanelBase<TItem> : Panel where TItem : ShopItemData
     {
-        protected const string CatalogAddress = "Shop Catalog";
+        protected const string CatalogAddress = GameConfig.Addressables.ShopCatalog;
 
         [SerializeField] private SpriteAssetNumberText _totalCoinText;
         [SerializeField] private GameObject _priceIcon;
@@ -20,9 +20,6 @@ namespace UI
         [SerializeField] private Button _equipButton;
         [SerializeField] private Button _equippedButton;
         [SerializeField] private Button _unlockedButton;
-
-        [Header("NPC chủ shop")]
-        [Tooltip("Component điều khiển animation NPC + hand sprite. Để trống nếu panel không có NPC.")]
         [SerializeField] private ShopkeeperAnimator _shopkeeper;
 
         protected IReadOnlyList<TItem> _items;
@@ -31,7 +28,6 @@ namespace UI
         private bool _hasHandle;
         private bool _isNavigating;
 
-        // Subclass trả về list tương ứng category của mình (catalog.spells / .backgrounds / .wizards).
         protected abstract IReadOnlyList<TItem> GetItemsFrom(ShopCatalog catalog);
 
         protected abstract bool HasEquip { get; }
@@ -115,7 +111,6 @@ namespace UI
             if (!TryGetCurrentItem(out TItem item)) return;
             if (IsOwned(item)) return;
 
-            // price == 0 cũng cho phép "mua" (free unlock cho random/default).
             if (item.price > 0 && !DataManager.Instance.TrySpendCoin(item.price)) return;
 
             AddToInventory(item);
@@ -133,7 +128,7 @@ namespace UI
 
         public void BackToShop()
         {
-            UIManager.Instance.OpenPanel("Panel - Shop");
+            UIManager.Instance.OpenPanel(GameConfig.Panel.Shop);
             Close();
         }
 

@@ -1,17 +1,10 @@
 using Managers;
+using Utils;
 
 namespace UI
 {
-    /// <summary>
-    /// Panel chọn danh mục shop. Mỗi category có panel riêng được mở qua Addressables.
-    /// Hiển thị tổng coin của user, auto refresh khi DataManager phát OnCoinChanged.
-    /// </summary>
     public class ShopPanel : Panel
     {
-        private const string SpellPanelName = "Panel - Shop Spell";
-        private const string BackgroundPanelName = "Panel - Shop Background";
-        private const string WizardPanelName = "Panel - Shop Wizard";
-
         [UnityEngine.Header("Header")]
         [UnityEngine.SerializeField] private SpriteAssetNumberText _totalCoinText;
 
@@ -26,13 +19,13 @@ namespace UI
             DataManager.OnCoinChanged -= OnCoinChanged;
         }
 
-        public void OpenSpellCategory() => OpenAndClose(SpellPanelName);
-        public void OpenBackgroundCategory() => OpenAndClose(BackgroundPanelName);
-        public void OpenWizardCategory() => OpenAndClose(WizardPanelName);
+        public void OpenSpellCategory() => OpenAndClose(GameConfig.Panel.ShopSpell);
+        public void OpenBackgroundCategory() => OpenAndClose(GameConfig.Panel.ShopBackground);
+        public void OpenWizardCategory() => OpenAndClose(GameConfig.Panel.ShopWizard);
 
         public void CloseShop() {
-            UIManager.Instance.OpenPanel("Panel - Menu");
-            UIManager.Instance.ClosePanel("Panel - Shop");
+            UIManager.Instance.OpenPanel(GameConfig.Panel.Menu);
+            UIManager.Instance.ClosePanel(GameConfig.Panel.Shop);
         }
 
         private void OpenAndClose(string panelName)

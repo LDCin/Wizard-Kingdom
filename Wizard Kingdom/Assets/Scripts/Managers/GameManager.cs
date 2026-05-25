@@ -6,13 +6,13 @@ using GestureRecognizer;
 using ObjectPool;
 using Particles;
 using Players;
-using SOs; // ADDED: dùng GameModeData
+using SOs;
 using StateMachines;
 using UI;
 using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.AddressableAssets; // ADDED: load GameModeData qua Addressable
-using UnityEngine.ResourceManagement.AsyncOperations; // ADDED
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Utils;
 
 namespace Managers
@@ -200,7 +200,7 @@ namespace Managers
                 else
                 {
                     // _currentEnemySpawner.StartSpawn(_spawnEnemyNameList, _delayTime);
-                    Debug.LogWarning("GameManager: _currentModeData chưa được set.");
+                    Debug.LogWarning("GameManager: _currentModeData not set.");
                 }
             }
             _startGameCoroutine = null;
@@ -278,7 +278,7 @@ namespace Managers
             }
 
             DestroyEnemySpawner();
-            SceneLoader.LoadScene("Game Over", "Panel - Game Over");
+            SceneLoader.LoadScene(GameConfig.Scene.GameOver, GameConfig.Panel.GameOver);
             Debug.Log("GAME OVER!");
         }
     }

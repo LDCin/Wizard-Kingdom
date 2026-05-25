@@ -1,6 +1,7 @@
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI
 {
@@ -103,18 +104,18 @@ namespace UI
             {
                 _resetClickCount = 0;
                 DataManager.Instance.ResetUserData();
-                Debug.Log("SettingPanel: user data đã được reset.");
+                Debug.Log("SettingPanel: user data reset.");
             }
             else
             {
-                Debug.Log($"SettingPanel: nhấn thêm {remaining} lần để reset data.");
+                Debug.Log($"SettingPanel: press {remaining} time to reset data.");
             }
         }
 
         public void CloseSetting()
         {
-            UIManager.Instance.ClosePanel("Panel - Setting");
-            UIManager.Instance.OpenPanel("Panel - Menu");
+            UIManager.Instance.ClosePanel(GameConfig.Panel.Setting);
+            UIManager.Instance.OpenPanel(GameConfig.Panel.Menu);
         }
     }
 }
