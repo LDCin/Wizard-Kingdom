@@ -105,8 +105,14 @@ namespace Balloons
             localScale.y = distance / _ropeBaseLength;
             _ropeTransform.localScale = localScale;
         }
-
         public void Pop()
+        {
+            if (_animator != null)
+            {
+                _animator.SetBool("Pop", true);
+            }
+        }
+        public void OnPopAnimationComplete()
         {
             gameObject.SetActive(false);
         }
