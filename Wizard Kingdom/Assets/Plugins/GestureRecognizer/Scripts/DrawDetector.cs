@@ -194,11 +194,15 @@ namespace GestureRecognizer {
 					yield return new WaitForSeconds(0.2f);
 					ClearLines();
 
-					break;
+					yield break;
 				} else {
 					OnRecognize.Invoke (RecognitionResult.Empty);
 				}
 			}
+
+			// Loop kết thúc mà không break = không nhận diện được hình.
+			// Clear nét vẽ để user vẽ lại lần kế tiếp không bị chồng nét cũ.
+			ClearLines();
 
 			yield return null;
 		}

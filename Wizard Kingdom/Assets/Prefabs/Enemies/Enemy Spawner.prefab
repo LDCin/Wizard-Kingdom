@@ -83,6 +83,11 @@ MonoBehaviour:
   - {fileID: 7634054851283942797}
   - {fileID: 6940309084644682693}
   - {fileID: 3132375439316029428}
+  _minSpawnDistance: 1
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _maxPickRetry: 4
 --- !u!1 &6940309084644682693
 GameObject:
   m_ObjectHideFlags: 0

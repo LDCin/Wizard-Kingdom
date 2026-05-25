@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Gameplay Catalog
   m_EditorClassIdentifier: 
   wizards:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 5c4e7ab1cd866604d9a14c7e00f492c1, type: 2}
+  - {fileID: 11400000, guid: af055cde4a83f5e498d810d1bfad20c7, type: 2}
+  - {fileID: 11400000, guid: 7619e87c51ec6df4cad6ef3e2b2b31fc, type: 2}
   backgrounds:
   - {fileID: 11400000, guid: 6ebaa2ae58353044ab22d4dc6780fe83, type: 2}
   - {fileID: 11400000, guid: 89319992de5fcf5478e110dbf991feb4, type: 2}

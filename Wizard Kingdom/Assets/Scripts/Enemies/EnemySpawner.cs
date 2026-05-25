@@ -12,6 +12,14 @@ namespace Enemies
         [SerializeField] private EnemyPool _enemyPoolPrefab;
         [SerializeField] private List<GameObject> _spawnPointList = new();
 
+        [Header("Anti-overlap")]
+        [Tooltip("Bán kính kiểm tra enemy đang active xung quanh spawn point. Nếu có enemy trong bán kính này, spawn point coi như bị chiếm.")]
+        [SerializeField] private float _minSpawnDistance = 1.5f;
+        [Tooltip("Layer của Enemy collider để kiểm tra. Để Everything nếu chưa setup layer.")]
+        [SerializeField] private LayerMask _enemyLayerMask = ~0;
+        [Tooltip("Số lần thử pick spawn point khác trước khi skip lượt spawn.")]
+        [SerializeField] private int _maxPickRetry = 4;
+
         private EnemyPool _enemyPool;
         private Coroutine _spawnCoroutine;
         private bool _canSpawn;
@@ -145,12 +153,52 @@ namespace Enemies
                 if (_spawnPointList.Count == 0) continue;
                 if (entry.enemyData == null) continue;
 
-                int pointIndex = PickNextSpawnPointIndex();
+                int pointIndex = PickFreeSpawnPointIndex();
+
+                // Không tìm được spawn point trống → skip lượt này, chờ tới chu kỳ tiếp theo.
+                if (pointIndex < 0) continue;
+
                 _lastSpawnPointIndex = pointIndex;
 
                 GameObject spawnPoint = _spawnPointList[pointIndex];
                 SpawnEnemyByName(entry.enemyData.enemyName, spawnPoint);
             }
+        }
+
+        // Pick spawn point trống (không có enemy active trong bán kính).
+        // Trả về -1 nếu sau _maxPickRetry lần vẫn không tìm được.
+        private int PickFreeSpawnPointIndex()
+        {
+            int count = _spawnPointList.Count;
+            if (count == 0) return -1;
+
+            for (int attempt = 0; attempt < _maxPickRetry; attempt++)
+            {
+                int idx = PickNextSpawnPointIndex();
+                if (idx < 0 || idx >= count) continue;
+
+                GameObject point = _spawnPointList[idx];
+                if (point == null) continue;
+
+                if (!IsSpawnPointOccupied(point))
+                {
+                    return idx;
+                }
+            }
+
+            return -1;
+        }
+
+        private bool IsSpawnPointOccupied(GameObject spawnPoint)
+        {
+            if (_minSpawnDistance <= 0f) return false;
+
+            Collider2D hit = Physics2D.OverlapCircle(
+                spawnPoint.transform.position,
+                _minSpawnDistance,
+                _enemyLayerMask);
+
+            return hit != null;
         }
 
         private int PickNextSpawnPointIndex()

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f48dd182f5c854b9fd2f3a6b5295ec, type: 3}
+  m_Name: Wizard Data - The Skull
+  m_EditorClassIdentifier: 
+  id: wizard_skull
+  bodyController: {fileID: 22100000, guid: 8ee8816292153c64d8b5209251429a96, type: 2}
+  headController: {fileID: 22100000, guid: 27f8c4f5e97b135418c29905bef0cdbd, type: 2}

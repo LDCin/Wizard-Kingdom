@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Barry Wizard Body Controller
+  m_Controller: {fileID: 9100000, guid: 7be83d51e9dff424d9146c4aa100204d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 35f74e5b49eddf948a690e8b3b6f604f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2397ccb4afe930e4a96a851566d7fab4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 872c30160ad56964a9fc02db97312efe, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f939214ab14cd2e45b8fd74493f441b1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 374e014f4c8c94d488c190468499ac22, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1c77edced0623fe418ca50710d99865d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0009cbab736e90442aae8a4f90c29c9a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 99a55c77ed6e82d438b8fb73a67b9144, type: 2}

@@ -77,6 +77,7 @@ namespace Managers
             PausePanel.OnContinueGame += ContinueGame;
             PausePanel.OnRestartGame += RestartGame;
             GameOverPanel.OnRestartGame += RestartGame;
+            GameOverPanel.OnBackToMenu += ChangeToMenuState;
             Player.OnDead += ChangePlayerState;
         }
         private void OnDisable()
@@ -89,6 +90,7 @@ namespace Managers
             PausePanel.OnContinueGame -= ContinueGame;
             PausePanel.OnRestartGame -= RestartGame;
             GameOverPanel.OnRestartGame -= RestartGame;
+            GameOverPanel.OnBackToMenu -= ChangeToMenuState;
             Player.OnDead -= ChangePlayerState;
         }
 

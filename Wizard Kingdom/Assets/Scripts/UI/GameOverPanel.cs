@@ -7,6 +7,7 @@ namespace UI
     public class GameOverPanel : Panel
     {
         public static event Action OnRestartGame;
+        public static event Action OnBackToMenu;
         [SerializeField] private SpriteAssetNumberText _totalCoin;
         [SerializeField] private SpriteAssetNumberText _highScore;
         [SerializeField] private SpriteAssetNumberText _score;
@@ -34,7 +35,8 @@ namespace UI
             Close();
         }
         public void BackToMenu(){
-            SceneLoader.LoadScene("Menu");
+            OnBackToMenu?.Invoke();
+            SceneLoader.LoadScene("Menu", "Panel - Menu");
         }
         public void MoreNitrome(){
 
