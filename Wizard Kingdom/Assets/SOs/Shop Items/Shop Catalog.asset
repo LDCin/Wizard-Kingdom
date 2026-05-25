@@ -21,3 +21,4 @@ MonoBehaviour:
   wizards:
   - {fileID: 11400000, guid: 4eb48f582b0550a4082e722b214b4b42, type: 2}
   - {fileID: 11400000, guid: 048e30a42d0ae1a42bbde91831b994a0, type: 2}
+  - {fileID: 11400000, guid: f4e0251b14768c84793716e34fe97d3e, type: 2}

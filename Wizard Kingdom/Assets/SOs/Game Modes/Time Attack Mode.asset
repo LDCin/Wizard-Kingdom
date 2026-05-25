@@ -17,19 +17,22 @@ MonoBehaviour:
   theme: {fileID: 7277076118294558871, guid: 73a0f29dc908352489002ee51fe33801, type: 3}
   difficultyTiers:
   - scoreThreshold: 0
-    commonSpawnDelay: 1.5
+    commonSpawnDelay: 1.2
     enemies:
     - enemyData: {fileID: 11400000, guid: 60c3e7897c34811499adfd3cab52c849, type: 2}
       extraSpawnDelay: 0
-  - scoreThreshold: 50
+  - scoreThreshold: 15
     commonSpawnDelay: 1
     enemies:
     - enemyData: {fileID: 11400000, guid: 0553568614a9c934781d9d4b0d0e9e8a, type: 2}
       extraSpawnDelay: 0.2
-  - scoreThreshold: 20
+  - scoreThreshold: 25
     commonSpawnDelay: 1
     enemies:
     - enemyData: {fileID: 11400000, guid: 4846742616c1f6344bc82aa783fb1028, type: 2}
       extraSpawnDelay: 0.5
+  - scoreThreshold: 35
+    commonSpawnDelay: 0.9
+    enemies: []
   hasTime: 1
-  playTime: 60
+  playTime: 120
