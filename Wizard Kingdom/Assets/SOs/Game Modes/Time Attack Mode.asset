@@ -35,4 +35,4 @@ MonoBehaviour:
     commonSpawnDelay: 0.9
     enemies: []
   hasTime: 1
-  playTime: 120
+  playTime: 60

@@ -169,6 +169,10 @@ namespace Enemies
 
         public void MoveDown()
         {
+            if (Managers.GameManager.Instance != null && Managers.GameManager.Instance.IsGameOver)
+            {
+                return;
+            }
             transform.Translate(Vector3.down * _moveSpeed * Time.deltaTime);
         }
 
@@ -528,3 +532,4 @@ namespace Enemies
         }
     }
 }
+

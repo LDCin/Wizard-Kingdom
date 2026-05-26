@@ -23,6 +23,7 @@ namespace Managers
         public static event Action<int, int> OnUpdateScoreAndGold;
         public static event Action<GameModeData> OnModeLoaded;
         public static event Action<float, float> OnTimeChanged;
+        public static event Action OnTimeExpired;
         [SerializeField] private EnemySpawner _enemySpawnerPrefab;
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
@@ -36,11 +37,13 @@ namespace Managers
         private float _totalTime;
         private int _comboPopCount;
         private bool _comboActive;
+        private bool _isGameOver;
 
         public string CurrentModeKey => _currentModeData != null ? _currentModeData.modeName : null;
         public GameModeData CurrentModeData => _currentModeData;
         public float RemainingTime => _remainingTime;
         public float TotalTime => _totalTime;
+        public bool IsGameOver => _isGameOver;
 
         [SerializeField] private float _startSpawnDelayTime = 5f;
         [SerializeField] private int _score;
@@ -118,6 +121,7 @@ namespace Managers
         }
         private void ChangeToPlayState()
         {
+            _isGameOver = false;
             _stateMachine.ChangeState(_playState);
         }
         private void OnPlayGameSelected(string modeKey)
@@ -159,10 +163,12 @@ namespace Managers
         }
         private void ChangeToGameOverState()
         {
+            _isGameOver = true;
             _stateMachine.ChangeState(_gameOverState);
         }
         private void ChangeToMenuState()
         {
+            _isGameOver = false;
             _stateMachine.ChangeState(_menuState);
         }
 
@@ -236,6 +242,7 @@ namespace Managers
             }
 
             _timeAttackCoroutine = null;
+            OnTimeExpired?.Invoke();
             ChangeToGameOverState();
         }
 
