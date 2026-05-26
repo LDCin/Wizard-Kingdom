@@ -2,6 +2,8 @@
 {
     public enum ParticleType
     {
-        Explosion
+        SmallEnemyExplosion,
+        BigEnemyExplosion,
+        BossEnemyExplosion
     }
 }

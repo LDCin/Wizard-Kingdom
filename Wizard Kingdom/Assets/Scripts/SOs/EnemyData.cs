@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Balloons;
+using Enemies;
 using UnityEngine;
 
 namespace SOs
@@ -10,6 +11,7 @@ namespace SOs
         public string enemyName;
         public Sprite sprite;
         public RuntimeAnimatorController runtimeAnimatorController;
+        public EnemyType enemyType;
 
         [Header("Balloon")]
         public List<Symbol> possibleBalloonSymbols = new();

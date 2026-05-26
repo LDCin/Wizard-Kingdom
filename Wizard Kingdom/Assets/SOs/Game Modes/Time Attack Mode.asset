@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modeType: 1
   modeName: Time Attack Mode
-  theme: {fileID: 7277076118294558871, guid: 73a0f29dc908352489002ee51fe33801, type: 3}
+  fixedBackgroundId: background_time_attack_mode
   difficultyTiers:
   - scoreThreshold: 0
     commonSpawnDelay: 1.2

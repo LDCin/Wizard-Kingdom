@@ -21,6 +21,8 @@ namespace Managers
     {
         public static event Action OnGameOver;
         public static event Action<int, int> OnUpdateScoreAndGold;
+        public static event Action<GameModeData> OnModeLoaded;
+        public static event Action<float, float> OnTimeChanged;
         [SerializeField] private EnemySpawner _enemySpawnerPrefab;
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
@@ -30,8 +32,15 @@ namespace Managers
         private GameModeData _currentModeData;
         private AsyncOperationHandle<GameModeData> _currentModeHandle;
         private Coroutine _timeAttackCoroutine;
+        private float _remainingTime;
+        private float _totalTime;
+        private int _comboPopCount;
+        private bool _comboActive;
 
         public string CurrentModeKey => _currentModeData != null ? _currentModeData.modeName : null;
+        public GameModeData CurrentModeData => _currentModeData;
+        public float RemainingTime => _remainingTime;
+        public float TotalTime => _totalTime;
 
         [SerializeField] private float _startSpawnDelayTime = 5f;
         [SerializeField] private int _score;
@@ -71,6 +80,7 @@ namespace Managers
         {
             Enemy.OnEnemyReachCastle += ChangeToGameOverState;
             Enemy.OnEnemyDie += UpdateScoreAndGold;
+            Enemy.OnBalloonPop += HandleBalloonPop;
             GamePanel.OnPauseGame += ChangeToPauseState;
             MenuPanel.OnPlayGame += OnPlayGameSelected;
             PausePanel.OnBackToMenu += ChangeToMenuState;
@@ -79,11 +89,14 @@ namespace Managers
             GameOverPanel.OnRestartGame += RestartGame;
             GameOverPanel.OnBackToMenu += ChangeToMenuState;
             Player.OnDead += ChangePlayerState;
+            GestureResultHandler.OnDrawSymbol += HandleComboStart;
+            GestureResultHandler.OnRecognitionFinished += HandleComboEnd;
         }
         private void OnDisable()
         {
             Enemy.OnEnemyReachCastle -= ChangeToGameOverState;
             Enemy.OnEnemyDie -= UpdateScoreAndGold;
+            Enemy.OnBalloonPop -= HandleBalloonPop;
             GamePanel.OnPauseGame -= ChangeToPauseState;
             MenuPanel.OnPlayGame -= OnPlayGameSelected;
             PausePanel.OnBackToMenu -= ChangeToMenuState;
@@ -92,6 +105,8 @@ namespace Managers
             GameOverPanel.OnRestartGame -= RestartGame;
             GameOverPanel.OnBackToMenu -= ChangeToMenuState;
             Player.OnDead -= ChangePlayerState;
+            GestureResultHandler.OnDrawSymbol -= HandleComboStart;
+            GestureResultHandler.OnRecognitionFinished -= HandleComboEnd;
         }
 
         private void Start()
@@ -125,6 +140,7 @@ namespace Managers
             if (_currentModeHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 _currentModeData = _currentModeHandle.Result;
+                OnModeLoaded?.Invoke(_currentModeData);
                 ChangeToPlayState();
             }
             else
@@ -194,7 +210,10 @@ namespace Managers
 
                     if (_currentModeData.hasTime)
                     {
-                        _timeAttackCoroutine = StartCoroutine(TimeAttackCountdownRoutine(_currentModeData.playTime));
+                        _totalTime = _currentModeData.playTime;
+                        _remainingTime = _totalTime;
+                        OnTimeChanged?.Invoke(_remainingTime, _totalTime);
+                        _timeAttackCoroutine = StartCoroutine(TimeAttackCountdownRoutine());
                     }
                 }
                 else
@@ -206,11 +225,27 @@ namespace Managers
             _startGameCoroutine = null;
         }
 
-        private IEnumerator TimeAttackCountdownRoutine(float duration)
+        private IEnumerator TimeAttackCountdownRoutine()
         {
-            yield return new WaitForSeconds(duration);
+            while (_remainingTime > 0f)
+            {
+                _remainingTime -= Time.deltaTime;
+                if (_remainingTime < 0f) _remainingTime = 0f;
+                OnTimeChanged?.Invoke(_remainingTime, _totalTime);
+                yield return null;
+            }
+
             _timeAttackCoroutine = null;
             ChangeToGameOverState();
+        }
+
+        public void AddTime(float seconds)
+        {
+            if (_currentModeData == null || !_currentModeData.hasTime) return;
+            if (seconds <= 0f) return;
+
+            _remainingTime = Mathf.Min(_remainingTime + seconds, _totalTime);
+            OnTimeChanged?.Invoke(_remainingTime, _totalTime);
         }
         private void ContinueGame()
         {
@@ -222,6 +257,30 @@ namespace Managers
             ChangeToPlayState();
         }
 
+        private void HandleComboStart(string shapeName)
+        {
+            _comboPopCount = 0;
+            _comboActive = _currentModeData != null && _currentModeData.hasTime;
+        }
+
+        private void HandleBalloonPop()
+        {
+            if (!_comboActive) return;
+            _comboPopCount++;
+        }
+
+        private void HandleComboEnd()
+        {
+            if (!_comboActive) return;
+
+            if (_comboPopCount >= 2)
+            {
+                AddTime(_comboPopCount);
+            }
+
+            _comboPopCount = 0;
+            _comboActive = false;
+        }
         public void StopSpawnEnemy()
         {
             if (_currentEnemySpawner != null)

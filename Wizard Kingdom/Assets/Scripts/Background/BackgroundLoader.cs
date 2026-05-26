@@ -14,15 +14,26 @@ namespace BackgroundSystem
         private AsyncOperationHandle<GameplayCatalog> _catalogHandle;
         private bool _hasCatalogHandle;
         private GameObject _currentInstance;
+        private GameplayCatalog _catalog;
 
         private void Awake()
         {
             if (_backgroundRoot == null) _backgroundRoot = transform;
         }
 
+        private void OnEnable()
+        {
+            GameManager.OnModeLoaded += HandleModeLoaded;
+        }
+
         private void Start()
         {
             StartCoroutine(LoadAndApplyBackground());
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnModeLoaded -= HandleModeLoaded;
         }
 
         private void OnDestroy()
@@ -40,27 +51,50 @@ namespace BackgroundSystem
             {
                 _catalogHandle = handle;
                 _hasCatalogHandle = true;
+                _catalog = catalog;
 
-                if (catalog == null) return;
-                if (DataManager.Instance == null) return;
-
-                string id = DataManager.Instance.GetEquippedBackground();
-                BackgroundData data = catalog.FindBackground(id);
-
-                if (data == null)
-                {
-                    Debug.LogWarning($"BackgroundLoader: not found BackgroundData for id '{id}' in GameplayCatalog.");
-                    return;
-                }
-
-                if (data.prefab == null)
-                {
-                    Debug.LogWarning($"BackgroundLoader: BackgroundData '{id}' not set up prefab.");
-                    return;
-                }
-
-                SpawnBackground(data.prefab);
+                if (_catalog == null) return;
+                ApplyBackground(GameManager.Instance != null ? GameManager.Instance.CurrentModeData : null);
             });
+        }
+
+        private void HandleModeLoaded(GameModeData modeData)
+        {
+            if (_catalog == null) return;
+            ApplyBackground(modeData);
+        }
+
+        private void ApplyBackground(GameModeData modeData)
+        {
+            string id = ResolveBackgroundId(modeData);
+            if (string.IsNullOrEmpty(id)) return;
+
+            BackgroundData data = _catalog.FindBackground(id);
+            if (data == null)
+            {
+                Debug.LogWarning($"BackgroundLoader: not found BackgroundData for id '{id}' in GameplayCatalog.");
+                return;
+            }
+
+            if (data.prefab == null)
+            {
+                Debug.LogWarning($"BackgroundLoader: BackgroundData '{id}' not set up prefab.");
+                return;
+            }
+
+            SpawnBackground(data.prefab);
+        }
+
+        private string ResolveBackgroundId(GameModeData modeData)
+        {
+            if (modeData != null
+                && modeData.modeType == GameModeType.TimeAttack
+                && !string.IsNullOrEmpty(modeData.fixedBackgroundId))
+            {
+                return modeData.fixedBackgroundId;
+            }
+
+            return DataManager.Instance != null ? DataManager.Instance.GetEquippedBackground() : null;
         }
 
         private void SpawnBackground(GameObject prefab)

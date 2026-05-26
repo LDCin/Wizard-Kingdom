@@ -9,7 +9,7 @@
         DeltaLine,
         GammaLine,
         ZLine,
-        Boss1,
-        Boss2
+        Boss1Line,
+        Boss2Line
     }
 }

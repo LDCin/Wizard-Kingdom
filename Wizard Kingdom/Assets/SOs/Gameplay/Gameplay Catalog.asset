@@ -19,3 +19,4 @@ MonoBehaviour:
   backgrounds:
   - {fileID: 11400000, guid: 6ebaa2ae58353044ab22d4dc6780fe83, type: 2}
   - {fileID: 11400000, guid: 89319992de5fcf5478e110dbf991feb4, type: 2}
+  - {fileID: 11400000, guid: 715efb17c8e1bea4cb35c23907b15cf5, type: 2}

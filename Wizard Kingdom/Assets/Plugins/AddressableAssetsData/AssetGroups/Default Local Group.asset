@@ -23,6 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Enemy Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0631461ee52dc754fa4b56b138e78f07
+    m_Address: Assets/SOs/Particles/BossEnemyExplotionParticle 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Particle Data
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1c6e86a1e4b4a7444a01c472460f0259
     m_Address: Assets/SOs/Balloons/VerticalLineBalloon.asset
     m_ReadOnly: 0
@@ -47,7 +53,7 @@ MonoBehaviour:
     - Enemy Data
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4d12c964c0723864a8d2bda8ebb34886
-    m_Address: Assets/SOs/Prefabs/ParticleData.asset
+    m_Address: Assets/SOs/Particles/SmallEnemyExplotionParticle.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Particle Data
@@ -95,6 +101,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 890970d1415b5fb45a4090c607585d9d
+    m_Address: Assets/SOs/Particles/BigEnemyExplotionParticle.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Particle Data
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c8f683e7dcfffe44a259c9eff4ebfb0
     m_Address: Panel - Transition
     m_ReadOnly: 0
@@ -105,6 +117,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Balloon Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93b92275c51d4bf4f8af926beae1f603
+    m_Address: Assets/SOs/Enemies/Boss2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Enemy Data
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 93ec8a3a00686ad49b3f4acbd51c6e56
     m_Address: Panel - Intro
@@ -127,6 +145,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Balloon Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab02f44c05bfffd4396be888c0358539
+    m_Address: Assets/SOs/Enemies/Bigguy.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Enemy Data
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad25bf08e6d27e0498bb634349fc37da
     m_Address: Panel - Shop
     m_ReadOnly: 0
@@ -142,6 +166,12 @@ MonoBehaviour:
     m_Address: Panel - Draw Area Free
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ccf874556d761b842be84baead712672
+    m_Address: Assets/SOs/Enemies/Boss1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Enemy Data
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: da3050ebdc85b2d4b96f5eb389efe17f
     m_Address: Panel - Shop Wizard

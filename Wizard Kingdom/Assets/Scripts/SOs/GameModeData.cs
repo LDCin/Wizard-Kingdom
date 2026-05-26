@@ -14,7 +14,7 @@ namespace SOs
     {
         public GameModeType modeType = GameModeType.Arcade;
         public string modeName;
-        public GameObject theme;
+        public string fixedBackgroundId;
         public List<DifficultyTier> difficultyTiers = new();
         public bool hasTime;
         [Min(0f)] public float playTime = 60f;

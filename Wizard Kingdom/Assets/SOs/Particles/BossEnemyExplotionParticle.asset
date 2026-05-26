@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5e1f22e40c648f79273c9298077256a, type: 3}
-  m_Name: LilguyExplotionParticle
+  m_Name: BossEnemyExplotionParticle
   m_EditorClassIdentifier: 
-  particleType: 0
-  particlePrefab: {fileID: 3823494889307199211, guid: 5d58bc19cecb5eb4e9f567b666e53419, type: 3}
+  particleType: 2
+  particlePrefab: {fileID: 3823494889307199211, guid: cad64e76cb9cffe48abe17a25dc349cb, type: 3}

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Balloons;
@@ -35,6 +35,8 @@ namespace Enemies
         public string EnemyName => _enemyName;
 
         [SerializeField] private Sprite _sprite;
+        [SerializeField] private EnemyType _enemyType;
+        public EnemyType EnemyType => _enemyType;
 
         private Animator _animator;
         public Animator Animator => _animator;
@@ -131,12 +133,14 @@ namespace Enemies
             string enemyName,
             Sprite sprite,
             RuntimeAnimatorController runtimeAnimatorController,
+            EnemyType enemyType,
             int goldReward,
             int scoreReward,
             float moveSpeed)
         {
             _enemyName = enemyName;
             _sprite = sprite;
+            _enemyType = enemyType;
 
             if (_animator == null)
             {
@@ -270,7 +274,18 @@ namespace Enemies
 
                 if (_remainingBalloon <= 0)
                 {
-                    StartFalling();
+                    bool timeAttackNoGround = Managers.GameManager.Instance != null
+                        && Managers.GameManager.Instance.CurrentModeData != null
+                        && Managers.GameManager.Instance.CurrentModeData.modeType == SOs.GameModeType.TimeAttack;
+
+                    if (timeAttackNoGround)
+                    {
+                        Die();
+                    }
+                    else
+                    {
+                        StartFalling();
+                    }
                 }
 
                 return;
@@ -433,11 +448,22 @@ namespace Enemies
 
         private IEnumerator ReturnToPoolAfterDeathCoroutine()
         {
-            ParticleEvent.RequestParticle(ParticleType.Explosion, transform.position);
+            ParticleEvent.RequestParticle(GetDeathParticleType(), transform.position);
 
             yield return null;
 
             OnReturnEnemyToPool?.Invoke(this);
+        }
+
+        private ParticleType GetDeathParticleType()
+        {
+            return _enemyType switch
+            {
+                EnemyType.SmallEnemy => ParticleType.SmallEnemyExplosion,
+                EnemyType.BigEnemy => ParticleType.BigEnemyExplosion,
+                EnemyType.BossEnemy => ParticleType.BossEnemyExplosion,
+                _ => ParticleType.SmallEnemyExplosion
+            };
         }
 
         private IEnumerator ReflowBalloonsCoroutine()

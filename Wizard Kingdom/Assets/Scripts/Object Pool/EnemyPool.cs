@@ -49,6 +49,7 @@ namespace ObjectPool
                 data.enemyName,
                 data.sprite,
                 data.runtimeAnimatorController,
+                data.enemyType,
                 data.goldReward,
                 data.scoreReward,
                 data.moveSpeed

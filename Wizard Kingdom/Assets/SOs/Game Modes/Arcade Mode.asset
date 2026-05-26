@@ -41,13 +41,15 @@ MonoBehaviour:
     enemies:
     - enemyData: {fileID: 11400000, guid: 93b92275c51d4bf4f8af926beae1f603, type: 2}
       extraSpawnDelay: 10
-  - scoreThreshold: 50
+  - scoreThreshold: 75
     commonSpawnDelay: 1.1
-    enemies: []
+    enemies:
+    - enemyData: {fileID: 11400000, guid: ab02f44c05bfffd4396be888c0358539, type: 2}
+      extraSpawnDelay: 8
   - scoreThreshold: 100
     commonSpawnDelay: 0.95
     enemies:
-    - enemyData: {fileID: 11400000, guid: 93b92275c51d4bf4f8af926beae1f603, type: 2}
+    - enemyData: {fileID: 11400000, guid: ccf874556d761b842be84baead712672, type: 2}
       extraSpawnDelay: 10
   - scoreThreshold: 200
     commonSpawnDelay: 0.9
