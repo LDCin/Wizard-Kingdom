@@ -12,6 +12,8 @@ namespace Balloons
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Animator _animator;
 
+        private Sprite _idleSprite;
+
         [Header("Rope")]
         [SerializeField] private Transform _ropeTransform;
         [SerializeField] private Transform _ropeStartPoint;
@@ -33,6 +35,28 @@ namespace Balloons
             }
         }
 
+        public void ResetAnimatorState()
+        {
+            if (_animator == null)
+            {
+                _animator = GetComponent<Animator>();
+            }
+
+            if (_spriteRenderer != null && _idleSprite != null)
+            {
+                _spriteRenderer.sprite = _idleSprite;
+            }
+
+            // if (_animator != null)
+            // {
+            //     _animator.Rebind();
+            //     _animator.Update(0f);
+            //     _animator.ResetTrigger("Pop");
+            //     _animator.Play("Idle", 0, 0f);
+            //     _animator.Update(0f);
+            // }
+        }
+
         private void LateUpdate()
         {
             RefreshRope();
@@ -44,6 +68,8 @@ namespace Balloons
             RuntimeAnimatorController runtimeAnimatorController)
         {
             _symbol = symbol;
+
+            _idleSprite = sprite;
 
             if (_spriteRenderer != null)
             {
@@ -109,7 +135,7 @@ namespace Balloons
         {
             if (_animator != null)
             {
-                _animator.SetBool("Pop", true);
+                _animator.SetTrigger("Pop");
             }
         }
         public void OnPopAnimationComplete()

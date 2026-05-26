@@ -299,6 +299,7 @@ namespace Enemies
                 balloon.transform.localScale = Vector3.one;
 
                 balloon.gameObject.SetActive(true);
+                balloon.ResetAnimatorState();
                 balloon.SetupRope(ropeTarget);
 
                 _balloonList.Add(balloon);

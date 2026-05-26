@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Lilguy02
   sprite: {fileID: 21300000, guid: 667810aa55f01c144a767a3b104e95a1, type: 3}
-  runtimeAnimatorController: {fileID: 9100000, guid: 3f6efa77aa7d2b940a2bb76d9ed5ebfb, type: 2}
+  runtimeAnimatorController: {fileID: 22100000, guid: 918763e6fa7dbaf49a61dd6e1061dd50, type: 2}
   possibleBalloonSymbols: 000000000100000002000000030000000400000005000000
   balloonSpawnCount: 2
   goldReward: 2
-  scoreReward: 2
+  scoreReward: 1
   moveSpeed: 1

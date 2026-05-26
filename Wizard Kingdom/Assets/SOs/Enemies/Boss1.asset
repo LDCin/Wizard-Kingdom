@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bafb7f55bc148e084e84e2e32bb75a3, type: 3}
-  m_Name: Lilguy01
+  m_Name: Boss1
   m_EditorClassIdentifier: 
-  enemyName: Lilguy01
-  sprite: {fileID: 21300000, guid: a057c077fba616a499b89c2014faac50, type: 3}
-  runtimeAnimatorController: {fileID: 22100000, guid: 15429f2e01f767b4b814717d8e471ff2, type: 2}
-  possibleBalloonSymbols: 000000000100000002000000030000000400000005000000
+  enemyName: Boss1
+  sprite: {fileID: 21300000, guid: fed21fa273f91c64a8c230df81a74f5b, type: 3}
+  runtimeAnimatorController: {fileID: 0}
+  possibleBalloonSymbols: 07000000
   balloonSpawnCount: 1
-  goldReward: 1
-  scoreReward: 1
-  moveSpeed: 1
+  goldReward: 4
+  scoreReward: 2
+  moveSpeed: 1.3
