@@ -395,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1561417957
 Transform:
   m_ObjectHideFlags: 0
@@ -423,9 +423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8554714028e15274093e3ac7a3831ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dontDestroyOnLoad: 0
+  _dontDestroyOnLoad: 1
   _editorData:
-    currentCoin: 0
+    currentCoin: 90000
     highScores: []
     ownedBackgrounds: []
     ownedWizards: []

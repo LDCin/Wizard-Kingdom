@@ -48,7 +48,7 @@
 
         public static class Links
         {
-            public const string Facebook = "facebook.com";
+            public const string ShareLink = "https://facebook.com";
         }
 
         public static class Addressables

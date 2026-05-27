@@ -36,6 +36,11 @@ namespace UI
             OnBackToMenu?.Invoke();
             SceneLoader.LoadScene(GameConfig.Scene.Menu, GameConfig.Panel.Menu);
         }
+
+        public void Share()
+        {
+            Application.OpenURL(GameConfig.Links.ShareLink);
+        }
         public void MoreNitrome(){
 
         }
