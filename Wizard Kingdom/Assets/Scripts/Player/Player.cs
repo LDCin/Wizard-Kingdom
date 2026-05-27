@@ -13,6 +13,9 @@ namespace Players
         [Header("Animator")]
         [SerializeField] private Animator _bodyAnimator;
         [SerializeField] private Animator _headAnimator;
+        [SerializeField] private GameObject _headRoot;
+        private bool _deadAnimationFinished;
+
         public Animator BodyAnimator => _bodyAnimator;
         public Animator HeadAnimator => _headAnimator;
 
@@ -30,6 +33,11 @@ namespace Players
 
         private void Start()
         {
+            if (_headRoot == null && _headAnimator != null)
+            {
+                _headRoot = _headAnimator.gameObject;
+            }
+
             _stateMachine = new StateMachine();
             _idleState = new PlayerIdleState(this);
             _spellState = new PlayerSpellState(this);
@@ -67,26 +75,60 @@ namespace Players
         }
         private IEnumerator DeadRoutine()
         {
-            // ChangeToDeadState();
-            // yield return new WaitUntil(() =>{
-            //     AnimatorStateInfo state = _bodyAnimator.GetCurrentAnimatorStateInfo(0);
+            Debug.Log("DeadRoutine called");
+            _deadAnimationFinished = false;
+            ChangeToDeadState();
 
-            //     return state.IsName("Dead") && state.normalizedTime >= 1f &&  !_bodyAnimator.IsInTransition(0);
-            // });
-            yield return new WaitForSeconds(3);
+            yield return new WaitUntil(() => _deadAnimationFinished);
             OnDead?.Invoke();
+        }
+
+        public void OnDeadAnimationFinished()
+        {
+            _deadAnimationFinished = true;
+        }
+
+        public void SetHeadActive(bool isActive)
+        {
+            if (_headRoot != null)
+            {
+                _headRoot.SetActive(isActive);
+            }
+        }
+
+        public void ResetToIdleForNewGame()
+        {
+            _deadAnimationFinished = false;
+            SetHeadActive(true);
+
+            if (_bodyAnimator != null)
+            {
+                _bodyAnimator.SetBool(GameConfig.AnimatorParams.Dead, false);
+                _bodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
+            }
+
+            if (_headAnimator != null)
+            {
+                _headAnimator.SetBool(GameConfig.AnimatorParams.Dead, false);
+                _headAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
+            }
+
+            if (_stateMachine != null)
+            {
+                _stateMachine.ChangeState(_idleState);
+            }
         }
 
         //TEST
         private void OnEnable()
         {
-            GameManager.OnGameOver += TestPlayerDead;
+            GameManager.OnGameOver += HandleGameOver;
         }
         private void OnDisable()
         {
-            GameManager.OnGameOver -= TestPlayerDead;
+            GameManager.OnGameOver -= HandleGameOver;
         }
-        private void TestPlayerDead()
+        private void HandleGameOver()
         {
             StartCoroutine(DeadRoutine());
         }

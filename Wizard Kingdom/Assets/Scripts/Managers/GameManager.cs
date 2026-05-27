@@ -19,15 +19,25 @@ namespace Managers
 {
     public class GameManager : Singleton<GameManager>
     {
+        [Serializable]
+        public class GestureSpellBinding
+        {
+            public GesturePattern pattern;
+            public SpellItemData spell;
+        }
+
+        public static event Action<GesturePattern, SpellItemData> OnSpellCastRequested;
         public static event Action OnGameOver;
         public static event Action<int, int> OnUpdateScoreAndGold;
         public static event Action<GameModeData> OnModeLoaded;
         public static event Action<float, float> OnTimeChanged;
         public static event Action OnTimeExpired;
         [SerializeField] private EnemySpawner _enemySpawnerPrefab;
+        [SerializeField] private Player _player;
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
         [SerializeField] private ParticlePool _particlePool;
+        [SerializeField] private SpellCaster _spellCaster;
         // [SerializeField] private List<string> _spawnEnemyNameList;
         // [SerializeField] private float _delayTime = 1f;
         private GameModeData _currentModeData;
@@ -49,6 +59,7 @@ namespace Managers
         [SerializeField] private int _score;
         [SerializeField] private int _highScore;
         [SerializeField] private int _gold;
+        [SerializeField] private List<GestureSpellBinding> _gestureSpellBindings = new();
         public int Score => _score;
         public int Gold => _gold;
         private StateMachine _stateMachine;
@@ -77,6 +88,11 @@ namespace Managers
             _pauseState = new PauseState(this);
             _menuState = new MenuState(this);
             _gameOverState = new GameOverState(this);
+
+            if (_spellCaster == null)
+            {
+                _spellCaster = GetComponentInChildren<SpellCaster>();
+            }
         }
 
         private void OnEnable()
@@ -93,6 +109,7 @@ namespace Managers
             GameOverPanel.OnBackToMenu += ChangeToMenuState;
             Player.OnDead += ChangePlayerState;
             GestureResultHandler.OnDrawSymbol += HandleComboStart;
+            GestureResultHandler.OnDrawSymbol += HandleSkillGesture;
             GestureResultHandler.OnRecognitionFinished += HandleComboEnd;
         }
         private void OnDisable()
@@ -109,6 +126,7 @@ namespace Managers
             GameOverPanel.OnBackToMenu -= ChangeToMenuState;
             Player.OnDead -= ChangePlayerState;
             GestureResultHandler.OnDrawSymbol -= HandleComboStart;
+            GestureResultHandler.OnDrawSymbol -= HandleSkillGesture;
             GestureResultHandler.OnRecognitionFinished -= HandleComboEnd;
         }
 
@@ -178,7 +196,7 @@ namespace Managers
         }
         private void ChangePlayerState()
         {
-            _playerDead = !_playerDead;
+            _playerDead = true;
         }
         private void UpdateScoreAndGold(int newScore, int newGold)
         {
@@ -200,6 +218,8 @@ namespace Managers
             if (!_isNewGame) return;
             _isNewGame = false;
             _playerDead = false;
+            _player?.ResetToIdleForNewGame();
+            _spellCaster?.ResetSpellUses();
             InitGameStat();
             DestroyEnemySpawner();
             _currentEnemySpawner = Instantiate(_enemySpawnerPrefab, transform);
@@ -346,6 +366,51 @@ namespace Managers
             DestroyEnemySpawner();
             SceneLoader.LoadScene(GameConfig.Scene.GameOver, GameConfig.Panel.GameOver);
             Debug.Log("GAME OVER!");
+        }
+
+        private void HandleSkillGesture(string gestureId)
+        {
+            if (string.IsNullOrWhiteSpace(gestureId)) return;
+
+            for (int i = 0; i < _gestureSpellBindings.Count; i++)
+            {
+                GestureSpellBinding binding = _gestureSpellBindings[i];
+                if (binding == null || binding.pattern == null || binding.spell == null) continue;
+
+                string patternId = binding.pattern.id;
+                if (string.IsNullOrWhiteSpace(patternId)) continue;
+
+                if (!IsGestureMatch(gestureId, patternId)) continue;
+
+                if (DataManager.Instance != null && !DataManager.Instance.OwnsSpell(binding.spell.id))
+                {
+                    Debug.LogWarning($"Spell '{binding.spell.id}' is not owned.");
+                    return;
+                }
+
+                OnSpellCastRequested?.Invoke(binding.pattern, binding.spell);
+                return;
+            }
+        }
+
+        private bool IsGestureMatch(string a, string b)
+        {
+            return string.Equals(a, b, StringComparison.Ordinal);
+        }
+
+        private readonly HashSet<Enemy> _activeEnemies = new();
+        public IReadOnlyCollection<Enemy> ActiveEnemies => _activeEnemies;
+
+        public void RegisterEnemy(Enemy enemy)
+        {
+            if (enemy == null) return;
+            _activeEnemies.Add(enemy);
+        }
+
+        public void UnregisterEnemy(Enemy enemy)
+        {
+            if (enemy == null) return;
+            _activeEnemies.Remove(enemy);
         }
     }
 }

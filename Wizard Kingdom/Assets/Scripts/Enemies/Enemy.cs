@@ -116,11 +116,21 @@ namespace Enemies
 
         private void OnEnable()
         {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.RegisterEnemy(this);
+            }
+
             GestureResultHandler.OnDrawSymbol += TryPopBalloon;
         }
 
         private void OnDisable()
         {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.UnregisterEnemy(this);
+            }
+
             GestureResultHandler.OnDrawSymbol -= TryPopBalloon;
         }
 
@@ -244,6 +254,11 @@ namespace Enemies
 
         private void TryPopBalloon(string shapeName)
         {
+            if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+            {
+                return;
+            }
+
             if (_stateMachine.CurrentState != _idleState)
             {
                 return;
@@ -532,4 +547,3 @@ namespace Enemies
         }
     }
 }
-

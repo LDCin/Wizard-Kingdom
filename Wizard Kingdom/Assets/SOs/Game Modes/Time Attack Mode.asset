@@ -17,21 +17,41 @@ MonoBehaviour:
   fixedBackgroundId: background_time_attack_mode
   difficultyTiers:
   - scoreThreshold: 0
-    commonSpawnDelay: 1.2
+    commonSpawnDelay: 1.5
     enemies:
     - enemyData: {fileID: 11400000, guid: 60c3e7897c34811499adfd3cab52c849, type: 2}
       extraSpawnDelay: 0
   - scoreThreshold: 15
-    commonSpawnDelay: 1
+    commonSpawnDelay: 1.4
     enemies:
     - enemyData: {fileID: 11400000, guid: 0553568614a9c934781d9d4b0d0e9e8a, type: 2}
-      extraSpawnDelay: 0.2
+      extraSpawnDelay: 1
   - scoreThreshold: 25
-    commonSpawnDelay: 1
+    commonSpawnDelay: 1.3
     enemies:
     - enemyData: {fileID: 11400000, guid: 4846742616c1f6344bc82aa783fb1028, type: 2}
-      extraSpawnDelay: 0.5
+      extraSpawnDelay: 3
   - scoreThreshold: 35
+    commonSpawnDelay: 1.2
+    enemies:
+    - enemyData: {fileID: 11400000, guid: ccf874556d761b842be84baead712672, type: 2}
+      extraSpawnDelay: 10
+  - scoreThreshold: 50
+    commonSpawnDelay: 1.1
+    enemies:
+    - enemyData: {fileID: 11400000, guid: 93b92275c51d4bf4f8af926beae1f603, type: 2}
+      extraSpawnDelay: 10
+  - scoreThreshold: 75
+    commonSpawnDelay: 1.1
+    enemies:
+    - enemyData: {fileID: 11400000, guid: ab02f44c05bfffd4396be888c0358539, type: 2}
+      extraSpawnDelay: 8
+  - scoreThreshold: 100
+    commonSpawnDelay: 0.95
+    enemies:
+    - enemyData: {fileID: 11400000, guid: ccf874556d761b842be84baead712672, type: 2}
+      extraSpawnDelay: 10
+  - scoreThreshold: 200
     commonSpawnDelay: 0.9
     enemies: []
   hasTime: 1

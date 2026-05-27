@@ -18,5 +18,10 @@ namespace Players
         {
             _player.OnSnapAnimationFinished();
         }
+
+        public void OnDeadAnimationFinished()
+        {
+            _player.OnDeadAnimationFinished();
+        }
     }
 }

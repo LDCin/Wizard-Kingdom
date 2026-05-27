@@ -64,11 +64,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Balloon Data
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5e6c0d29e7baad14688f8a4891c91936
-    m_Address: TimeAttackMode
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 60c3e7897c34811499adfd3cab52c849
     m_Address: Assets/SOs/Enemies/Lilguy01.asset
     m_ReadOnly: 0
@@ -190,6 +185,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e0ef0e4737a4942409aa90f1477dbde8
     m_Address: Shop Catalog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e206aa142f3deab4fac93aa1e4d2d4fc
+    m_Address: TimeAttackMode
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -24,6 +24,11 @@ namespace UI
         public void OpenWizardCategory() => OpenAndClose(GameConfig.Panel.ShopWizard);
 
         public void CloseShop() {
+            if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+            {
+                GameManager.Instance.BackToMenu();
+            }
+
             UIManager.Instance.OpenPanel(GameConfig.Panel.Menu);
             UIManager.Instance.ClosePanel(GameConfig.Panel.Shop);
         }

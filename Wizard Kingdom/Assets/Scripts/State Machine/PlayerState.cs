@@ -16,6 +16,7 @@ namespace StateMachines
         {
             Debug.Log("Player: Enter Idle State!");
             _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
+            _player.HeadAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
 
             DrawDetector.OnDrawStart += HandleDrawStart;
         }
@@ -27,6 +28,7 @@ namespace StateMachines
         public void Exit()
         {
             _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
+            _player.HeadAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
 
             DrawDetector.OnDrawStart -= HandleDrawStart;
         }
@@ -112,7 +114,11 @@ namespace StateMachines
 
         public void Enter()
         {
+            _player.SetHeadActive(false);
+            _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
+            _player.HeadAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
             _player.BodyAnimator.SetBool(GameConfig.AnimatorParams.Dead, true);
+            _player.HeadAnimator.SetBool(GameConfig.AnimatorParams.Dead, true);
         }
 
         public void Update()

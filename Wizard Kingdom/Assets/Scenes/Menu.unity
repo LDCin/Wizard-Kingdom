@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 593788250}
   - component: {fileID: 593788251}
+  - component: {fileID: 593788252}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -168,13 +169,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 1
   _enemySpawnerPrefab: {fileID: 5733546627916897747, guid: 41d75ef8503fcd042b8f20319e55b9da, type: 3}
+  _player: {fileID: 0}
   _recognizer: {fileID: 616209415827842829, guid: d409d7c7fefb68643b1ee22b3f338d74, type: 3}
   _particlePool: {fileID: 5246516253613435651, guid: 997f0f8803260e647b5e31a6f0914a83, type: 3}
-  _startSpawnDelayTime: 2
+  _spellCaster: {fileID: 0}
+  _startSpawnDelayTime: 1
   _score: 0
   _highScore: 0
   _gold: 0
-  _playerDead: 1
+  _gestureSpellBindings:
+  - pattern: {fileID: 11400000, guid: de30cf6693c7b7e4cbff1beeaad49e7a, type: 2}
+    spell: {fileID: 11400000, guid: 628ce65ab93381f4eab8778229d8f05b, type: 2}
+  - pattern: {fileID: 11400000, guid: 7fb8140816079cc40854b4bc37eb695d, type: 2}
+    spell: {fileID: 11400000, guid: 628ce65ab93381f4eab8778229d8f05b, type: 2}
+  _playerDead: 0
+--- !u!114 &593788252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593788249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab251dc5f97e4bc391f8d9631dde6f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 593788251}
+  _bindings:
+  - pattern: {fileID: 11400000, guid: de30cf6693c7b7e4cbff1beeaad49e7a, type: 2}
+    action: 1
+    icon: {fileID: 21300000, guid: 09e3804864fa39b4e93bfde805526175, type: 3}
+    maxUsesPerMatch: 3
+  - pattern: {fileID: 11400000, guid: 7fb8140816079cc40854b4bc37eb695d, type: 2}
+    action: 0
+    icon: {fileID: 21300000, guid: 4695bf777cfb2904cb5030a187327b67, type: 3}
+    maxUsesPerMatch: 3
+  _slowMultiplier: 0.5
+  _slowDuration: 2
 --- !u!1 &1442447141
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +428,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 1
+  _editorData:
+    currentCoin: 0
+    highScores: []
+    ownedBackgrounds: []
+    ownedWizards: []
+    ownedSpells: []
+    equippedBackground: 
+    equippedWizard: 
+    bgmEnabled: 1
+    sfxEnabled: 1
+    vibrationEnabled: 1
 --- !u!1 &2122346498
 GameObject:
   m_ObjectHideFlags: 0
