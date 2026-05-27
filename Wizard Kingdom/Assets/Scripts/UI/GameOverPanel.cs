@@ -26,9 +26,6 @@ namespace UI
             UIManager.Instance.ClosePanel(GameConfig.Panel.GameOver);
             UIManager.Instance.OpenPanel(GameConfig.Panel.Shop);
         }
-        public void Share(){
-            Application.OpenURL(GameConfig.Links.Facebook);
-        }
         public void Restart()
         {
             OnRestartGame?.Invoke();

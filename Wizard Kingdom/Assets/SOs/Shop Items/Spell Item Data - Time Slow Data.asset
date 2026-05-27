@@ -16,7 +16,6 @@ MonoBehaviour:
   displayName: Time Slow Spell
   category: 0
   price: 500
-  displayOrder: 0
-  handSprite: {fileID: 21300000, guid: c798baf990617dc4081797995d9cc011, type: 3}
+  handSprite: {fileID: 21300000, guid: 4695bf777cfb2904cb5030a187327b67, type: 3}
   lockedItemSprite: {fileID: 21300000, guid: 7f922dee4080634478babeb7c47bc7a4, type: 3}
   unlockedItemSprite: {fileID: 21300000, guid: aaec8a94a172bdb4eb1fe0ec5351413b, type: 3}

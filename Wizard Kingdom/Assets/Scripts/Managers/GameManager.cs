@@ -9,7 +9,6 @@ using Players;
 using SOs;
 using StateMachines;
 using UI;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
