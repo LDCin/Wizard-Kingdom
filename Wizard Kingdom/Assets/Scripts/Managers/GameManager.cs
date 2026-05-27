@@ -349,6 +349,7 @@ namespace Managers
         private IEnumerator GameOverRoutine()
         {
             StopSpawnEnemy();
+            TryVibrateGameOver();
             OnGameOver?.Invoke();
             yield return new WaitUntil(() => _playerDead);
 
@@ -365,6 +366,14 @@ namespace Managers
             DestroyEnemySpawner();
             SceneLoader.LoadScene(GameConfig.Scene.GameOver, GameConfig.Panel.GameOver);
             Debug.Log("GAME OVER!");
+        }
+
+        private void TryVibrateGameOver()
+        {
+            if (!Application.isMobilePlatform) return;
+            var dm = DataManager.Instance;
+            if (dm != null && !dm.VibrationEnabled) return;
+            Handheld.Vibrate();
         }
 
         private void HandleSkillGesture(string gestureId)

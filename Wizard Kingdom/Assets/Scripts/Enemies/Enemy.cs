@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Balloons;
@@ -56,6 +56,10 @@ namespace Enemies
             get => _moveSpeed;
             set => _moveSpeed = value;
         }
+
+        [Header("Offscreen")]
+        [SerializeField] private float _offscreenDespawnMargin = 1f;
+        private bool _isDespawning;
 
         [Header("Stat")]
         private int _remainingBalloon = 1;
@@ -116,6 +120,8 @@ namespace Enemies
 
         private void OnEnable()
         {
+            _isDespawning = false;
+
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.RegisterEnemy(this);
@@ -137,6 +143,7 @@ namespace Enemies
         private void Update()
         {
             _stateMachine.Update();
+            TryDespawnIfOffscreen();
         }
 
         public void InitEnemyData(
@@ -170,6 +177,7 @@ namespace Enemies
         {
             _moveSpeed = _normalSpeed;
             _remainingBalloon = 0;
+            _isDespawning = false;
 
             if (_stateMachine != null && _idleState != null)
             {
@@ -179,7 +187,7 @@ namespace Enemies
 
         public void MoveDown()
         {
-            if (Managers.GameManager.Instance != null && Managers.GameManager.Instance.IsGameOver)
+            if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
             {
                 return;
             }
@@ -293,9 +301,9 @@ namespace Enemies
 
                 if (_remainingBalloon <= 0)
                 {
-                    bool timeAttackNoGround = Managers.GameManager.Instance != null
-                        && Managers.GameManager.Instance.CurrentModeData != null
-                        && Managers.GameManager.Instance.CurrentModeData.modeType == SOs.GameModeType.TimeAttack;
+                    bool timeAttackNoGround = GameManager.Instance != null
+                        && GameManager.Instance.CurrentModeData != null
+                        && GameManager.Instance.CurrentModeData.modeType == SOs.GameModeType.TimeAttack;
 
                     if (timeAttackNoGround)
                     {
@@ -544,6 +552,32 @@ namespace Enemies
                 elapsed += Time.deltaTime;
                 yield return null;
             }
+        }
+
+        private void TryDespawnIfOffscreen()
+        {
+            if (_isDespawning) return;
+            if (IsDead || IsEnemyVictory) return;
+            if (!IsTimeAttackNoGround()) return;
+
+            Camera cam = Camera.main;
+            if (cam == null) return;
+
+            float zDistance = Mathf.Abs(transform.position.z - cam.transform.position.z);
+            float minY = cam.ViewportToWorldPoint(new Vector3(0f, 0f, zDistance)).y;
+
+            if (transform.position.y < minY - _offscreenDespawnMargin)
+            {
+                _isDespawning = true;
+                OnReturnEnemyToPool?.Invoke(this);
+            }
+        }
+
+        private bool IsTimeAttackNoGround()
+        {
+            return GameManager.Instance != null
+                && GameManager.Instance.CurrentModeData != null
+                && GameManager.Instance.CurrentModeData.modeType == SOs.GameModeType.TimeAttack;
         }
     }
 }

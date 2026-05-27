@@ -886,7 +886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 66, y: 28}
+  m_AnchoredPosition: {x: 66, y: 64}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5108626361525363906
@@ -1084,6 +1084,8 @@ MonoBehaviour:
   _spellIconImage: {fileID: 703070151892520769}
   _spellRemainingText: {fileID: 1206324102283383881}
   _spellDisplayDuration: 1.5
+  _spellBlinkDuration: 1
+  _spellBlinkInterval: 0.15
 --- !u!114 &1673650333579626332
 MonoBehaviour:
   m_ObjectHideFlags: 0
