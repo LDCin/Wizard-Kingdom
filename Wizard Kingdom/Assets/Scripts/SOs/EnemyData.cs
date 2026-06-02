@@ -8,6 +8,7 @@ namespace SOs
     [CreateAssetMenu(fileName = "New Enemy", menuName = "Enemy", order = 1)]
     public class EnemyData : ScriptableObject
     {
+        public string id;
         public string enemyName;
         public Sprite sprite;
         public RuntimeAnimatorController runtimeAnimatorController;

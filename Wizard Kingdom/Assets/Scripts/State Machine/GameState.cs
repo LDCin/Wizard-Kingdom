@@ -1,6 +1,6 @@
-﻿using Enemies;
+using Enemies;
 using Managers;
-using Players;
+using Wizards;
 using UnityEngine;
 
 namespace StateMachines

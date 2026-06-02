@@ -1,0 +1,1101 @@
+paragraphs=1396 tables=9 sections=3
+0002	[normal]	HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG
+0003	[normal]	KHOA CÔNG NGHỆ THÔNG TIN 1
+0014	[normal]	BÁO CÁO MÔN THỰC TẬP CƠ SỞ
+0016	[normal]	ĐỀ TÀI:
+0017	[normal]	Game Wizard Kingdom
+0019	[normal]	Sinh viên thực hiện	: Lê Đình Chuyên
+0020	[normal]	Mã sinh viên		: B23DCCN100
+0021	[normal]	Mã lớp			: D23CQCN02-B
+0022	[normal]	Nhóm học phần		: 26
+0023	[normal]	Giảng viên			: TS. Đỗ Thị Liên
+0032	[normal]	Hà Nội – 2026
+0034	[normal]	LỜI CẢM ƠN
+0036	[normal]	Trong quá trình thực hiện đề tài dự án game Wizard Kingdom, em đã nhận được nhiều sự hướng dẫn, hỗ trợ và góp ý quý báu từ giảng viên cùng những người đã đồng hành, hỗ trợ em trong suốt quá trình thực hiện. Nhờ đó, em có thêm định hướng và điều kiện để hoàn thiện dự án một cách nghiêm túc và đầy đủ hơn.
+0038	[normal]	Em xin chân thành cảm ơn quý thầy cô khoa Công nghệ thông tin 1 đã truyền đạt cho em những kiến thức nền tảng và chuyên môn cần thiết trong suốt quá trình học tập. Đây là cơ sở quan trọng giúp em có thể vận dụng vào quá trình nghiên cứu, xây dựng và phát triển đề tài dự án.
+0040	[normal]	Đặc biệt, em xin gửi lời cảm ơn sâu sắc đến cô TS. Đỗ Thị Liên đã trực tiếp hướng dẫn, theo sát và đưa ra những góp ý thiết thực trong suốt quá trình em thực hiện dự án. Sự hỗ trợ tận tình cùng những nhận xét chuyên môn của cô đã giúp em hoàn thiện đề tài tốt hơn cả về nội dung lẫn định hướng thực hiện.
+0042	[normal]	Mặc dù đã có nhiều cố gắng, song do kiến thức chuyên môn và kinh nghiệm thực tế của bản thân còn hạn chế, đề tài dự án khó tránh khỏi những thiếu sót. Em rất mong nhận được những ý kiến đóng góp từ quý thầy cô để dự án được hoàn thiện hơn.
+0044	[normal]	Em xin chân thành cảm ơn!
+0048	[Heading 1]	MỤC LỤC
+0051	[Heading 1]	ĐẶT VẤN ĐỀ
+0052	[normal]	Trong những năm gần đây, cùng với sự phát triển mạnh mẽ của công nghệ thông tin, ngành công nghiệp game cũng có những bước tiến đáng kể cả về quy mô lẫn chất lượng sản phẩm. Sự cải thiện liên tục của phần cứng, phần mềm và các công cụ lập trình đã giúp quá trình phát triển game trở nên thuận lợi hơn, đặc biệt là trên nền tảng di động. Ngày nay, điện thoại thông minh không chỉ đóng vai trò là phương tiện liên lạc mà còn trở thành một thiết bị giải trí phổ biến, đáp ứng nhu cầu sử dụng mọi lúc, mọi nơi của người dùng. Từ đó, các trò chơi trên nền tảng di động ngày càng phát triển đa dạng về nội dung, hình thức và trải nghiệm.
+0054	[normal]	Song song với sự phát triển đó, nhu cầu giải trí của con người cũng ngày càng tăng cao. Sau những giờ học tập và làm việc căng thẳng, người dùng thường có xu hướng tìm kiếm những hình thức giải trí đơn giản, tiện lợi nhưng vẫn mang lại cảm giác thư giãn và thoải mái. Mặc dù có nhiều lựa chọn như xem phim, nghe nhạc hay tham gia các hoạt động ngoài trời, trò chơi điện tử trên thiết bị di động vẫn là một trong những hình thức giải trí được lựa chọn nhiều nhờ tính linh hoạt, dễ tiếp cận và phù hợp với nhiều đối tượng khác nhau.
+0056	[normal]	Xuất phát từ thực tế đó, đề tài xây dựng game Wizard Kingdom được thực hiện nhằm phát triển một trò chơi mang tính giải trí cao, có lối chơi đơn giản nhưng vẫn tạo được sự hấp dẫn và thử thách cho người chơi. Đây là một trò chơi thuộc thể loại arcade, fantasy 2D, trong đó người chơi vào vai một pháp sư bảo vệ vương quốc khỏi các đợt tấn công từ kẻ địch xuất hiện trên bầu trời. Người chơi cần thực hiện thao tác vẽ các ký hiệu trực tiếp trên màn hình để tiêu diệt mục tiêu và ngăn chúng tiếp cận lâu đài. Với cơ chế điều khiển trực quan, dễ làm quen nhưng yêu cầu khả năng phản xạ và quan sát tốt, trò chơi hướng đến việc mang lại những phút giây giải trí nhanh gọn nhưng vẫn đầy thử thách.
+0058	[normal]	Khác với những trò chơi chú trọng quá nhiều vào cốt truyện dài hoặc hệ thống điều khiển phức tạp, Wizard Kingdom tập trung vào trải nghiệm chơi nhanh, liên tục và có tính tương tác cao. Người chơi có thể tham gia trò chơi trong những khoảng thời gian ngắn nhưng vẫn cảm nhận được sự căng thẳng, kịch tính và cảm giác chinh phục khi vượt qua các đợt tấn công ngày càng khó hơn. Đây là hướng phát triển phù hợp với xu hướng game mobile hiện nay, khi người dùng ngày càng ưu tiên các sản phẩm có tính tiện lợi, dễ tiếp cận và mang lại trải nghiệm giải trí tức thời.
+0060	[normal]	Thông qua việc xây dựng đề tài này, em không chỉ hướng đến việc tạo ra một sản phẩm giải trí đơn giản mà còn có cơ hội vận dụng các kiến thức về phân tích, thiết kế và phát triển phần mềm vào thực tế. Đồng thời, đề tài cũng là cơ sở để nghiên cứu cách tổ chức hệ thống trò chơi, xây dựng cơ chế gameplay, xử lý tương tác người dùng và tối ưu trải nghiệm chơi game trên nền tảng được lựa chọn.
+0062	[Heading 1]	DANH MỤC CÁC KÝ HIỆU VÀ CHỮ VIẾT TẮT
+0066	[Heading 1]	DANH MỤC CÁC BẢNG
+0070	[Heading 1]	DANH MỤC CÁC HÌNH VẼ
+0075	[Heading 1]	CHƯƠNG I: TỔNG QUAN VỀ ĐỀ TÀI GAME “WIZARD KINGDOM”
+0077	[normal]	Chương 1 giới thiệu những nội dung tổng quan liên quan đến game Wizard Kingdom, bao gồm việc xác định các yêu cầu thiết kế cốt lõi, khảo sát các cơ chế game liên quan và thiết kế tương tác cho sản phẩm.
+0079	[Heading 2]	Giới thiệu game
+0080	[normal]	Tên game: Wizard Kingdom
+0081	[normal]	Thể loại: Arcade, Hyper Casual, 2D
+0082	[normal]	Art style: Fantasy Cartoon 2D
+0083	[normal]	Nền tảng: Mobile
+0084	[normal]	Engine: Unity
+0085	[normal]	Số người chơi: 1
+0086	[normal]	Đối tượng hướng tới: Người chơi từ 10 tuổi trở lên
+0087	[normal]	Gameplay:
+0088	[normal]	Trong Wizard Kingdom, người chơi vào vai một phù thủy bảo vệ vương quốc khỏi các đợt tấn công của kẻ địch xuất hiện từ trên không trung. Trên mỗi mục tiêu sẽ xuất hiện các quả bóng bay với ký hiệu phép thuật khác nhau, người chơi cần thao tác vẽ đúng ký hiệu trực tiếp trên màn hình để phá hủy mục tiêu trước khi chúng tiếp cận lâu đài.
+0089	[normal]	Mục tiêu chính của người chơi là tiêu diệt càng nhiều kẻ địch càng tốt để ghi điểm và kéo dài thời gian sinh tồn. Trò chơi yêu cầu người chơi phải có khả năng quan sát nhanh, phản xạ tốt và thao tác chính xác, bởi tốc độ xuất hiện cũng như độ phức tạp của ký hiệu trên kẻ địch sẽ tăng dần theo thời gian chơi.
+0090	[normal]	Điều kiện thua: Người chơi sẽ bị thua khi kẻ địch tiếp cận và chạm vào bề mặt của lâu đài - nơi mà nhân vật phù thủy đang đứng.
+0092	[normal]	Cơ chế nổi bật của game:
+0093	[normal]	Cơ chế vẽ ký hiệu: Điểm nổi bật của Wizard Kingdom nằm ở cơ chế sử dụng phép thuật thông qua thao tác vẽ ký hiệu trực tiếp trên màn hình cảm ứng. Mỗi kẻ địch sẽ mang theo một ký hiệu phép thuật riêng và người chơi cần nhanh chóng quan sát, sau đó vẽ lại chính xác ký hiệu tương ứng để tiêu diệt mục tiêu. Hệ thống sẽ ghi nhận hình dạng, hướng vẽ và độ chính xác của thao tác để xử lý kết quả. Khác với các trò chơi sử dụng nút điều khiển truyền thống, cơ chế này giúp người chơi có cảm giác tương tác trực tiếp với gameplay, đồng thời tạo ra tính thử thách cao khi số lượng kẻ địch và độ phức tạp của ký hiệu tăng dần theo thời gian chơi.
+0094	[normal]	Cơ chế sinh kẻ địch: Trò chơi còn nổi bật ở hệ thống sinh kẻ địch và bóng bay theo độ khó. Ở giai đoạn đầu, số lượng kẻ địch xuất hiện ít, tốc độ di chuyển chậm và ký hiệu tương đối đơn giản để người chơi làm quen với gameplay. Khi thời gian chơi kéo dài, hệ thống sẽ tăng dần số lượng mục tiêu xuất hiện đồng thời, tốc độ di chuyển của bóng bay và độ phức tạp của các ký hiệu phép thuật. Cơ chế này giúp trò chơi duy trì được nhịp độ liên tục, tăng cảm giác căng thẳng và tạo thử thách ngày càng lớn cho người chơi.
+0096	[Heading 3]	Xác định yêu cầu
+0097	[Heading 3]	Domain và glossary list
+0098	[normal]	Domain: Người dùng có nhu cầu sử dụng một trò chơi arcade 2D mang yếu tố phép thuật trên thiết bị di động nhằm phục vụ mục đích giải trí nhanh, dễ tiếp cận nhưng vẫn có tính thử thách. Trước khi mô tả chi tiết hệ thống, cần tìm hiểu lĩnh vực phát triển game arcade 2D trên thiết bị di động, bao gồm các khái niệm liên quan đến gameplay, người chơi, kẻ địch, chế độ chơi, điểm số, cửa hàng vật phẩm và dữ liệu người chơi.
+0100	[normal]	Glossary list:
+0103	[Heading 3]	Giới thiệu mục đích và xác định phạm vi hệ thống
+0104	[normal]	Mục đích: Phần mềm hỗ trợ người chơi giải trí thông qua trò chơi Wizard Kingdom, trong đó người chơi vào vai một phù thủy bảo vệ lâu đài khỏi các kẻ địch xuất hiện từ trên không trung. Người chơi sử dụng thao tác vẽ ký hiệu phép thuật trực tiếp trên màn hình để phá hủy bóng bay, tiêu diệt kẻ địch, ghi điểm và kéo dài thời gian chơi lâu nhất có thể.
+0106	[normal]	Phạm vi hệ thống: Phần mềm là một ứng dụng game 2D trên thiết bị di động, dành cho một người chơi. Hệ thống được xây dựng bằng Unity và hoạt động chủ yếu ở phía người dùng. Game có duy nhất một tác nhân là người chơi và bao gồm các chức năng chính như chơi game, tạm dừng, thay đổi cài đặt, truy cập cửa hàng và mua hoặc lựa chọn các vật phẩm tùy chỉnh như phép thuật, hình nền và nhân vật phù thủy.
+0108	[Heading 3]	Mô tả hoạt động nghiệp vụ của hệ thống
+0109	[normal]	Người chơi là người duy nhất sử dụng trực tiếp phần mềm.
+0110	[normal]	Đề xuất actor tương ứng: Player
+0112	[normal]	Người chơi có thể thực hiện các chức năng:
+0113	[normal]	Chơi game.
+0114	[normal]	Tạm dừng trò chơi.
+0115	[normal]	Hiển thị game over.
+0116	[normal]	Cài đặt.
+0117	[normal]	Mua sắm và sử dụng các vật phẩm.
+0119	[normal]	Mô tả nghiệp vụ chi tiết cho từng chức năng:
+0120	[normal]	Chức năng chơi game: Người chơi mở game → màn hình chính của Wizard Kingdom hiện ra với các lựa chọn chế độ chơi Arcade, chế độ chơi Time Attack, cửa hàng và cài đặt → người chơi chọn chế độ Arcade hoặc Time Attack trực tiếp từ màn hình chính → hệ thống tải dữ liệu chế độ chơi tương ứng và chuyển sang màn hình gameplay → hệ thống đặt lại điểm số và gold kiếm được trong ván → sau một khoảng thời gian ngắn hệ thống bắt đầu sinh kẻ địch từ phía trên màn hình → mỗi kẻ địch xuất hiện cùng một hoặc nhiều bóng bay có ký hiệu phép thuật → người chơi quan sát ký hiệu trên bóng bay và vẽ lại ký hiệu tương ứng trên vùng vẽ của màn hình → hệ thống nhận diện ký hiệu vừa vẽ → nếu ký hiệu trùng với một bóng bay đang xuất hiện thì bóng bay đó bị phá hủy → khi toàn bộ bóng bay của một kẻ địch bị phá hủy, hệ thống xử lý kẻ địch theo chế độ chơi hiện tại → hệ thống cộng điểm và gold cho người chơi khi kẻ địch bị tiêu diệt → giao diện gameplay cập nhật điểm số và gold hiện tại → hệ thống tiếp tục sinh kẻ địch mới theo độ khó của chế độ chơi cho đến khi xảy ra điều kiện kết thúc ván chơi.
+0122	[normal]	Chức năng tạm dừng trò chơi: Trong khi đang chơi game, người chơi có thể chọn nút tạm dừng trên giao diện gameplay → hệ thống dừng tiến trình gameplay hiện tại và hiển thị giao diện tạm dừng → giao diện tạm dừng có các lựa chọn tiếp tục, chơi lại và quay về màn hình chính → nếu người chơi chọn tiếp tục thì hệ thống đóng giao diện tạm dừng và khôi phục ván chơi tại trạng thái trước khi tạm dừng → nếu người chơi chọn chơi lại thì hệ thống khởi tạo lại ván chơi mới, đặt lại điểm số, gold kiếm được trong ván và bắt đầu lại quá trình sinh kẻ địch → nếu người chơi chọn quay về màn hình chính thì hệ thống kết thúc ván chơi hiện tại, hủy các kẻ địch đang tồn tại và chuyển về màn hình chính của game.
+0124	[normal]	Chức năng hiển thị game over: Trong quá trình chơi, nếu kẻ địch tiếp cận lâu đài ở chế độ Arcade hoặc thời gian chơi kết thúc ở chế độ Time Attack thì hệ thống xác định ván chơi đã kết thúc → hệ thống dừng sinh kẻ địch và chuyển trạng thái game sang game over → nhân vật phù thủy thực hiện trạng thái thua → hệ thống cộng số gold kiếm được trong ván vào tổng gold của người chơi → nếu điểm số hiện tại cao hơn điểm cao nhất đã lưu của chế độ chơi tương ứng thì hệ thống cập nhật điểm cao nhất mới → hệ thống chuyển sang màn hình Game Over → giao diện Game Over hiển thị điểm số của ván chơi, điểm cao nhất, tổng gold hiện có và các lựa chọn chơi lại, quay về màn hình chính, mở cửa hàng hoặc chia sẻ điểm → nếu người chơi chọn chơi lại thì hệ thống khởi tạo lại ván chơi mới → nếu người chơi chọn quay về màn hình chính thì hệ thống quay về màn hình chính → nếu người chơi chọn mở cửa hàng thì hệ thống hiển thị giao diện cửa hàng → nếu người chơi chọn chia sẻ điểm thì hệ thống mở đường dẫn chia sẻ điểm.
+0126	[normal]	Chức năng cài đặt: Người chơi chọn chức năng cài đặt từ màn hình chính → hệ thống hiển thị giao diện cài đặt với các lựa chọn bật/tắt nhạc nền, bật/tắt hiệu ứng âm thanh, bật/tắt rung và reset dữ liệu người chơi → người chơi chọn thay đổi trạng thái nhạc nền → hệ thống cập nhật trạng thái nhạc nền, áp dụng ngay vào âm thanh của game và lưu lại dữ liệu cài đặt → người chơi chọn thay đổi trạng thái hiệu ứng âm thanh → hệ thống cập nhật trạng thái hiệu ứng âm thanh, áp dụng cho các âm thanh sự kiện trong game và lưu lại dữ liệu cài đặt → người chơi chọn thay đổi trạng thái rung → hệ thống cập nhật trạng thái rung và lưu lại dữ liệu cài đặt → nếu người chơi bấm nút reset dữ liệu đủ số lần yêu cầu trong khoảng thời gian cho phép thì hệ thống đưa toàn bộ dữ liệu người chơi về trạng thái mặc định, bao gồm gold, điểm cao nhất, vật phẩm đã sở hữu, vật phẩm đang trang bị và trạng thái cài đặt → khi người chơi đóng giao diện cài đặt, hệ thống quay về màn hình chính.
+0128	[normal]	Chức năng mua sắm và sử dụng các vật phẩm: Người chơi chọn chức năng cửa hàng từ màn hình chính hoặc từ màn hình Game Over → hệ thống hiển thị giao diện cửa hàng với các nhóm vật phẩm gồm phép thuật, hình nền và nhân vật phù thủy → người chơi chọn một nhóm vật phẩm → hệ thống hiển thị giao diện danh sách vật phẩm của nhóm đó, bao gồm hình ảnh vật phẩm, giá gold và trạng thái của vật phẩm → người chơi có thể chuyển qua lại giữa các vật phẩm trong nhóm để xem thông tin → nếu vật phẩm chưa được sở hữu, hệ thống hiển thị lựa chọn mua → người chơi chọn mua vật phẩm → hệ thống kiểm tra tổng số gold hiện có của người chơi → nếu gold đủ thì hệ thống trừ gold, cập nhật vật phẩm vào danh sách đã sở hữu và lưu dữ liệu người chơi → nếu gold không đủ thì hệ thống không thực hiện mua vật phẩm và giữ nguyên trạng thái hiện tại → nếu vật phẩm đã được sở hữu và là hình nền hoặc nhân vật phù thủy, người chơi có thể chọn trang bị để sử dụng trong gameplay → hệ thống cập nhật vật phẩm đang trang bị và lưu dữ liệu người chơi → nếu vật phẩm là phép thuật đã được sở hữu thì phép thuật được mở khóa để sử dụng trong ván chơi khi người chơi vẽ đúng ký hiệu tương ứng.
+0130	[Heading 3]	Thông tin các đối tượng cần xử lý
+0131	[normal]	Thông tin về người chơi bao gồm: tổng số gold hiện có, điểm cao nhất theo từng chế độ chơi, danh sách phép thuật đã sở hữu, danh sách hình nền đã sở hữu, danh sách nhân vật phù thủy đã sở hữu, hình nền đang được trang bị, nhân vật phù thủy đang được trang bị, trạng thái bật/tắt nhạc nền, trạng thái bật/tắt hiệu ứng âm thanh và trạng thái bật/tắt rung.
+0133	[normal]	Thông tin về ván chơi bao gồm: chế độ chơi đang được chọn, điểm số hiện tại, số gold kiếm được trong ván, trạng thái hiện tại của ván chơi, thời gian chơi còn lại nếu là chế độ Time Attack và danh sách kẻ địch đang xuất hiện trong ván chơi.
+0135	[normal]	Thông tin về chế độ chơi bao gồm: tên chế độ chơi, loại chế độ chơi, danh sách các mức độ khó, thời gian chơi nếu chế độ có giới hạn thời gian và hình nền cố định nếu chế độ yêu cầu sử dụng hình nền riêng.
+0137	[normal]	Thông tin về mức độ khó bao gồm: ngưỡng điểm cần đạt để kích hoạt mức độ khó, thời gian sinh kẻ địch chung và danh sách các loại kẻ địch được phép sinh ra ở mức độ khó đó.
+0139	[normal]	Thông tin về kẻ địch bao gồm: tên kẻ địch, loại kẻ địch, hình ảnh, hoạt ảnh, tốc độ di chuyển, số gold thưởng, số điểm thưởng, số lượng bóng bay cần gắn và danh sách các ký hiệu bóng bay có thể xuất hiện trên kẻ địch.
+0141	[normal]	Thông tin về bóng bay bao gồm: ký hiệu phép thuật, hình ảnh hiển thị, hoạt ảnh tương ứng và trạng thái đang hiển thị hoặc đã bị phá hủy.
+0143	[normal]	Thông tin về ký hiệu phép thuật bao gồm: tên ký hiệu, hình dạng ký hiệu và kết quả nhận diện tương ứng khi người chơi thực hiện thao tác vẽ trên màn hình.
+0145	[normal]	Thông tin về phép thuật đặc biệt bao gồm: tên phép thuật, ký hiệu kích hoạt, hình ảnh biểu tượng, trạng thái đã sở hữu hoặc chưa sở hữu, số lượt sử dụng tối đa trong một ván chơi và hiệu ứng khi được kích hoạt.
+0147	[normal]	Thông tin về vật phẩm trong cửa hàng bao gồm: mã vật phẩm, tên vật phẩm, loại vật phẩm, giá gold, hình ảnh hiển thị trong cửa hàng, trạng thái đã sở hữu hoặc chưa sở hữu và trạng thái đang được trang bị nếu vật phẩm có thể trang bị.
+0149	[normal]	Thông tin về vật phẩm hình nền bao gồm: mã hình nền, tên hình nền, giá gold, hình ảnh khi chưa sở hữu, hình ảnh khi đã sở hữu, hình ảnh tên vật phẩm và prefab hình nền được sử dụng trong gameplay.
+0151	[normal]	Thông tin về vật phẩm nhân vật phù thủy bao gồm: mã nhân vật, tên nhân vật, giá gold, hình ảnh toàn thân khi chưa sở hữu, hình ảnh toàn thân khi đã sở hữu, hình ảnh chân dung, hình ảnh tên nhân vật và bộ hoạt ảnh tương ứng của nhân vật.
+0153	[normal]	Thông tin về hiệu ứng âm thanh bao gồm: trạng thái bật/tắt nhạc nền, trạng thái bật/tắt hiệu ứng âm thanh, âm thanh khi phá bóng bay, âm thanh khi tiêu diệt kẻ địch và nhạc nền của trò chơi.
+0155	[normal]	Thông tin về kết quả ván chơi bao gồm: chế độ chơi đã tham gia, điểm số đạt được, gold nhận được trong ván, điểm cao nhất hiện tại, tổng gold của người chơi sau khi cộng thưởng và các lựa chọn sau khi kết thúc ván chơi.
+0157	[Heading 3]	Quan hệ giữa các đối tượng cần xử lý
+0158	[normal]	Một người chơi có một bộ dữ liệu người chơi, trong đó lưu thông tin điểm cao nhất, tổng gold, vật phẩm đã sở hữu, vật phẩm đang trang bị và các trạng thái cài đặt.
+0160	[normal]	Một người chơi có thể tham gia nhiều ván chơi khác nhau, nhưng tại một thời điểm chỉ có một ván chơi đang diễn ra.
+0161	[normal]	Một ván chơi thuộc một chế độ chơi cụ thể, ví dụ chế độ Arcade hoặc chế độ Time Attack.
+0163	[normal]	Một chế độ chơi có nhiều mức độ khó, mỗi mức độ khó quy định danh sách kẻ địch và tốc độ sinh kẻ địch tương ứng.
+0165	[normal]	Một ván chơi có thể có nhiều kẻ địch đang xuất hiện, mỗi kẻ địch thuộc về ván chơi hiện tại.
+0167	[normal]	Một kẻ địch có một hoặc nhiều bóng bay, mỗi bóng bay chỉ gắn với một kẻ địch tại một thời điểm.
+0169	[normal]	Mỗi bóng bay mang một ký hiệu phép thuật, người chơi cần vẽ đúng ký hiệu đó để phá hủy bóng bay.
+0171	[normal]	Một ký hiệu phép thuật có thể xuất hiện trên nhiều bóng bay khác nhau trong cùng một ván chơi.
+0173	[normal]	Một kẻ địch chỉ bị tiêu diệt hoặc chuyển sang trạng thái rơi khi toàn bộ bóng bay gắn với kẻ địch đó đã bị phá hủy, trừ trường hợp bị tác động bởi phép thuật đặc biệt.
+0175	[normal]	Người chơi nhận được điểm số và gold khi kẻ địch bị tiêu diệt thành công.
+0177	[normal]	Một người chơi có thể sở hữu nhiều vật phẩm trong cửa hàng.
+0179	[normal]	Một vật phẩm chỉ có thể được mua nếu người chơi có đủ gold.
+0181	[normal]	Một vật phẩm sau khi được mua sẽ được thêm vào danh sách vật phẩm đã sở hữu của người chơi.
+0183	[normal]	Một người chơi có thể sở hữu nhiều hình nền, nhưng tại một thời điểm chỉ có một hình nền được trang bị để sử dụng trong gameplay.
+0185	[normal]	Một người chơi có thể sở hữu nhiều nhân vật phù thủy, nhưng tại một thời điểm chỉ có một nhân vật phù thủy được trang bị.
+0187	[normal]	Một người chơi có thể sở hữu nhiều phép thuật đặc biệt, nhưng mỗi phép thuật chỉ được sử dụng khi người chơi vẽ đúng ký hiệu kích hoạt tương ứng và còn lượt sử dụng trong ván chơi.
+0189	[normal]	Một phép thuật đặc biệt có thể tác động đến nhiều kẻ địch đang xuất hiện trong ván chơi.
+0191	[normal]	Trạng thái cài đặt âm thanh và rung của người chơi ảnh hưởng đến việc hệ thống phát nhạc nền, hiệu ứng âm thanh và phản hồi rung.
+0193	[normal]	Khi ván chơi kết thúc, kết quả ván chơi được dùng để cập nhật tổng gold và điểm cao nhất của người chơi nếu đạt điều kiện.
+0195	[Heading 3]	Sơ đồ Use case
+0196	[normal]	Sơ đồ tổng quát:
+0199	[normal]	Mô tả use case:
+0200	[normal]	Show Menu: UC này cho phép người chơi truy cập màn hình chính của trò chơi. Tại màn hình này, người chơi có thể bắt đầu chơi game, chọn chế độ chơi, mở phần cài đặt hoặc truy cập cửa hàng.
+0202	[normal]	Play Game: UC này cho phép người chơi bắt đầu một ván chơi mới và tham gia vào quá trình chơi game.
+0203	[normal]	Pause Game: UC này cho phép người chơi tạm dừng trò chơi trong khi đang chơi. Từ trạng thái tạm dừng, người chơi có thể quay về màn hình chính, chơi lại hoặc tiếp tục ván chơi.
+0205	[normal]	Game Over: UC này cho phép hệ thống hiển thị màn hình kết thúc trò chơi khi người chơi thua hoặc ván chơi kết thúc. Màn hình Game Over hiển thị điểm số, điểm cao nhất và các tùy chọn như quay về menu, chơi lại, mở cửa hàng hoặc chia sẻ điểm số.
+0207	[normal]	Setting: UC này cho phép người chơi thay đổi các thiết lập của trò chơi. Các thiết lập gồm trạng thái nhạc nền, hiệu ứng âm thanh, rung và reset dữ liệu.
+0209	[normal]	Shopping And Use Items: UC này cho phép người chơi truy cập cửa hàng trong game. Tại đây, người chơi có thể sử dụng vật phẩm và mua vật phẩm.
+0211	[normal]	Phân rã các chi tiết các use case:
+0212	[normal]	Use case Play Game:
+0213	[normal]	Sơ đồ use case chi tiết:
+0216	[normal]	Mô tả use case:
+0217	[normal]	Play Game: UC này cho phép người chơi bắt đầu một ván chơi mới và tham gia vào quá trình chơi game.
+0219	[normal]	Show Menu: UC này cho phép người chơi truy cập màn hình chính của trò chơi. Tại màn hình này, người chơi có thể bắt đầu chơi game, chọn chế độ chơi, mở phần cài đặt hoặc truy cập cửa hàng.
+0221	[normal]	Select Game Mode: UC này cho phép người chơi lựa chọn chế độ chơi trước khi bắt đầu một ván. Hệ thống cung cấp hai chế độ là Arcade Mode và Time Attack Mode.
+0223	[normal]	Select Arcade Mode: UC này cho phép người chơi chọn chế độ Arcade. Trong chế độ này, hệ thống liên tục sinh kẻ địch theo độ khó của ván chơi. Người chơi cố gắng tiêu diệt càng nhiều kẻ địch càng tốt. Ván chơi kết thúc khi một kẻ địch tiếp cận lâu đài.
+0225	[normal]	Select Time Attack Mode: UC này cho phép người chơi chọn chế độ Time Attack. Trong chế độ này, người chơi cố gắng đạt điểm số cao nhất trước khi hết thời gian. Khi người chơi phá nhiều bóng bay trong cùng một lượt vẽ, hệ thống có thể cộng thêm thời gian chơi. Ván chơi kết thúc khi thời gian còn lại bằng không.
+0227	[normal]	Draw Symbol: UC này cho phép người chơi vẽ ký hiệu phép thuật trên màn hình trong quá trình chơi.
+0229	[normal]	Use Skill: UC này cho phép người chơi vẽ ký hiệu phép thuật đặc biệt trên màn hình để sử dụng skill trong quá trình chơi.
+0231	[normal]	Pause Game: UC này cho phép người chơi tạm dừng trò chơi trong khi đang chơi. Từ trạng thái tạm dừng, người chơi có thể quay về màn hình chính, chơi lại hoặc tiếp tục ván chơi.
+0233	[normal]	Game Over: UC này cho phép hệ thống hiển thị màn hình kết thúc trò chơi khi người chơi thua hoặc ván chơi kết thúc. Màn hình Game Over hiển thị điểm số, điểm cao nhất và các tùy chọn như quay về menu, chơi lại, mở cửa hàng hoặc chia sẻ điểm số.
+0235	[normal]	Use case Game Over:
+0236	[normal]	Sơ đồ use case chi tiết:
+0239	[normal]	Mô tả use case:
+0240	[normal]	Game Over: UC này cho phép hệ thống hiển thị màn hình kết thúc trò chơi khi người chơi thua hoặc ván chơi kết thúc. Màn hình Game Over hiển thị điểm số, điểm cao nhất và các tùy chọn như quay về menu, chơi lại, mở cửa hàng hoặc chia sẻ điểm số.
+0242	[normal]	Restart Game: UC này cho phép người chơi bắt đầu lại một ván chơi sau khi ván hiện tại kết thúc. Khi người chơi chọn chức năng chơi lại từ màn hình Game Over
+0244	[normal]	Show Menu: UC này cho phép người chơi truy cập màn hình chính của trò chơi. Tại màn hình này, người chơi có thể bắt đầu chơi game, chọn chế độ chơi, mở phần cài đặt hoặc truy cập cửa hàng.
+0246	[normal]	Shopping And Use Items: UC này cho phép người chơi truy cập cửa hàng trong game. Tại đây, người chơi có thể sử dụng vật phẩm và mua vật phẩm.
+0248	[normal]	Share Score: UC này cho phép người chơi chọn chức năng chia sẻ sau khi kết thúc ván chơi. Hệ thống mở đường dẫn chia sẻ để người chơi có thể chia sẻ kết quả.
+0250	[normal]	Use case Pause Game:
+0251	[normal]	Sơ đồ use case chi tiết:
+0254	[normal]	Mô tả use case:
+0255	[normal]	Pause Game: UC này cho phép người chơi tạm dừng trò chơi trong khi đang chơi. Từ trạng thái tạm dừng, người chơi có thể quay về màn hình chính, chơi lại hoặc tiếp tục ván chơi.
+0257	[normal]	Resume Game: UC này cho phép người chơi tiếp tục ván chơi đã tạm dừng.
+0259	[normal]	Restart Game: UC này cho phép người chơi bắt đầu lại ván chơi từ màn hình Pause.
+0261	[normal]	Show Menu: UC này cho phép người chơi truy cập màn hình chính của trò chơi. Tại màn hình này, người chơi có thể bắt đầu chơi game, chọn chế độ chơi, mở phần cài đặt hoặc truy cập cửa hàng.
+0263	[normal]	Use case Shopping And Use Items:
+0264	[normal]	Sơ đồ use case chi tiết:
+0267	[normal]	Mô tả use case:
+0268	[normal]	Shopping And Use Items: UC này cho phép người chơi truy cập cửa hàng trong game. Tại đây, người chơi có thể sử dụng vật phẩm và mua vật phẩm.
+0270	[normal]	Buy Item: UC này cho phép người chơi mua một vật phẩm chưa sở hữu.
+0272	[normal]	Buy Spell: UC này cho phép người chơi mua một phép thuật đặc biệt.
+0274	[normal]	Buy Wizard: UC này cho phép người chơi mua một nhân vật phù thủy mới.
+0276	[normal]	Buy Background: UC này cho phép người chơi mua một hình nền mới.
+0278	[normal]	Use Item: UC này cho phép người chơi sử dụng vật phẩm đã sở hữu. Tùy theo loại vật phẩm, hệ thống cập nhật trạng thái sử dụng hoặc trang bị tương ứng.
+0280	[normal]	Use Wizard: UC này cho phép người chơi lựa chọn một nhân vật phù thủy đã sở hữu.
+0282	[normal]	Use Background: UC này cho phép người chơi lựa chọn một hình nền đã sở hữu.
+0284	[normal]	Use case Setting:
+0285	[normal]	Sơ đồ use case chi tiết:
+0288	[normal]	Mô tả use case:
+0289	[normal]	Setting: UC này cho phép người chơi thay đổi các thiết lập của trò chơi. Các thiết lập gồm trạng thái nhạc nền, hiệu ứng âm thanh, rung và reset dữ liệu.
+0291	[normal]	Change BGM State: UC này cho phép người chơi bật hoặc tắt nhạc nền của game.
+0293	[normal]	Change SFX State: UC này cho phép người chơi bật hoặc tắt hiệu ứng âm thanh của game.
+0295	[normal]	Change Vibration State: UC này cho phép người chơi bật hoặc tắt chế độ rung của thiết bị.
+0297	[normal]	Reset Data: UC này cho phép người chơi đưa dữ liệu game về trạng thái mặc định sau khi nhấn liên tục đủ số lần yêu cầu.
+0299	[Heading 2]	Khảo sát những nghiên cứu, sản phẩm liên quan
+0300	[normal]	Việc khảo sát những nghiên cứu và sản phẩm liên quan là cơ sở quan trọng để xác định hướng xây dựng game Wizard Kingdom. Thông qua quá trình tham khảo các trò chơi cùng thể loại, có thể rút ra những đặc điểm chung về gameplay, giao diện, cơ chế điều khiển và phương pháp tăng độ khó trong quá trình chơi. Từ đó, có cơ sở để lựa chọn hướng phát triển phù hợp cho sản phẩm.
+0302	[Heading 3]	Khảo sát các sản phẩm liên quan
+0303	[normal]	Wizard Kingdom thuộc nhóm trò chơi arcade, hyper casual kết hợp phản xạ và thao tác cảm ứng trực tiếp trên màn hình. Đây là thể loại phổ biến trên nền tảng di động nhờ có lối chơi đơn giản, dễ tiếp cận nhưng vẫn tạo được cảm giác thử thách và cuốn hút trong quá trình trải nghiệm.
+0304	[normal]	Một số trò chơi cùng thể loại thường được sử dụng để tham khảo gồm các game arcade có cơ chế phản xạ nhanh, điều khiển bằng thao tác cảm ứng và gameplay theo nhịp độ liên tục. Điểm chung của các sản phẩm này là đều hướng đến trải nghiệm ngắn gọn, trực quan và tập trung vào khả năng phản xạ của người chơi. Một số game mà Wizard Kingdom đã tham khảo gồm: Fruit Ninja, Jetpack Joyride và Subway Surfers.
+0306	[normal]	Khảo sát về gameplay
+0307	[normal]	Qua quá trình tìm hiểu các trò chơi liên quan, có thể nhận thấy gameplay của thể loại này thường xoay quanh một số yếu tố chính:
+0308	[normal]	Người chơi cần thực hiện thao tác nhanh và chính xác trên màn hình cảm ứng.
+0309	[normal]	Gameplay có nhịp độ liên tục và tăng dần theo thời gian.
+0310	[normal]	Độ khó được tăng thông qua tốc độ xử lý hoặc số lượng mục tiêu xuất hiện đồng thời.
+0311	[normal]	Hệ thống phản hồi trực quan giúp người chơi dễ dàng nhận biết kết quả thao tác.
+0312	[normal]	Mục tiêu chính thường là ghi điểm và kéo dài thời gian chơi.
+0314	[normal]	Những đặc điểm trên cho thấy gameplay của dòng game này không quá phức tạp về luật chơi nhưng cần được thiết kế hợp lý để bảo đảm sự cân bằng giữa tính giải trí và thử thách. Đây cũng là hướng tiếp cận phù hợp đối với Wizard Kingdom.
+0316	[normal]	Khảo sát về giao diện và trải nghiệm người dùng
+0317	[normal]	Các trò chơi cùng nhóm thường sử dụng giao diện đơn giản, trực quan và dễ thao tác. Điều này đặc biệt quan trọng với các game hyper casual, nơi người chơi thường mong muốn có thể làm quen nhanh và bắt đầu chơi gần như ngay lập tức.
+0319	[normal]	Một số đặc điểm giao diện thường gặp gồm:
+0320	[normal]	Bố cục rõ ràng, tập trung vào khu vực gameplay chính.
+0321	[normal]	Các đối tượng trong game được thiết kế nổi bật và dễ nhận biết.
+0322	[normal]	Điểm số và thông tin cần thiết được hiển thị ở vị trí dễ quan sát.
+0323	[normal]	Hiệu ứng hình ảnh được sử dụng để tăng phản hồi thị giác nhưng không gây rối mắt.
+0324	[normal]	Các thao tác cảm ứng được tối ưu để người chơi dễ sử dụng trên thiết bị di động.
+0325	[normal]	Từ việc khảo sát này, có thể thấy rằng Wizard Kingdom cần được xây dựng theo hướng giao diện 2D trực quan, dễ tiếp cận và có phản hồi rõ ràng đối với thao tác của người chơi.
+0327	[normal]	Khảo sát về cơ chế sinh và độ khó
+0328	[normal]	Một trong những yếu tố quan trọng của các trò chơi arcade là cơ chế tăng độ khó theo thời gian. Cách hệ thống sinh mục tiêu sẽ ảnh hưởng trực tiếp đến nhịp độ chơi, cảm giác thử thách và tính cân bằng của gameplay.
+0329	[normal]	Qua khảo sát, có thể nhận thấy:
+0330	[normal]	Nếu số lượng mục tiêu tăng quá nhanh, người chơi sẽ dễ rơi vào trạng thái quá tải.
+0331	[normal]	Nếu gameplay giữ nguyên nhịp độ trong thời gian dài, trò chơi sẽ nhanh gây cảm giác nhàm chán.
+0332	[normal]	Các trò chơi cùng thể loại thường áp dụng cơ chế tăng tiến độ khó theo thời gian để duy trì cảm giác thử thách.
+0333	[normal]	Đối với Wizard Kingdom, trò chơi định hướng áp dụng cơ chế sinh kẻ địch và bóng bay theo độ khó, nghĩa là số lượng mục tiêu, tốc độ di chuyển và độ phức tạp của ký hiệu phép thuật sẽ tăng dần theo tiến trình của ván chơi. Điều này giúp gameplay duy trì được nhịp độ liên tục và tạo cảm giác căng thẳng hơn khi thời gian chơi kéo dài.
+0335	[normal]	Khảo sát về cách cân bằng trải nghiệm chơi
+0336	[normal]	Ngoài cơ chế sinh kẻ địch, việc cân bằng trải nghiệm chơi cũng là yếu tố được nhiều trò chơi cùng thể loại chú trọng. Một trò chơi muốn giữ được người chơi cần tạo ra cảm giác:
+0337	[normal]	Dễ tiếp cận ở giai đoạn đầu.
+0338	[normal]	Có thử thách tăng dần theo thời gian.
+0339	[normal]	Không quá ngẫu nhiên đến mức mất kiểm soát.
+0340	[normal]	Đủ linh hoạt để người chơi có thể xây dựng chiến lược.
+0341	[normal]	Điều này cho thấy việc thiết kế gameplay không chỉ dừng lại ở luật chơi mà còn liên quan đến cách hệ thống điều phối độ khó và nhịp độ của trò chơi. Đây là cơ sở để Wizard Kingdom được xây dựng theo hướng vừa có tính giải trí, vừa có tính thử thách trong quá trình trải nghiệm.
+0343	[Heading 3]	Cơ chế riêng của game Wizard Kingdom
+0344	[normal]	Điểm riêng của Wizard Kingdom nằm ở cơ chế kết hợp giữa thao tác vẽ ký hiệu, xử lý mục tiêu theo thời gian thực với hệ thống nhận diện hình vẽ dựa trên độ chính xác. Khác với nhiều trò chơi arcade chỉ tập trung vào thao tác chạm hoặc vuốt đơn giản, trò chơi yêu cầu người chơi phải quan sát ký hiệu xuất hiện trên từng mục tiêu và vẽ lại chính xác ký hiệu tương ứng để thực hiện phép thuật tiêu diệt kẻ địch. Cơ chế này tạo ra cảm giác tương tác trực tiếp giữa người chơi và gameplay, đồng thời mang lại tính thử thách cao khi người chơi phải liên tục quan sát, phản xạ và xử lý nhiều mục tiêu trong thời gian ngắn.
+0345	[normal]	Hệ thống sẽ ghi nhận hình dạng, hướng vẽ và độ chính xác của thao tác để xác định kết quả thực hiện phép thuật. Điều này khiến người chơi không chỉ cần thao tác nhanh mà còn phải đưa ra chiến thuật xử lý phù hợp đối với từng tình huống xuất hiện trong quá trình chơi. Người chơi có thể lựa chọn ưu tiên tiêu diệt các mục tiêu nguy hiểm trước, xử lý theo vị trí hoặc tận dụng nhịp độ thao tác để tạo ra các chuỗi combo liên tiếp nhằm tăng điểm số và duy trì lợi thế trong ván chơi.
+0347	[Heading 2]	Thiết kế tương tác cho sản phẩm
+0348	[Heading 3]	Kịch bản và storyboard
+0349	[normal]	Kịch bản game
+0350	[normal]	Luồng sự kiện chính:
+0351	[normal]	Người chơi khởi động ứng dụng, bắt đầu từ màn hình chính (Main Menu Scene) với các lựa chọn Arcade Mode, Time Attack Mode, Shop và Setting.
+0352	[normal]	Người chơi chọn một trong hai chế độ chơi là Arcade Mode hoặc Time Attack Mode để bắt đầu ván chơi.
+0353	[normal]	Sau khi chọn chế độ, hệ thống chuyển sang màn hình Gameplay tương ứng.
+0354	[normal]	Tại màn hình Gameplay, hệ thống hiển thị khu vực chơi chính, điểm số hiện tại, số tiền nhận được và nhân vật phù thủy đứng trên lâu đài.
+0355	[normal]	Kẻ địch mang theo các quả bóng bay có ký hiệu phép thuật sẽ xuất hiện từ phía trên màn hình và di chuyển xuống phía lâu đài.
+0356	[normal]	Người chơi thực hiện thao tác vẽ ký hiệu trực tiếp trên màn hình để tiêu diệt các mục tiêu tương ứng.
+0357	[normal]	Nếu ký hiệu được vẽ chính xác, hệ thống sẽ phá hủy bóng bay và tiêu diệt kẻ địch.
+0358	[normal]	Nếu người chơi vẽ sai ký hiệu hoặc xử lý không kịp, kẻ địch sẽ tiếp tục di chuyển xuống phía dưới.
+0359	[normal]	Sau mỗi lần tiêu diệt thành công mục tiêu, hệ thống sẽ cập nhật điểm số cho người chơi.
+0360	[normal]	Hệ thống tiếp tục sinh thêm kẻ địch và tăng dần độ khó trong suốt quá trình chơi.
+0361	[normal]	Vòng lặp sinh kẻ địch – vẽ ký hiệu – tiêu diệt mục tiêu – cộng điểm tiếp tục diễn ra liên tục trong suốt ván chơi.
+0362	[normal]	Trong khi chơi, người dùng có thể nhấn nút tạm dừng để mở màn hình Pause Scene.
+0363	[normal]	Tại màn hình Pause, người chơi có thể chọn Continue để tiếp tục, Restart để chơi lại từ đầu hoặc Menu để quay về màn hình chính.
+0364	[normal]	Khi kẻ địch chạm tới khu vực lâu đài nơi phù thủy đang đứng, trò chơi kết thúc và hệ thống chuyển sang màn hình Game Over Scene.
+0365	[normal]	Tại màn hình Game Over, hệ thống hiển thị điểm số hiện tại, điểm cao nhất và cho phép người chơi chọn Restart, Shop hoặc Back để quay lại màn hình trước đó.
+0367	[normal]	Luồng sự kiện cho chế độ Arcade Mode:
+0368	[normal]	Người chơi chọn Arcade Mode từ màn hình chính.
+0369	[normal]	Hệ thống chuyển sang màn hình Gameplay của Arcade Mode.
+0370	[normal]	Người chơi thực hiện thao tác vẽ ký hiệu để tiêu diệt kẻ địch và ghi điểm.
+0371	[normal]	Độ khó của trò chơi sẽ tăng dần theo thời gian thông qua số lượng kẻ địch, tốc độ di chuyển và độ phức tạp của ký hiệu.
+0372	[normal]	Trò chơi tiếp tục cho đến khi kẻ địch chạm vào khu vực lâu đài.
+0373	[normal]	Khi đó hệ thống chuyển sang màn hình Game Over và cho phép người chơi chọn chơi lại hoặc quay về Menu.
+0375	[normal]	Luồng sự kiện cho chế độ Time Attack Mode:
+0376	[normal]	Người chơi chọn Time Attack Mode từ màn hình chính.
+0377	[normal]	Hệ thống chuyển sang màn hình Gameplay của Time Attack Mode.
+0378	[normal]	Ngoài điểm số hiện tại, hệ thống còn hiển thị thêm bộ đếm thời gian (Time Count).
+0379	[normal]	Người chơi tiếp tục thực hiện thao tác vẽ ký hiệu để tiêu diệt kẻ địch và ghi điểm trong khoảng thời gian giới hạn.
+0380	[normal]	Vòng lặp chơi tiếp tục cho đến khi hết thời gian hoặc người chơi thua theo điều kiện của trò chơi.
+0381	[normal]	Khi đó hệ thống chuyển sang màn hình Game Over và cho phép người chơi chọn chơi lại hoặc quay về Menu.
+0383	[normal]	Luồng sự kiện phụ:
+0384	[normal]	Luồng sự kiện Cài đặt (Setting):
+0385	[normal]	Từ Main Menu, người chơi có thể chọn “Setting” để mở màn hình cài đặt.
+0386	[normal]	Tại màn hình Setting, người chơi có thể bật hoặc tắt BGM, bật hoặc tắt SFX, bật hoặc tắt Vibration và xem Help.
+0387	[normal]	Người chơi nhấn “Back” để quay về màn hình trước đó.
+0389	[normal]	Luồng sự kiện Shop:
+0390	[normal]	Từ Main Menu hoặc Game Over Scene, người chơi có thể chọn “Shop” để mở màn hình cửa hàng.
+0391	[normal]	Tại màn hình Shop, hệ thống hiển thị các danh mục gồm Spells, Backgrounds và Wizards.
+0392	[normal]	Người chơi chọn danh mục mong muốn để chuyển sang màn hình Item Scene.
+0393	[normal]	Tại Item Scene, hệ thống hiển thị vật phẩm, giá tiền và nút Buy để người chơi thực hiện mua vật phẩm.
+0394	[normal]	Người chơi có thể sử dụng nút điều hướng để chuyển đổi giữa các vật phẩm khác nhau.
+0395	[normal]	Người chơi nhấn “Back” để quay về màn hình trước đó.
+0397	[normal]	Luồng sự kiện Quay về màn hình chính (Main Menu):
+0398	[normal]	Trong quá trình chơi, nếu người chơi chọn “Menu” từ màn hình Pause hoặc Game Over, hệ thống sẽ quay trở lại Main Menu Scene.
+0400	[normal]	Storyboard
+0401	[normal]	Link Figma: Figma
+0404	[Heading 3]	Thiết kế cơ chế tương tác
+0405	[normal]	Hệ thống tương tác của Wizard Kingdom được thiết kế theo hướng đơn giản, trực quan và phù hợp với trải nghiệm trên thiết bị di động. Các thao tác trong game tập trung chủ yếu vào cơ chế vẽ ký hiệu trực tiếp trên màn hình cảm ứng nhằm tạo cảm giác tương tác liên tục giữa người chơi và gameplay.
+0406	[normal]	Thiết kế góc nhìn tương tác (Camera): Trò chơi sử dụng góc nhìn cố định (Fixed Camera), tập trung trực tiếp vào khu vực gameplay nơi phù thủy đứng trên lâu đài và các kẻ địch xuất hiện từ phía trên màn hình. Cách thiết kế này giúp người chơi dễ dàng quan sát toàn bộ không gian chơi, theo dõi vị trí của kẻ địch cũng như các ký hiệu phép thuật xuất hiện trên từng mục tiêu trong quá trình chơi.
+0407	[normal]	Thiết kế thao tác điều khiển (Control): Game sử dụng cơ chế tương tác cảm ứng đơn giản thông qua thao tác chạm và vuốt để vẽ ký hiệu. Người chơi thực hiện thao tác trực tiếp trên màn hình bằng cách dùng ngón tay vẽ lại ký hiệu tương ứng với ký hiệu xuất hiện trên mục tiêu.
+0408	[normal]	Thiết kế phản hồi tương tác: Hệ thống ghi nhận đường vẽ, hướng vẽ và hình dạng ký hiệu để xác định mức độ chính xác của thao tác. Nếu ký hiệu được vẽ đúng, phép thuật sẽ được kích hoạt để phá hủy bóng bay và tiêu diệt kẻ địch tương ứng. Với các thao tác mở các scene khác, khi nhấn nút thì scene tương ứng sẽ được hiển thị.
+0409	[normal]	Giới hạn tương tác: Trò chơi chỉ xử lý một thao tác chính tại một thời điểm nhằm tránh xung đột trong quá trình điều khiển.
+0411	[Heading 1]	CHƯƠNG 2: NGHIÊN CỨU CÁC KỸ THUẬT, CÔNG NGHỆ XÂY DỰNG VIDEO GAME
+0413	[Heading 2]	Mô hình tổng quát hệ thống
+0414	[normal]	Game Wizard Kingdom được xây dựng theo kiến trúc module hóa, trong đó các khối chức năng như giao diện, xử lý logic, dữ liệu và âm thanh phối hợp với nhau để tạo nên quá trình chơi liên tục, chính xác và ổn định. Dưới đây là sơ đồ kiến trúc tổng quan của hệ thống.
+0416	[normal]	Link: Figma
+0419	[normal]	Hệ thống giao diện:
+0420	[normal]	Hệ thống giao diện là bộ phận trung gian giữa người chơi và hệ thống xử lý logic.
+0421	[normal]	Chức năng:
+0422	[normal]	Tiếp nhận thao tác từ người chơi như chạm và vẽ ký hiệu trên màn hình cảm ứng.
+0423	[normal]	Hiển thị khu vực gameplay, nhân vật phù thủy, kẻ địch, bóng bay, điểm số, tiền và các nút chức năng.
+0424	[normal]	Gửi thông tin thao tác của người chơi sang hệ thống xử lý logic.
+0425	[normal]	Nhận kết quả xử lý từ hệ thống logic để cập nhật lại giao diện.
+0426	[normal]	Phản hồi trực quan cho người chơi như hiển thị đường vẽ, hiệu ứng phép thuật, cập nhật điểm số hoặc trạng thái game over.
+0428	[normal]	Hệ thống xử lý logic:
+0429	[normal]	Đây là thành phần trung tâm của toàn bộ hệ thống, chịu trách nhiệm xử lý các nghiệp vụ chính của game.
+0430	[normal]	Chức năng:
+0431	[normal]	Nhận thao tác vẽ ký hiệu từ người chơi.
+0432	[normal]	Kiểm tra và nhận diện ký hiệu phép thuật.
+0433	[normal]	Xử lý tiêu diệt kẻ địch khi người chơi thực hiện đúng thao tác.
+0434	[normal]	Quản lý hệ thống sinh kẻ địch và bóng bay.
+0435	[normal]	Điều chỉnh độ khó dựa trên tiến trình gameplay.
+0436	[normal]	Tính toán và cập nhật điểm số.
+0437	[normal]	Kiểm tra điều kiện kết thúc trò chơi.
+0438	[normal]	Gửi kết quả xử lý về hệ thống giao diện.
+0439	[normal]	Gửi yêu cầu lưu hoặc đọc dữ liệu từ hệ thống dữ liệu.
+0440	[normal]	Phát sinh các sự kiện âm thanh và hiệu ứng tương ứng với gameplay.
+0442	[normal]	Hệ thống dữ liệu:
+0443	[normal]	Hệ thống dữ liệu phụ trách cung cấp và lưu trữ các dữ liệu cần thiết cho game.
+0444	[normal]	Chức năng:
+0445	[normal]	Nhận yêu cầu lấy dữ liệu từ hệ thống xử lý logic.
+0446	[normal]	Trả về các dữ liệu được yêu cầu.
+0447	[normal]	Lưu trữ dữ liệu trong quá trình chơi hoặc sau khi kết thúc ván.
+0448	[normal]	Quản lý các dữ liệu như điểm cao nhất, trạng thái âm thanh, dữ liệu ký hiệu phép thuật, dữ liệu kẻ địch và dữ liệu vật phẩm trong cửa hàng.
+0450	[normal]	Hệ thống âm thanh:
+0451	[normal]	Hệ thống âm thanh chịu trách nhiệm xử lý các hiệu ứng âm thanh và nhạc nền trong game.
+0452	[normal]	Chức năng:
+0453	[normal]	Nhận sự kiện phát âm thanh từ hệ thống xử lý logic.
+0454	[normal]	Phát hiệu ứng âm thanh phù hợp với từng hành động trong gameplay.
+0455	[normal]	Phát nhạc nền BGM.
+0456	[normal]	Quản lý trạng thái bật/tắt âm thanh hoặc điều chỉnh âm lượng.
+0458	[Heading 2]	Phương pháp xây dựng game Wizard Kingdom
+0459	[Heading 3]	Cơ sở lựa chọn phương pháp
+0460	[normal]	Trước khi lựa chọn phương pháp phù hợp, em tiến hành tìm hiểu hai hướng tiếp cận phổ biến là lập trình hướng đối tượng và lập trình hướng cấu trúc.
+0461	[normal]	Lập trình hướng đối tượng (OOP) tổ chức chương trình dựa trên các lớp và đối tượng, trong đó mỗi đối tượng bao gồm thuộc tính và phương thức.
+0462	[normal]	Lập trình hướng cấu trúc chia chương trình thành các hàm hoặc thủ tục, tập trung chủ yếu vào luồng xử lý và thuật toán.
+0464	[normal]	Đặc điểm của lập trình hướng đối tượng
+0465	[normal]	Phương pháp OOP có bốn tính chất chính:
+0466	[normal]	Tính đóng gói (Encapsulation): các phương thức và dữ liệu có mối quan hệ với nhau được lưu vào một lớp để thuận tiện cho việc quản lý, sử dụng. Chỉ có phương thức nội tại của chính đối tượng mới có thể thay đổi trạng thái nội tại của nó.
+0467	[normal]	Tính trừu tượng (Abstraction): chỉ tập trung vào những thuộc tính và phương thức cần thiết cho việc giải quyết vấn đề trong lập trình và bỏ qua các thông tin không quan trọng.
+0468	[normal]	Tính kế thừa (Inheritance): các đối tượng “con” có thể thừa hưởng các đặc tính có sẵn từ đối tượng “cha” mà không cần định nghĩa lại (tùy theo ngôn ngữ lập trình).
+0469	[normal]	Tính đa hình (Polymorphism): các đối tượng không cùng một lớp, khi tiếp nhận cùng một thông điệp thì sẽ phản hồi theo những cách khác nhau.
+0471	[normal]	Ưu điểm của OOP trong xây dựng game:
+0472	[normal]	Dễ mô hình hóa các thành phần trong game như kẻ địch, bóng bay, hệ thống gameplay, âm thanh và giao diện.
+0473	[normal]	Tăng khả năng tái sử dụng mã nguồn.
+0474	[normal]	Thuận lợi cho việc tổ chức, quản lý và bảo trì chương trình.
+0475	[normal]	Dễ mở rộng thêm tính năng mới trong tương lai.
+0476	[normal]	Hỗ trợ phân chia hệ thống thành các module rõ ràng.
+0478	[normal]	Hạn chế của OOP:
+0479	[normal]	Nếu sử dụng quá nhiều đối tượng có thể ảnh hưởng đến hiệu năng.
+0480	[normal]	Việc thiết kế cấu trúc ban đầu có thể phức tạp hơn so với các chương trình nhỏ.
+0482	[normal]	Đặc điểm của lập trình hướng cấu trúc
+0483	[normal]	Lập trình hướng cấu trúc phù hợp với những bài toán nhỏ, có luồng xử lý rõ ràng và tập trung mạnh vào thuật toán.
+0484	[normal]	Ưu điểm của lập trình hướng cấu trúc:
+0485	[normal]	Dễ tập trung vào giải thuật.
+0486	[normal]	Có thể chia chương trình thành các hàm nhỏ.
+0488	[normal]	Nhược điểm:
+0489	[normal]	Khả năng tái sử dụng mã nguồn không cao.
+0490	[normal]	Khó quản lý khi hệ thống trở nên lớn và phức tạp.
+0491	[normal]	Kém linh hoạt hơn trong bảo trì và mở rộng.
+0492	[normal]	Phương pháp được lựa chọn cho hệ thống
+0494	[Heading 3]	Kết luận
+0495	[normal]	Sau quá trình tìm hiểu, em lựa chọn lập trình hướng đối tượng để xây dựng game Wizard Kingdom.
+0496	[normal]	Lý do lựa chọn:
+0497	[normal]	Phương pháp này quen thuộc và dễ tiếp cận với quá trình phát triển game bằng Unity.
+0498	[normal]	Phù hợp với đặc thù của dự án game có nhiều thành phần chức năng riêng biệt.
+0499	[normal]	Dễ mô hình hóa hệ thống thành các lớp như gameplay, kẻ địch, ký hiệu phép thuật, giao diện và âm thanh.
+0500	[normal]	Thuận lợi cho việc mở rộng, chỉnh sửa và bảo trì sản phẩm trong các giai đoạn tiếp theo.
+0502	[Heading 2]	Mô hình phát triển phần mềm
+0503	[normal]	Trong quá trình xây dựng game Wizard Kingdom, em lựa chọn mô hình phát triển phần mềm Agile để tổ chức và triển khai dự án.
+0505	[Heading 3]	Khái quát về mô hình Agile
+0506	[normal]	Agile là mô hình phát triển phần mềm theo hướng linh hoạt, chia quá trình thực hiện thành nhiều giai đoạn nhỏ và lặp lại. Ở mỗi giai đoạn, em tập trung hoàn thành một phần chức năng cụ thể, sau đó tiến hành kiểm tra, đánh giá và tiếp tục cải tiến ở các vòng phát triển tiếp theo.
+0508	[normal]	Khác với cách phát triển tuần tự truyền thống, Agile cho phép dễ dàng điều chỉnh yêu cầu, cập nhật tính năng và xử lý các vấn đề phát sinh trong suốt quá trình thực hiện dự án.
+0509	[Heading 3]	Đặc điểm của mô hình Agile
+0510	[normal]	Phát triển phần mềm theo từng giai đoạn ngắn.
+0511	[normal]	Mỗi giai đoạn tập trung vào một nhóm chức năng cụ thể.
+0512	[normal]	Liên tục kiểm tra, đánh giá và cải tiến sản phẩm.
+0513	[normal]	Dễ thích nghi với các thay đổi trong quá trình phát triển.
+0514	[normal]	Hỗ trợ tổ chức công việc linh hoạt và rõ ràng hơn.
+0516	[Heading 3]	Lý do lựa chọn mô hình Agile
+0517	[normal]	Em lựa chọn mô hình Agile vì những lý do sau:
+0518	[normal]	Phù hợp với dự án game có thể phát triển theo từng phần nhỏ.
+0519	[normal]	Dễ kiểm tra và hoàn thiện dần các chức năng của hệ thống.
+0520	[normal]	Cho phép điều chỉnh gameplay, giao diện và cơ chế chơi trong quá trình thực hiện.
+0521	[normal]	Giúp phát hiện lỗi sớm và xử lý kịp thời.
+0522	[normal]	Thuận lợi cho việc bổ sung hoặc thay đổi tính năng mà không ảnh hưởng quá lớn đến toàn bộ hệ thống.
+0524	[Heading 3]	Cách áp dụng Agile trong dự án Wizard Kingdom
+0525	[normal]	Quá trình phát triển game Wizard Kingdom được chia thành nhiều giai đoạn nhỏ, trong đó mỗi giai đoạn tập trung vào một nhóm chức năng chính. Cụ thể:
+0526	[normal]	Giai đoạn 1: phân tích yêu cầu, xác định gameplay và xây dựng ý tưởng tổng thể.
+0527	[normal]	Giai đoạn 3: triển khai các chức năng gameplay chính.
+0528	[normal]	Giai đoạn 2: thiết kế giao diện cơ bản.
+0529	[normal]	Giai đoạn 4: bổ sung hệ thống tính điểm, âm thanh và phản hồi tương tác.
+0530	[normal]	Giai đoạn 5: kiểm thử, sửa lỗi và tối ưu trải nghiệm người chơi.
+0531	[normal]	Giai đoạn 6: hoàn thiện sản phẩm và chuẩn bị bản demo.
+0533	[normal]	Sau mỗi giai đoạn, em tiến hành đánh giá kết quả đạt được, kiểm tra các chức năng đã hoàn thành và điều chỉnh những phần chưa phù hợp trước khi chuyển sang giai đoạn tiếp theo.
+0535	[Heading 2]	Kiến trúc phần mềm được áp dụng trong triển khai lập trình hệ thống
+0536	[normal]	Trong quá trình xây dựng game Wizard Kingdom, em áp dụng linh hoạt nhiều kiến trúc phần mềm gồm Component-Based Architecture, Event-Driven Architecture, Data-Driven Architecture kết hợp với một số Design Pattern phổ biến trong phát triển game. Cách tiếp cận này giúp mã nguồn được tổ chức rõ ràng, giảm sự phụ thuộc giữa các thành phần, thuận lợi cho việc mở rộng tính năng và tối ưu hiệu năng trong quá trình vận hành trò chơi.
+0538	[Heading 3]	Kiến trúc phần mềm và tổ chức project
+0539	[normal]	Kiến trúc phần mềm
+0540	[normal]	Component-Based Architecture:
+0541	[normal]	Mô tả kiến trúc: Component-Based Architecture là kiến trúc tổ chức đối tượng theo mô hình GameObject – Component, là cách tiếp cận cốt lõi trong Unity. Theo kiến trúc này, một đối tượng trong game không được xây dựng như một khối chức năng duy nhất, mà được hình thành từ nhiều thành phần khác nhau gắn lên cùng một GameObject. Trong Unity:
+0542	[normal]	Mỗi GameObject là một thực thể xuất hiện trong scene.
+0543	[normal]	Mỗi GameObject mặc định đều có Transform (chứa các thông số vị trí, góc quay, tỉ lệ của đối tượng trong scene).
+0544	[normal]	Ngoài Transform, GameObject có thể được gắn thêm nhiều component khác để đảm nhiệm các chức năng khác nhau.
+0545	[normal]	Script trong Unity cũng được xem như một loại component.
+0547	[normal]	Ứng dụng trong Wizard Kingdom: Trong game Wizard Kingdom, kiến trúc này được áp dụng trực tiếp vào cách tổ chức các đối tượng trong scene như: nhân vật phù thủy, kẻ địch, bóng bay, ký hiệu phép thuật, hệ thống hiệu ứng và các thành phần giao diện.
+0548	[normal]	Ví dụ về luồng hoạt động:
+0549	[normal]	+) Kẻ địch xuất hiện dưới dạng một GameObject trong scene.
+0550	[normal]	+) Đối tượng này có thành phần Transform để xác định vị trí xuất hiện, hướng di chuyển và kích thước hiển thị.
+0551	[normal]	+) Có thành phần SpriteRenderer2D để hiển thị hình ảnh nhân vật và bóng bay.
+0552	[normal]	+) Có thành phần Rigidbody2D hoặc script di chuyển để điều khiển quá trình bay xuống phía lâu đài.
+0553	[normal]	+) Có component quản lý ký hiệu phép thuật được gắn trên bóng bay.
+0555	[normal]	+) Có script xử lý trạng thái của kẻ địch như di chuyển, bị tiêu diệt hoặc va chạm với khu vực lâu đài.
+0557	[normal]	Ý nghĩa của việc áp dụng kiến trúc này trong Wizard Kingdom:
+0558	[normal]	Tránh tình trạng một khối xử lý phải đảm nhiệm quá nhiều nhiệm vụ cùng lúc.
+0559	[normal]	Dễ kiểm tra và sửa lỗi hơn vì mỗi component chỉ phụ trách một phần việc cụ thể.
+0560	[normal]	Dễ mở rộng chức năng cho đối tượng trong game bằng cách bổ sung thêm component mới.
+0561	[normal]	Tăng khả năng tái sử dụng giữa các đối tượng khác nhau trong hệ thống.
+0562	[normal]	Giúp cấu trúc project rõ ràng và dễ quản lý hơn trong quá trình phát triển.
+0564	[normal]	Event-Driven Architecture:
+0565	[normal]	Mô tả kiến trúc: Event-Driven Architecture là kiến trúc hướng sự kiện, trong đó các thành phần trong hệ thống giao tiếp với nhau thông qua các sự kiện phát sinh trong quá trình hoạt động. Cơ chế hoạt động của kiến trúc này:
+0566	[normal]	Khi một hành động hoặc một thay đổi trạng thái xảy ra, hệ thống phát ra một sự kiện.
+0567	[normal]	Các bộ phận có liên quan sẽ tiếp nhận sự kiện đó.
+0568	[normal]	Mỗi bộ phận tự thực hiện phần xử lý tương ứng với trách nhiệm của mình.
+0570	[normal]	Ứng dụng trong Wizard Kingdom: Trong Wizard Kingdom, kiến trúc hướng sự kiện được áp dụng trong nhiều tình huống gameplay có sự phối hợp giữa nhiều hệ thống như: gameplay, giao diện, âm thanh, quản lý trạng thái trò chơi.
+0571	[normal]	Ví dụ: Khi người chơi vẽ đúng ký hiệu phép thuật:
+0572	[normal]	+)   Hệ thống nhận diện ký hiệu phát sinh sự kiện tiêu diệt mục tiêu.
+0573	[normal]	+) Kẻ địch tương ứng sẽ bị phá hủy.
+0574	[normal]	+) Hệ thống điểm số nhận sự kiện và thực hiện cộng điểm cho người chơi.
+0575	[normal]	+) AudioManager phát hiệu ứng âm thanh tương ứng.
+0576	[normal]	+) UIManager cập nhật lại điểm số và phản hồi giao diện.
+0578	[normal]	+) Hệ thống hiệu ứng hiển thị animation hoặc hiệu ứng phép thuật tương ứng với thao tác của người chơi.
+0580	[normal]	Ý nghĩa của việc áp dụng kiến trúc này:
+0581	[normal]	Các hệ thống vẫn phối hợp được với nhau nhưng không bị phụ thuộc quá chặt vào nhau giúp game dễ mở rộng các chức năng mới và dễ bảo trì, sửa lỗi hơn.
+0583	[normal]	Data-Driven Architecture:
+0584	[normal]	Mô tả kiến trúc: Data-Driven Architecture là kiến trúc hướng dữ liệu, trong đó dữ liệu được tách riêng khỏi phần logic xử lý của chương trình. Theo cách tiếp cận này:
+0585	[normal]	Phần logic quy định cách hệ thống hoạt động.
+0586	[normal]	Phần dữ liệu lưu các thông số cụ thể phục vụ cho quá trình vận hành.
+0588	[normal]	Ứng dụng trong Wizard Kingdom: Trong Wizard Kingdom, kiến trúc hướng dữ liệu được áp dụng rõ nhất ở những hệ thống có nhiều thông số cần thay đổi như: dữ liệu ký hiệu phép thuật, dữ liệu kẻ địch, dữ liệu bóng bay, dữ liệu chế độ chơi và dữ liệu cửa hàng.
+0589	[normal]	Hệ thống kẻ địch và bóng bay: Dữ liệu của kẻ địch cũng được lưu riêng để dễ quản lý. Mỗi loại kẻ địch có thể chứa các thông tin như: Tốc độ di chuyển; Loại bóng bay; Độ khó; Tỉ lệ xuất hiện; Điểm số nhận được khi tiêu diệt. Khi gameplay diễn ra, hệ thống sẽ dựa trên các dữ liệu này để sinh ra các mục tiêu phù hợp với độ khó hiện tại của trò chơi.
+0590	[normal]	Hệ thống vật phẩm hỗ trợ: Game có hệ thống vật phẩm, skin hoặc background phục vụ cho việc tùy chỉnh trải nghiệm người chơi. Các dữ liệu này được lưu trữ riêng thông qua ScriptableObject với các thông tin như: Hình ảnh vật phẩm; Giá tiền; Mô tả; Loại vật phẩm; Trạng thái sở hữu. Khi mở giao diện Shop, hệ thống sẽ tải dữ liệu tương ứng để hiển thị lên giao diện cho người chơi.
+0592	[normal]	Ý nghĩa của việc áp dụng kiến trúc này:
+0593	[normal]	Khi cần điều chỉnh gameplay chỉ cần thay đổi dữ liệu.
+0594	[normal]	Thuận lợi cho việc mở rộng thêm nội dung mới.
+0595	[normal]	Giảm sự phụ thuộc giữa dữ liệu và logic xử lý.
+0596	[normal]	Giúp hệ thống linh hoạt hơn trong quá trình phát triển lâu dài.
+0597	[normal]	Hỗ trợ quản lý dữ liệu game rõ ràng và dễ bảo trì hơn.
+0598	[normal]	Tổ chức project
+0599	[normal]	Assets/
+0600	[normal]	├─ Animations/
+0601	[normal]	├─ AudioClips/
+0602	[normal]	├─ Fonts/
+0603	[normal]	├─ Plugins/
+0604	[normal]	├─ Prefabs/
+0605	[normal]	├─ Resources/
+0606	[normal]	│  ├─ SO/
+0607	[normal]	│  └─ UI/
+0608	[normal]	├─ Scenes/
+0609	[normal]	├─ Scripts/
+0610	[normal]	├─ Sprites/
+0611	[normal]	└─ TextMesh Pro/
+0613	[normal]	Animations/: Chứa các tài nguyên hoạt ảnh và dữ liệu phục vụ animation của đối tượng trong game.
+0614	[normal]	AudioClips/: Chứa các tệp âm thanh của game như nhạc nền và hiệu ứng âm thanh.
+0615	[normal]	Fonts/: Chứa các font chữ sử dụng trong game để hiển thị nội dung văn bản trên giao diện.
+0616	[normal]	Plugins/: Chứa các thư viện và plugin bên thứ ba được tích hợp vào dự án.
+0617	[normal]	Prefabs/: Chứa các đối tượng mẫu được lưu sẵn để tái sử dụng trong scene hoặc khi game chạy.
+0618	[normal]	Resources/: Chứa các tài nguyên cần được nạp động trong quá trình game chạy.
+0619	[normal]	Resources/SO/: Chứa các tài nguyên dữ liệu dạng ScriptableObject phục vụ cấu hình và quản lý dữ liệu game.
+0620	[normal]	Resources/UI/: Chứa các tài nguyên giao diện cần được nạp động trong lúc vận hành game.
+0621	[normal]	Scenes/: Chứa các scene của game như menu, gameplay hoặc scene kiểm thử.
+0622	[normal]	Scripts/: Chứa toàn bộ mã nguồn C# dùng để xây dựng logic và các hệ thống của game.
+0623	[normal]	Sprites/: Chứa các hình ảnh 2D dùng cho gameplay, giao diện và hiệu ứng trực quan.
+0624	[normal]	TextMesh Pro/: Chứa các tài nguyên liên quan đến hệ thống hiển thị chữ bằng TextMesh Pro trong Unity.
+0626	[Heading 3]	Design Pattern
+0627	[normal]	Singleton
+0628	[normal]	Singleton là mẫu thiết kế bảo đảm chỉ có duy nhất một thể hiện của một lớp tồn tại trong hệ thống, đồng thời cung cấp điểm truy cập toàn cục đến đối tượng đó.
+0630	[normal]	Ứng dụng trong Wizard Kingdom: Singleton được sử dụng trong các lớp quản lý trung tâm như:
+0631	[normal]	GameManager: quản lý trạng thái tổng thể của trò chơi.
+0632	[normal]	UIManager: quản lý giao diện và cập nhật thông tin hiển thị.
+0633	[normal]	AudioManager: quản lý nhạc nền và hiệu ứng âm thanh.
+0634	[normal]	ScoreManager: quản lý điểm số của người chơi.
+0636	[normal]	Việc sử dụng Singleton giúp các hệ thống này dễ dàng được truy cập từ nhiều thành phần khác nhau mà vẫn bảo đảm tính thống nhất trong quá trình quản lý dữ liệu và trạng thái.
+0638	[normal]	Object Pool
+0639	[normal]	Object Pool là mẫu thiết kế cho phép tạo sẵn một tập hợp đối tượng để tái sử dụng nhiều lần, thay vì liên tục khởi tạo và hủy đối tượng trong quá trình chạy.
+0641	[normal]	Ứng dụng trong Wizard Kingdom: Design Pattern này có thể được áp dụng cho các đối tượng được tạo ra thường xuyên trong game như:
+0642	[normal]	Các kẻ địch, bóng bay xuất hiện liên tục trong quá trình chơi.
+0643	[normal]	Các hiệu ứng hình ảnh khi kẻ địch bị tiêu hoặc khi ghi điểm.
+0644	[normal]	Các hiệu ứng âm thanh hoặc đối tượng phụ trợ nếu cần tái sử dụng nhiều lần.
+0646	[normal]	Việc áp dụng Object Pool giúp giảm số lần cấp phát và giải phóng bộ nhớ, từ đó hạn chế áp lực lên Garbage Collector và cải thiện hiệu năng của trò chơi, đặc biệt trong những tình huống gameplay diễn ra liên tục.
+0648	[normal]	Design Pattern Observer
+0649	[normal]	Observer là mẫu thiết kế thiết lập mối quan hệ một-nhiều giữa các đối tượng. Khi một đối tượng thay đổi trạng thái, các đối tượng liên quan sẽ tự động được thông báo để thực hiện phản hồi tương ứng.
+0651	[normal]	Ứng dụng trong Wizard Kingdom: Observer được sử dụng để giảm sự phụ thuộc chặt chẽ giữa các hệ thống trong game. Ví dụ:
+0652	[normal]	Khi người chơi vẽ đúng ký hiệu phép thuật:
+0653	[normal]	Hệ thống nhận diện ký hiệu phát sinh sự kiện tiêu diệt mục tiêu.
+0654	[normal]	ScoreManager nhận sự kiện để cộng điểm cho người chơi.
+0655	[normal]	UIManager cập nhật lại điểm số trên giao diện.
+0656	[normal]	AudioManager phát hiệu ứng âm thanh tương ứng.
+0657	[normal]	EffectManager hiển thị hiệu ứng phép thuật và hiệu ứng phá hủy bóng bay.
+0659	[normal]	Ngoài ra, khi trò chơi kết thúc:
+0660	[normal]	GameManager phát sinh sự kiện game over.
+0661	[normal]	UIManager hiển thị màn hình kết thúc trò chơi.
+0662	[normal]	AudioManager phát âm thanh game over.
+0663	[normal]	DataManager lưu điểm số cao nhất nếu cần thiết.
+0665	[normal]	Việc sử dụng Observer giúp các thành phần trong hệ thống hoạt động độc lập hơn, dễ bảo trì và dễ mở rộng.
+0667	[normal]	State Machine
+0668	[normal]	State Machine là mô hình dùng để quản lý các trạng thái khác nhau của hệ thống một cách rõ ràng, tránh việc xử lý bằng quá nhiều câu lệnh điều kiện phức tạp.
+0670	[normal]	Ứng dụng trong Wizard Kingdom: State Machine được dùng để quản lý: luồng trạng thái chính của game, kẻ địch và phù thủy.
+0672	[normal]	Việc sử dụng State Machine giúp quá trình điều khiển luồng game trở nên mạch lạc hơn, dễ quản lý và hạn chế lỗi logic trong quá trình chuyển đổi giữa các trạng thái.
+0674	[Heading 2]	Lựa chọn công nghệ phù hợp để triển khai xây dựng hệ thống
+0675	[normal]	Trong quá trình xây dựng game Wizard Kingdom, em lựa chọn Unity Engine làm nền tảng phát triển chính. Đây là một công cụ phổ biến trong lĩnh vực phát triển game, đặc biệt phù hợp với các sản phẩm có tính tương tác cao và hỗ trợ tốt cho cả game 2D lẫn 3D. Unity cho phép triển khai trò chơi trên nhiều nền tảng khác nhau, đồng thời cung cấp môi trường phát triển trực quan, thuận tiện cho việc xây dựng, kiểm thử và hoàn thiện sản phẩm.
+0677	[Heading 3]	Giới thiệu về Unity Engine
+0678	[normal]	Unity được dùng để làm video game, hoặc những nội dung có tính tương tác như thể hiện kiến trúc, hoạt hình 2D, 3D thời gian thực. Unity là một trong những engine được giới làm game không chuyên cực kỳ ưa chuộng bởi khả năng tuyệt vời của nó là phát triển trò chơi đa nền. Trình biên tập có thể chạy trên Windows và Mac OS, và có thể xuất ra game cho Windows, Mac, iOS, Android. Game cũng có thể chơi trên trình duyệt web thông qua plugin Unity Web Player. Unity mới bổ sung khả năng xuất ra game trên widget cho Mac, và cả Xbox 360, PlayStation 3.
+0679	[normal]	Các thành phần trong Unity:
+0680	[normal]	Assets:
+0681	[normal]	Assets là tài nguyên xây dựng nên một dự án trên Unity. Những tài nguyên có thể là hình ảnh, âm thanh, mô hình 2D 3D, chất liệu (material), texture, hoặc cả một project hoàn chỉnh.
+0682	[normal]	Các asset do chính những nhà phát triển game tạo ra và có thể được download miễn phí hoặc trả phí trên Unity Asset Store. Đây là một trong những tính năng rất hay của Unity. Các asset này sẽ giúp giảm thiểu rất nhiều thời gian cho việc thiết kế và lập trình game.
+0684	[normal]	Scenes:
+0685	[normal]	Trong Unity, một cảnh chơi (hoặc một phân đoạn) là những màn chơi riêng biệt, một khu vực trong game hoặc thành phần có trong nội dung của trò chơi (các menu). Các thành phần này được gọi là Scene. Bằng cách tạo ra nhiều Scenes, chúng ta có thể phân phối thời gian và tối ưu tài nguyên, kiểm tra các phân đoạn trong game một cách độc lập.
+0687	[normal]	Game Objects:
+0688	[normal]	Khi Asset được sử dụng trong các Scene, Unity định nghĩa đó là Game Object. Đây là một thuật ngữ thông dụng, đặc biệt trong mảng lập trình. Tất cả các Game Object đều chứa ít nhất một thành phần cơ bản là Transform, lưu trữ thông tin về vị trí, góc xoay và tỉ lệ của Game Object. Thành phần Transform có thể được tuỳ biến và chỉnh sửa trong quá trình lập trình
+0690	[normal]	Components:
+0691	[normal]	Components là các thành phần trong game, bổ sung tính năng cho các Game Object. Mỗi Component có chức năng riêng biệt. Đa phần các Component phụ thuộc vào Transform, vì nó lưu trữ các thông số cơ bản của Game Object. Bản chất của Game Object là không có gì cả, các đặc tính và khả năng của Game Object nằm hoàn toàn trong các Component.
+0693	[normal]	Scripts:
+0694	[normal]	Scripts được Unity xem như một Component. Đây là thành phần thiết yếu trong quá trình phát triển game. Bất kỳ một game nào, dù đơn giản nhất đều cần đến Scripts để tương tác với các thao tác của người chơi, hoặc quản lý các sự kiện để thay đổi chiều hướng của game tương ứng với kịch bản game.
+0696	[normal]	Prefabs:
+0697	[normal]	Prefabs thực chất là Game Object được lưu trữ lại để tái sử dụng. Các Game Object được nhân bản từ một prefab sẽ giống nhau hoàn toàn, ngoại trừ thành phần Transform để phân biệt và quản lý được tốt hơn.
+0699	[Heading 3]	Các Framework & Design Pattern
+0700	[normal]	Unity DOTween:
+0701	[normal]	DOTween là một thư viện hoạt cảnh và tweening mạnh mẽ cho Unity, được phát triển bởi Demigiant. Nó cung cấp một cách dễ dàng và linh hoạt để tạo và điều khiển các hoạt cảnh và tween trong trò chơi.
+0703	[normal]	Một số hàm thông dụng DOTween hỗ trợ:
+0704	[normal]	DOMove: Di chuyển game object tới vị trí chỉ định trong thời gian cho trước.
+0705	[normal]	DOFade: Thay đổi độ đậm nhạt màu của game object trong thời gian cho trước.
+0706	[normal]	DOScale: Thay đổi tỉ lệ kích thước của game object trong thời gian cho trước.
+0707	[normal]	SetEase: Cung cấp những hiệu ứng nhỏ sau khi game object thực hiện thay đổi.
+0709	[normal]	DOTween là một công cụ rất tốt hỗ trợ di chuyển, cũng như thay đổi hoạt ảnh, giao diện của các đối tượng trong trò chơi. Đặc biệt những lựa chọn Ease cho trước trong thư viện cũng là những công cụ đắc lực giúp lập trình viên có thể thử nhiều hiệu ứng và chọn được những sự thay đổi cần thiết để các cơ chế trong game diễn ra mượt mà, tăng trải nghiệm cho người chơi.
+0712	[Heading 1]	CHƯƠNG 3 : PHÂN TÍCH THIẾT KẾ
+0714	[Heading 2]	Pha phân tích
+0715	[Heading 3]	Scenario của các chức năng trong game
+0716	[normal]	Use case Play Game
+0717	[normal]	Scenario chuẩn cho chức năng Play Game:
+0718	[normal]	Người chơi chọn Arcade Game Mode từ màn hình Main Menu. Người chơi muốn bắt đầu một ván chơi mới.
+0719	[normal]	Hệ thống chuyển sang màn hình Gameplay của Arcade Game Mode và sinh kẻ địch mang bóng bay có ký hiệu phép thuật.
+0720	[normal]	Người chơi vẽ ký hiệu phép thuật trên màn hình.
+0721	[normal]	Hệ thống kiểm tra ký hiệu người chơi vừa vẽ, xác định ký hiệu hợp lệ, phá hủy bóng bay, tiêu diệt kẻ địch, cộng điểm cho người chơi và tiếp tục sinh kẻ địch mới.
+0723	[normal]	Scenario ngoại lệ cho chức năng Play Game:
+0724	[normal]	4.1. Hệ thống xác định ký hiệu không hợp lệ.
+0725	[normal]	4.1.1. Hệ thống không phá hủy bóng bay và kẻ địch tiếp tục di chuyển xuống phía lâu đài.
+0727	[normal]	4.2. Kẻ địch chạm vào lâu đài.
+0728	[normal]	4.2.1. Hệ thống chuyển sang màn hình Game Over.
+0730	[normal]	Use case Pause Game
+0731	[normal]	Scenario chuẩn cho chức năng Pause Game:
+0732	[normal]	Người chơi chọn Arcade Game Mode từ màn hình Main Menu. Người chơi muốn tạm dừng ván chơi trong quá trình gameplay.
+0733	[normal]	Hệ thống chuyển sang màn hình Gameplay của Arcade Game Mode và sinh kẻ địch mang bóng bay có ký hiệu phép thuật.
+0734	[normal]	Người chơi chọn nút Pause trong quá trình gameplay.
+0735	[normal]	Hệ thống tạm dừng gameplay và hiển thị màn hình Pause với các chức năng Continue, Restart và Menu.
+0737	[normal]	Scenario ngoại lệ cho chức năng Pause Game:
+0738	[normal]	4.1. Người chơi chọn Continue.
+0739	[normal]	4.1.1. Hệ thống đóng màn hình Pause và tiếp tục gameplay tại trạng thái trước khi tạm dừng.
+0741	[normal]	4.2. Người chơi chọn Restart.
+0742	[normal]	4.2.1. Hệ thống khởi tạo lại ván chơi mới và chuyển sang màn hình Gameplay.
+0744	[normal]	4.3. Người chơi chọn Menu.
+0745	[normal]	4.3.1. Hệ thống kết thúc ván chơi hiện tại và chuyển sang màn hình Main Menu.
+0747	[normal]	Use case Show Game Over
+0748	[normal]	Scenario chuẩn cho chức năng Show Game Over:
+0749	[normal]	Người chơi chọn Arcade Game Mode từ màn hình Main Menu. Người chơi muốn xem kết quả sau khi ván chơi kết thúc.
+0750	[normal]	Hệ thống chuyển sang màn hình Gameplay của Arcade Game Mode và sinh kẻ địch mang bóng bay có ký hiệu phép thuật.
+0751	[normal]	Người chơi không tiêu diệt kịp kẻ địch.
+0752	[normal]	Hệ thống kết thúc ván chơi, cập nhật điểm cao nhất nếu cần và hiển thị màn hình Game Over với điểm số, điểm cao nhất, nút Restart, nút Shop, nút Share Score và nút Back.
+0754	[normal]	Scenario ngoại lệ  cho chức năng Show Game Over:
+0755	[normal]	4.1. Người chơi chọn Restart.
+0756	[normal]	4.1.1. Hệ thống khởi tạo lại ván chơi mới và chuyển sang màn hình Gameplay.
+0758	[normal]	4.2. Người chơi chọn Shop.
+0759	[normal]	4.2.1. Hệ thống chuyển sang màn hình Shop.
+0761	[normal]	4.3. Người chơi chọn Share Score.
+0762	[normal]	4.3.1. Hệ thống chuyển sang trang mạng xã hội để chia sẻ điểm số của người chơi.
+0764	[normal]	4.4. Người chơi chọn Back.
+0765	[normal]	4.4.1. Hệ thống chuyển về màn hình Main Menu.
+0767	[normal]	Use case Setting
+0768	[normal]	Scenario chuẩn cho chức năng Setting:
+0769	[normal]	Người chơi chọn Setting từ màn hình Main Menu. Người chơi muốn thay đổi các cài đặt của trò chơi.
+0770	[normal]	Hệ thống hiển thị màn hình Setting với các chức năng BGM, SFX, Vibration, Help và Back.
+0771	[normal]	Người chơi chọn BGM.
+0772	[normal]	Hệ thống thay đổi trạng thái BGM.
+0773	[normal]	Người chơi chọn Back.
+0774	[normal]	Hệ thống chuyển về màn hình Main Menu.
+0776	[normal]	Scenario ngoại lệ cho chức năng Setting:
+0778	[normal]	3.1. Người chơi chọn SFX.
+0779	[normal]	3.1.1. Hệ thống thay đổi trạng thái SFX.
+0781	[normal]	3.2. Người chơi chọn Vibration.
+0782	[normal]	3.2.1. Hệ thống thay đổi trạng thái Vibration.
+0784	[normal]	3.3. Người chơi chọn Help.
+0785	[normal]	3.3.1. Hệ thống chuyển tiếp tới trang hỗ trợ người chơi của nhà phát triển.
+0787	[normal]	Use case Shopping And Use Items
+0788	[normal]	Scenario chuẩn cho chức năng Shopping And Use Items:
+0789	[normal]	Người chơi chọn Shopping từ màn hình Main Menu. Người chơi muốn mua hoặc lựa chọn vật phẩm trong cửa hàng.
+0790	[normal]	Hệ thống hiển thị màn hình Shop với các danh mục Spells, Backgrounds và Wizards.
+0791	[normal]	Người chơi chọn danh mục Spells.
+0792	[normal]	Hệ thống hiển thị màn hình Item của danh mục Spells với thông tin vật phẩm, giá tiền, nút Buy (nếu đã sở hữu thì sẽ là nút Select) và nút Back.
+0793	[normal]	Người chơi chọn Buy.
+0794	[normal]	Hệ thống xác định người chơi đủ gold, trừ gold và cập nhật trạng thái vật phẩm thành đã sở hữu.
+0796	[normal]	Scenario ngoại lệ cho chức năng Shopping And Use Items:
+0797	[normal]	3.1. Người chơi chọn danh mục Backgrounds.
+0798	[normal]	3.1.1. Hệ thống hiển thị màn hình Item của danh mục Backgrounds.
+0800	[normal]	3.2. Người chơi chọn danh mục Wizards.
+0801	[normal]	3.2.1. Hệ thống hiển thị màn hình Item của danh mục Wizards.
+0803	[normal]	3.3. Người chơi chọn Back.
+0804	[normal]	3.3.1. Hệ thống quay về màn hình Shop.
+0806	[normal]	5.1. Người chơi đã sở hữu vật phẩm đó nên chọn nút Select.
+0807	[normal]	5.1.1. Hệ thống thực hiện cập nhật game theo vật phẩm đã chọn.
+0809	[Heading 3]	Trích các lớp thực thể cho hệ thống
+0810	[normal]	Mô tả hoạt động của hệ thống bằng đoạn văn
+0811	[normal]	Hệ thống Wizard Kingdom là game arcade 2D dành cho người dùng. Người dùng lựa chọn chế độ chơi Arcade hoặc Time Attack để bắt đầu quá trình chơi. Trong quá trình chơi, nhân vật người chơi đối đầu với các kẻ địch. Mỗi kẻ địch được tạo ra dựa trên dữ liệu kẻ địch và mang theo một hoặc nhiều quả bóng. Mỗi quả bóng được tạo ra dựa trên dữ liệu bóng và chứa một ký hiệu. Người dùng vẽ ký hiệu tương ứng để phá quả bóng và tiêu diệt kẻ địch, từ đó nhận điểm số và vàng. Tùy theo ngưỡng điểm, mỗi chế độ chơi có nhiều mức độ khó. Mỗi mức độ khó có nhiều cấu hình sinh kẻ địch. Mỗi cấu hình sinh kẻ địch xác định dữ liệu kẻ địch và thời gian chờ bổ sung tương ứng. Hệ thống Wizard Kingdom lưu dữ liệu người dùng, bao gồm thống kê người dùng, kho vật phẩm và cài đặt. Thống kê người dùng lưu vàng và điểm cao theo từng chế độ chơi. Kho vật phẩm lưu các vật phẩm cửa hàng đã sở hữu và các vật phẩm cửa hàng đang được sử dụng. Tại cửa hàng, người dùng có thể mua phép thuật, pháp sư và phông nền. Phép thuật có thể được sử dụng trong quá trình chơi. Dữ liệu pháp sư được sử dụng để hiển thị pháp sư đã lựa chọn. Dữ liệu phông nền được sử dụng để hiển thị phông nền đã lựa chọn. Cài đặt lưu trạng thái nhạc nền, trạng thái hiệu ứng âm thanh và trạng thái rung. Người dùng cũng có thể đặt lại toàn bộ dữ liệu người dùng. Trong quá trình chơi, người dùng có thể tạm dừng hoặc tiếp tục trò chơi. Khi trò chơi kết thúc, hệ thống Wizard Kingdom hiển thị kết quả và cập nhật thống kê người dùng.
+0813	[normal]	Trích các danh từ xuất hiện trong đoạn văn
+0814	[normal]	Hệ thống Wizard Kingdom
+0815	[normal]	Game arcade 2D
+0816	[normal]	Người dùng
+0817	[normal]	Chế độ chơi
+0818	[normal]	Quá trình chơi
+0819	[normal]	Nhân vật người chơi
+0820	[normal]	Kẻ địch
+0821	[normal]	Dữ liệu kẻ địch
+0822	[normal]	Quả bóng
+0823	[normal]	Dữ liệu bóng
+0824	[normal]	Ký hiệu
+0825	[normal]	Điểm số
+0826	[normal]	Vàng
+0827	[normal]	Ngưỡng điểm
+0828	[normal]	Mức độ khó
+0829	[normal]	Cấu hình sinh kẻ địch
+0830	[normal]	Thời gian chờ bổ sung
+0831	[normal]	Dữ liệu người dùng
+0832	[normal]	Thống kê người dùng
+0833	[normal]	Kho vật phẩm
+0834	[normal]	Cài đặt
+0835	[normal]	Điểm cao
+0836	[normal]	Vật phẩm cửa hàng
+0837	[normal]	Cửa hàng
+0838	[normal]	Phép thuật
+0839	[normal]	Pháp sư
+0840	[normal]	Phông nền
+0841	[normal]	Dữ liệu pháp sư
+0842	[normal]	Dữ liệu phông nền
+0843	[normal]	Trạng thái nhạc nền
+0844	[normal]	Trạng thái hiệu ứng âm thanh
+0845	[normal]	Trạng thái rung
+0846	[normal]	Trò chơi
+0847	[normal]	Kết quả
+0849	[normal]	Đánh giá các danh từ
+0850	[normal]	Các danh từ chung chung hoặc không tạo lớp thực thể:
+0851	[normal]	Hệ thống Wizard Kingdom, game arcade 2D, trò chơi, quá trình chơi: các danh từ mô tả chung → loại.
+0852	[normal]	Người dùng: tác nhân sử dụng hệ thống → loại.
+0853	[normal]	Cửa hàng: nơi cung cấp vật phẩm nhưng không có dữ liệu riêng cần xử lý → loại.
+0854	[normal]	Kết quả: thông tin được hiển thị khi trò chơi kết thúc → không tạo lớp riêng.
+0855	[normal]	Điểm số, vàng, điểm cao: các giá trị số → đề xuất làm thuộc tính.
+0856	[normal]	Ký hiệu: giá trị mô tả hình vẽ trên quả bóng → đề xuất làm thuộc tính kiểu string.
+0857	[normal]	Ngưỡng điểm, thời gian chờ bổ sung: các giá trị cấu hình → đề xuất làm thuộc tính.
+0858	[normal]	Trạng thái nhạc nền, trạng thái hiệu ứng âm thanh, trạng thái rung: các giá trị cài đặt → đề xuất làm thuộc tính.
+0859	[normal]	Nhân vật người chơi, kẻ địch, quả bóng: các đối tượng chỉ tồn tại và hoạt động trong quá trình chơi → không đưa vào sơ đồ lớp thực thể tổng quát.
+0861	[normal]	Các danh từ được đề xuất thành lớp thực thể:
+0862	[normal]	Dữ liệu người dùng: lưu toàn bộ dữ liệu lâu dài của người dùng → đề xuất lớp thực thể UserData.
+0863	[normal]	Thống kê người dùng: lưu vàng và điểm cao → đề xuất lớp thực thể StatsData.
+0864	[normal]	Kho vật phẩm: lưu vật phẩm đã sở hữu và vật phẩm đang sử dụng → đề xuất lớp thực thể InventoryData.
+0865	[normal]	Cài đặt: lưu các trạng thái cấu hình → đề xuất lớp thực thể SettingsData.
+0866	[normal]	Dữ liệu kẻ địch: lưu thông tin dùng để tạo kẻ địch → đề xuất lớp thực thể EnemyData.
+0867	[normal]	Dữ liệu bóng: lưu thông tin dùng để tạo quả bóng → đề xuất lớp thực thể BalloonData.
+0868	[normal]	Chế độ chơi: quy định cách tổ chức quá trình chơi → đề xuất lớp thực thể GameModeData.
+0869	[normal]	Mức độ khó: lưu cấu hình độ khó theo ngưỡng điểm → đề xuất lớp thực thể DifficultyTier.
+0870	[normal]	Cấu hình sinh kẻ địch: xác định dữ liệu kẻ địch và thời gian chờ bổ sung → đề xuất lớp thực thể EnemySpawnEntry.
+0871	[normal]	Vật phẩm cửa hàng: lưu thông tin chung của vật phẩm → đề xuất lớp thực thể ShopItemData.
+0872	[normal]	Phép thuật: vật phẩm có thể mua và sử dụng trong quá trình chơi → đề xuất lớp thực thể SpellItemData.
+0873	[normal]	Pháp sư: vật phẩm có thể mua và lựa chọn sử dụng → đề xuất lớp thực thể WizardItemData.
+0874	[normal]	Phông nền: vật phẩm có thể mua và lựa chọn sử dụng → đề xuất lớp thực thể BackgroundItemData.
+0875	[normal]	Dữ liệu pháp sư: lưu thông tin dùng để hiển thị pháp sư đã lựa chọn → đề xuất lớp thực thể WizardData.
+0876	[normal]	Dữ liệu phông nền: lưu thông tin dùng để hiển thị phông nền đã lựa chọn → đề xuất lớp thực thể BackgroundData.
+0878	[normal]	Xác định các thuộc tính
+0879	[normal]	Lớp UserData: thống kê người dùng (stats), kho vật phẩm (inventory), cài đặt (settings).
+0881	[normal]	Lớp StatsData: danh sách điểm cao theo từng chế độ chơi (highScores), lượng vàng hiện có (currentGold).
+0883	[normal]	Lớp InventoryData: danh sách phông nền đã sở hữu (ownedBackgrounds), danh sách pháp sư đã sở hữu (ownedWizards), danh sách phép thuật đã sở hữu (ownedSpells), phông nền đang sử dụng (equippedBackground), pháp sư đang sử dụng (equippedWizard).
+0885	[normal]	Lớp SettingsData: trạng thái nhạc nền (bgmEnabled), trạng thái hiệu ứng âm thanh (sfxEnabled), trạng thái rung (vibrationEnabled).
+0887	[normal]	Lớp EnemyData: tên loại kẻ địch (enemyName), hình ảnh kẻ địch (sprite), bộ điều khiển hoạt ảnh (runtimeAnimatorController), loại kẻ địch (enemyType), danh sách ký hiệu có thể xuất hiện trên bóng (possibleBalloonSymbols), số lượng bóng được tạo ra (balloonSpawnCount), lượng vàng nhận được khi tiêu diệt (goldReward), điểm số nhận được khi tiêu diệt (scoreReward), tốc độ di chuyển (moveSpeed).
+0889	[normal]	Lớp BalloonData: ký hiệu trên bóng (symbol), hình ảnh bóng (sprite), bộ điều khiển hoạt ảnh (runtimeAnimatorController).
+0891	[normal]	Lớp GameModeData: loại chế độ chơi (modeType), tên chế độ chơi (modeName), mã phông nền cố định (fixedBackgroundId), danh sách mức độ khó (difficultyTiers), trạng thái sử dụng giới hạn thời gian (hasTime), thời lượng chơi ban đầu (playTime).
+0893	[normal]	Lớp DifficultyTier: ngưỡng điểm kích hoạt mức độ khó (scoreThreshold), khoảng thời gian sinh kẻ địch chung (commonSpawnDelay), danh sách cấu hình sinh kẻ địch (enemies).
+0895	[normal]	Lớp EnemySpawnEntry: dữ liệu loại kẻ địch (enemyData), thời gian chờ bổ sung (extraSpawnDelay).
+0897	[normal]	Lớp ShopItemData: tên hiển thị (displayName), loại vật phẩm (category), giá mua bằng vàng (price), hình ảnh vật phẩm trên tay người bán hàng (handSprite).
+0899	[normal]	Lớp SpellItemData: kế thừa các thuộc tính của lớp ShopItemData; bổ sung hình ảnh phép thuật khi chưa mở khóa (lockedItemSprite), hình ảnh phép thuật khi đã mở khóa (unlockedItemSprite).
+0901	[normal]	Lớp WizardItemData: kế thừa các thuộc tính của lớp ShopItemData; bổ sung hình ảnh toàn thân của pháp sư khi chưa mở khóa (lockedFullBodySprite), hình ảnh toàn thân của pháp sư khi đã mở khóa (unlockedFullBodySprite), ảnh chân dung pháp sư khi đã mở khóa (unlockedPortraitSprite), hình ảnh tên pháp sư (nameSprite).
+0903	[normal]	Lớp BackgroundItemData: kế thừa các thuộc tính của lớp ShopItemData; bổ sung hình ảnh phông nền khi chưa mở khóa (lockedItemSprite), hình ảnh phông nền khi đã mở khóa (unlockedItemSprite), hình ảnh tên phông nền (nameSprite).
+0905	[normal]	Lớp WizardData: bộ điều khiển hoạt ảnh cơ thể (bodyController), bộ điều khiển hoạt ảnh đầu (headController).
+0907	[normal]	Lớp BackgroundData: đối tượng phông nền được khởi tạo trong game (prefab).
+0909	[normal]	Xác định mối quan hệ giữa các lớp thực thể
+0910	[normal]	Một UserData có duy nhất một StatsData, một InventoryData và một SettingsData. Các đối tượng này là thành phần của dữ liệu người dùng và không tồn tại độc lập.
+0911	[normal]	→ Quan hệ giữa UserData và StatsData là composition 1-1.
+0912	[normal]	→ Quan hệ giữa UserData và InventoryData là composition 1-1.
+0913	[normal]	→ Quan hệ giữa UserData và SettingsData là composition 1-1.
+0915	[normal]	Một StatsData lưu điểm cao của nhiều GameModeData. Mỗi chế độ chơi có một điểm cao tương ứng.
+0916	[normal]	→ Quan hệ giữa StatsData và GameModeData là association 1-n.
+0918	[normal]	Một GameModeData có nhiều DifficultyTier. Mỗi DifficultyTier chỉ thuộc về một GameModeData.
+0919	[normal]	→ Quan hệ giữa GameModeData và DifficultyTier là composition 1-n.
+0921	[normal]	Một DifficultyTier có nhiều EnemySpawnEntry. Mỗi EnemySpawnEntry chỉ thuộc về một DifficultyTier.
+0922	[normal]	→ Quan hệ giữa DifficultyTier và EnemySpawnEntry là composition 1-n.
+0924	[normal]	Một EnemyData có thể được sử dụng trong nhiều EnemySpawnEntry. Mỗi EnemySpawnEntry chỉ tham chiếu đến một EnemyData.
+0925	[normal]	→ Quan hệ giữa EnemyData và EnemySpawnEntry là association 1-n.
+0927	[normal]	Một EnemyData có thể sử dụng nhiều BalloonData. Một BalloonData cũng có thể được sử dụng cho nhiều EnemyData.
+0928	[normal]	→ Quan hệ giữa EnemyData và BalloonData là association n-n.
+0930	[normal]	SpellItemData, WizardItemData và BackgroundItemData đều có các thuộc tính chung của ShopItemData.
+0931	[normal]	→ SpellItemData kế thừa từ ShopItemData.
+0932	[normal]	→ WizardItemData kế thừa từ ShopItemData.
+0933	[normal]	→ BackgroundItemData kế thừa từ ShopItemData.
+0935	[normal]	Một InventoryData có thể lưu nhiều SpellItemData. Mỗi SpellItemData có thể được sở hữu hoặc chưa được sở hữu.
+0936	[normal]	→ Quan hệ giữa InventoryData và SpellItemData là association 1-n.
+0938	[normal]	Một InventoryData có thể lưu nhiều WizardItemData. Mỗi WizardItemData có thể được sở hữu hoặc chưa được sở hữu. Trong số các pháp sư đã sở hữu, tại một thời điểm chỉ có một pháp sư được lựa chọn sử dụng.
+0939	[normal]	→ Quan hệ giữa InventoryData và WizardItemData là association 1-n.
+0941	[normal]	Một InventoryData có thể lưu nhiều BackgroundItemData. Mỗi BackgroundItemData có thể được sở hữu hoặc chưa được sở hữu. Trong số các phông nền đã sở hữu, tại một thời điểm chỉ có một phông nền được lựa chọn sử dụng.
+0942	[normal]	→ Quan hệ giữa InventoryData và BackgroundItemData là association 1-n.
+0944	[normal]	Một WizardItemData tương ứng với một WizardData. Một WizardData cũng chỉ tương ứng với một WizardItemData.
+0945	[normal]	→ Quan hệ giữa WizardItemData và WizardData là association 1-1.
+0947	[normal]	Một BackgroundItemData tương ứng với một BackgroundData. Một BackgroundData cũng chỉ tương ứng với một BackgroundItemData.
+0948	[normal]	→ Quan hệ giữa BackgroundItemData và BackgroundData là association 1-1.
+0950	[normal]	Một GameModeData có thể sử dụng nhiều BackgroundData khác nhau. Một BackgroundData cũng có thể được sử dụng trong nhiều GameModeData. Tại một thời điểm chơi, mỗi chế độ chỉ hiển thị một BackgroundData.
+0951	[normal]	→ Quan hệ giữa GameModeData và BackgroundData là association n-n.
+0953	[normal]	Sơ đồ lớp thực thể phân tích
+0956	[Heading 3]	Vẽ sơ đồ lớp phân tích và biểu đồ tuần tự của hệ thống
+0957	[normal]	Trích các lớp biên
+0958	[normal]	Use case Play Game:
+0959	[normal]	Khi truy cập vào trò chơi, hệ thống hiển thị giao diện menu có hai lựa chọn Arcade và Time Attack.
+0960	[normal]	→ Đề xuất lớp MenuPanel.
+0962	[normal]	Người chơi click chọn chế độ Arcade. Hệ thống bắt đầu ván chơi theo chế độ đã chọn.
+0963	[normal]	→ Cần chức năng startGame(), đây là hành động của đối tượng GameManager.
+0965	[normal]	Khi bắt đầu ván chơi, hệ thống khởi tạo phông nền phù hợp.
+0966	[normal]	→ Đề xuất lớp Background.
+0967	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Background.
+0969	[normal]	Hệ thống khởi tạo pháp sư đang được người chơi sử dụng.
+0970	[normal]	→ Đề xuất lớp Wizard.
+0971	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Wizard.
+0973	[normal]	Hệ thống bắt đầu sinh kẻ địch theo chế độ chơi.
+0974	[normal]	→ Đề xuất lớp EnemySpawner.
+0975	[normal]	→ Cần chức năng getEnemy(), spawnEnemy(), đây là hành động của đối tượng EnemySpawner.
+0977	[normal]	Hệ thống lấy kẻ địch từ danh sách các kẻ địch có thể tái sử dụng.
+0978	[normal]	→ Đề xuất lớp EnemyPool.
+0979	[normal]	→ Cần chức năng initEnemy(), đây là hành động của đối tượng EnemyPool.
+0981	[normal]	Hệ thống lấy quả bóng phù hợp từ danh sách các quả bóng có thể tái sử dụng.
+0982	[normal]	→ Đề xuất lớp BalloonPool.
+0983	[normal]	→ Cần chức năng initBalloon(), đây là hành động của đối tượng BalloonPool.
+0985	[normal]	Hệ thống khởi tạo quả bóng.
+0986	[normal]	→ Đề xuất lớp Balloon.
+0987	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Balloon.
+0989	[normal]	Hệ thống khởi tạo kẻ địch cùng quả bóng tương ứng.
+0990	[normal]	→ Đề xuất lớp Enemy.
+0991	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Enemy.
+0993	[normal]	Sau khi hoàn tất quá trình khởi tạo, hệ thống hiển thị giao diện chơi game.
+0994	[normal]	→ Đề xuất lớp GamePanel.
+0996	[normal]	Trong quá trình chơi, người chơi vẽ ký hiệu tương ứng với quả bóng trên khu vực vẽ.
+0997	[normal]	→ Đề xuất lớp DrawAreaView.
+0999	[normal]	Sau khi người chơi hoàn tất thao tác vẽ, hệ thống nhận dạng ký hiệu.
+1000	[normal]	→ Đề xuất lớp GestureResultHandler.
+1001	[normal]	→ Cần chức năng recognizeSymbol(), đây là hành động của đối tượng GestureResultHandler.
+1003	[normal]	Hệ thống chuyển ký hiệu đã nhận dạng đến kẻ địch để xử lý. Kẻ địch kiểm tra ký hiệu và yêu cầu phá quả bóng tương ứng nếu ký hiệu trùng khớp.
+1004	[normal]	→ Cần chức năng checkSymbol(), đây là hành động của đối tượng Enemy.
+1005	[normal]	→ Cần chức năng destroyBalloon(), đây là hành động của đối tượng Balloon.
+1007	[normal]	Sau khi quả bóng bị phá, kẻ địch bị tiêu diệt. Hệ thống cập nhật điểm số và lượng vàng nhận được trong ván chơi.
+1008	[normal]	→ Cần chức năng destroyEnemy(), đây là hành động của đối tượng Enemy.
+1009	[normal]	→ Cần chức năng updateScoreAndGold(), đây là hành động của đối tượng GameManager.
+1011	[normal]	Sau khi cập nhật điểm số và lượng vàng, hệ thống hiển thị thông tin mới trên giao diện chơi game.
+1012	[normal]	→ Tiếp tục sử dụng lớp GamePanel, không cần đề xuất lớp mới.
+1014	[normal]	Sơ đồ lớp phân tích:
+1017	[normal]	Use case Pause Game:
+1018	[normal]	Khi truy cập vào trò chơi, hệ thống hiển thị giao diện menu có hai lựa chọn Arcade và Time Attack.
+1019	[normal]	→ Đề xuất lớp MenuPanel.
+1021	[normal]	Người chơi click chọn chế độ Arcade. Hệ thống bắt đầu ván chơi theo chế độ đã chọn.
+1022	[normal]	→ Cần chức năng startGame(), đây là hành động của đối tượng GameManager.
+1024	[normal]	Khi bắt đầu ván chơi, hệ thống khởi tạo phông nền phù hợp.
+1025	[normal]	→ Đề xuất lớp Background.
+1026	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Background.
+1028	[normal]	Hệ thống khởi tạo pháp sư đang được người chơi sử dụng.
+1029	[normal]	→ Đề xuất lớp Wizard.
+1030	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Wizard.
+1032	[normal]	Hệ thống bắt đầu sinh kẻ địch theo chế độ chơi.
+1033	[normal]	→ Đề xuất lớp EnemySpawner.
+1034	[normal]	→ Cần chức năng getEnemy(), spawnEnemy(), đây là hành động của đối tượng EnemySpawner.
+1036	[normal]	Hệ thống lấy kẻ địch từ danh sách các kẻ địch có thể tái sử dụng.
+1037	[normal]	→ Đề xuất lớp EnemyPool.
+1038	[normal]	→ Cần chức năng initEnemy(), đây là hành động của đối tượng EnemyPool.
+1040	[normal]	Hệ thống lấy quả bóng phù hợp từ danh sách các quả bóng có thể tái sử dụng.
+1041	[normal]	→ Đề xuất lớp BalloonPool.
+1042	[normal]	→ Cần chức năng initBalloon(), đây là hành động của đối tượng BalloonPool.
+1044	[normal]	Hệ thống khởi tạo quả bóng.
+1045	[normal]	→ Đề xuất lớp Balloon.
+1046	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Balloon.
+1048	[normal]	Hệ thống khởi tạo kẻ địch cùng quả bóng tương ứng.
+1049	[normal]	→ Đề xuất lớp Enemy.
+1050	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Enemy.
+1052	[normal]	Sau khi hoàn tất quá trình khởi tạo, hệ thống hiển thị giao diện chơi game.
+1053	[normal]	→ Đề xuất lớp GamePanel.
+1055	[normal]	Trong quá trình chơi, người chơi click nút tạm dừng trên giao diện chơi game.
+1056	[normal]	→ Tiếp tục sử dụng lớp GamePanel, không cần đề xuất lớp mới.
+1058	[normal]	Hệ thống tạm dừng các hoạt động trong ván chơi.
+1059	[normal]	→ Cần chức năng pauseGame(), đây là hành động của đối tượng GameManager.
+1061	[normal]	Sau khi trò chơi được tạm dừng, hệ thống hiển thị giao diện tạm dừng.
+1062	[normal]	→ Đề xuất lớp PausePanel.
+1064	[normal]	Sơ đồ lớp phân tích:
+1067	[normal]	Use case Game Over:
+1068	[normal]	Khi truy cập vào trò chơi, hệ thống hiển thị giao diện menu có hai lựa chọn Arcade và Time Attack.
+1069	[normal]	→ Đề xuất lớp MenuPanel.
+1071	[normal]	Người chơi click chọn chế độ Arcade. Hệ thống bắt đầu ván chơi theo chế độ đã chọn.
+1072	[normal]	→ Cần chức năng startGame(), đây là hành động của đối tượng GameManager.
+1074	[normal]	Khi bắt đầu ván chơi, hệ thống khởi tạo phông nền phù hợp.
+1075	[normal]	→ Đề xuất lớp Background.
+1076	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Background.
+1078	[normal]	Hệ thống khởi tạo pháp sư đang được người chơi sử dụng.
+1079	[normal]	→ Đề xuất lớp Wizard.
+1080	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Wizard.
+1082	[normal]	Hệ thống bắt đầu sinh kẻ địch theo chế độ chơi.
+1083	[normal]	→ Đề xuất lớp EnemySpawner.
+1084	[normal]	→ Cần chức năng getEnemy(), spawnEnemy(), đây là hành động của đối tượng EnemySpawner.
+1086	[normal]	Hệ thống lấy kẻ địch từ danh sách các kẻ địch có thể tái sử dụng.
+1087	[normal]	→ Đề xuất lớp EnemyPool.
+1088	[normal]	→ Cần chức năng initEnemy(), đây là hành động của đối tượng EnemyPool.
+1089	[normal]	Hệ thống lấy quả bóng phù hợp từ danh sách các quả bóng có thể tái sử dụng.
+1090	[normal]	→ Đề xuất lớp BalloonPool.
+1091	[normal]	→ Cần chức năng initBalloon(), đây là hành động của đối tượng BalloonPool.
+1093	[normal]	Hệ thống khởi tạo quả bóng.
+1094	[normal]	→ Đề xuất lớp Balloon.
+1095	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Balloon.
+1097	[normal]	Hệ thống khởi tạo kẻ địch cùng quả bóng tương ứng.
+1098	[normal]	→ Đề xuất lớp Enemy.
+1099	[normal]	→ Cần chức năng init(), đây là hành động của đối tượng Enemy.
+1101	[normal]	Sau khi hoàn tất quá trình khởi tạo, hệ thống hiển thị giao diện chơi game.
+1102	[normal]	→ Đề xuất lớp GamePanel.
+1104	[normal]	Khi điều kiện kết thúc ván chơi xảy ra, hệ thống xử lý Game Over.
+1105	[normal]	→ Cần chức năng gameOver(), đây là hành động của đối tượng GameManager.
+1107	[normal]	Sau khi ván chơi kết thúc, hệ thống hiển thị giao diện Game Over.
+1108	[normal]	→ Đề xuất lớp GameOverPanel.
+1110	[normal]	Sơ đồ lớp phân tích:
+1113	[normal]	Use case Setting:
+1114	[normal]	Khi truy cập vào trò chơi, hệ thống hiển thị giao diện menu.
+1115	[normal]	→ Đề xuất lớp MenuPanel.
+1116	[normal]	Người chơi click chọn chức năng cài đặt trên giao diện menu. Hệ thống hiển thị giao diện cài đặt.
+1117	[normal]	→ Đề xuất lớp SettingPanel.
+1119	[normal]	Người chơi thay đổi trạng thái nhạc nền. Hệ thống xử lý và lưu lại trạng thái mới.
+1120	[normal]	→ Cần chức năng toggleBgm(), đây là hành động của đối tượng GameManager.
+1122	[normal]	Người chơi thay đổi trạng thái hiệu ứng âm thanh. Hệ thống xử lý và lưu lại trạng thái mới.
+1123	[normal]	→ Cần chức năng toggleSfx(), đây là hành động của đối tượng GameManager.
+1125	[normal]	Người chơi thay đổi trạng thái rung. Hệ thống xử lý và lưu lại trạng thái mới.
+1126	[normal]	→ Cần chức năng toggleVibration(), đây là hành động của đối tượng GameManager.
+1128	[normal]	Người chơi yêu cầu đặt lại dữ liệu trò chơi. Hệ thống đặt lại dữ liệu về trạng thái mặc định.
+1129	[normal]	→ Cần chức năng resetData(), đây là hành động của đối tượng GameManager.
+1131	[normal]	Sau khi xử lý, hệ thống cập nhật trạng thái hiển thị trên giao diện cài đặt.
+1132	[normal]	→ Tiếp tục sử dụng lớp SettingPanel, không cần đề xuất lớp mới.
+1134	[normal]	Người chơi đóng giao diện cài đặt. Hệ thống quay lại giao diện menu.
+1135	[normal]	→ Tiếp tục sử dụng lớp MenuPanel, không cần đề xuất lớp mới.
+1137	[normal]	Sơ đồ lớp phân tích:
+1140	[normal]	Use case Shopping And Use Items:
+1141	[normal]	Khi truy cập vào trò chơi, hệ thống hiển thị giao diện menu.
+1142	[normal]	→ Đề xuất lớp MenuPanel.
+1143	[normal]	Người chơi click chọn chức năng mua sắm trên giao diện menu. Hệ thống hiển thị giao diện cửa hàng.
+1144	[normal]	→ Đề xuất lớp ShopPanel.
+1146	[normal]	Trên giao diện cửa hàng, người chơi có thể lựa chọn danh mục phép thuật, pháp sư hoặc phông nền. Các giao diện mua sắm của ba danh mục có các thành phần chung như chuyển vật phẩm trước hoặc sau, mua vật phẩm, hiển thị trạng thái sở hữu và quay lại giao diện cửa hàng.
+1147	[normal]	→ Đề xuất lớp ShopItemPanelBase.
+1149	[normal]	Người chơi click chọn danh mục phép thuật. Hệ thống hiển thị giao diện mua sắm phép thuật.
+1150	[normal]	→ Đề xuất lớp SpellShopPanel, kế thừa từ lớp ShopItemPanelBase.
+1152	[normal]	Người chơi click chọn danh mục pháp sư. Hệ thống hiển thị giao diện mua sắm pháp sư.
+1153	[normal]	→ Đề xuất lớp WizardShopPanel, kế thừa từ lớp ShopItemPanelBase.
+1155	[normal]	Người chơi click chọn danh mục phông nền. Hệ thống hiển thị giao diện mua sắm phông nền.
+1156	[normal]	→ Đề xuất lớp BackgroundShopPanel, kế thừa từ lớp ShopItemPanelBase.
+1158	[normal]	Người chơi click nút mua vật phẩm. Hệ thống kiểm tra lượng vàng hiện có và xử lý mua vật phẩm đã chọn.
+1159	[normal]	→ Cần chức năng buyItem(), đây là hành động của đối tượng GameManager.
+1161	[normal]	Người chơi click nút sử dụng vật phẩm. Hệ thống thay đổi vật phẩm đang được sử dụng.
+1162	[normal]	→ Cần chức năng useItem(), đây là hành động của đối tượng GameManager.
+1164	[normal]	Người chơi click nút quay lại. Hệ thống hiển thị lại giao diện cửa hàng.
+1165	[normal]	→ Tiếp tục sử dụng lớp ShopPanel, không cần đề xuất lớp mới.
+1167	[normal]	Sơ đồ lớp phân tích:
+1170	[normal]	Biểu đồ tuần tự
+1171	[normal]	Use case Play Game:
+1172	[normal]	Người chơi chọn chế độ Arcade trên giao diện MenuPanel.
+1173	[normal]	Lớp MenuPanel gọi lớp GameManager yêu cầu bắt đầu ván chơi với chế độ Arcade.
+1174	[normal]	Lớp GameManager yêu cầu lớp Background khởi tạo phông nền phù hợp.
+1175	[normal]	Lớp Background khởi tạo phông nền.
+1176	[normal]	Lớp Background trả lại kết quả cho lớp GameManager.
+1177	[normal]	Lớp GameManager yêu cầu lớp Wizard khởi tạo pháp sư đang được sử dụng.
+1178	[normal]	Lớp Wizard khởi tạo pháp sư.
+1179	[normal]	Lớp Wizard trả lại kết quả cho lớp GameManager.
+1180	[normal]	Lớp GameManager gọi lớp EnemySpawner yêu cầu bắt đầu sinh kẻ địch theo chế độ chơi.
+1181	[normal]	Lớp EnemySpawner gọi lớp EnemyPool yêu cầu khởi tạo kẻ địch.
+1182	[normal]	Lớp EnemyPool gọi lớp BalloonPool yêu cầu khởi tạo quả bóng phù hợp.
+1183	[normal]	Lớp BalloonPool yêu cầu lớp Balloon khởi tạo quả bóng.
+1184	[normal]	Lớp Balloon khởi tạo quả bóng.
+1185	[normal]	Lớp Balloon trả lại kết quả cho lớp BalloonPool.
+1186	[normal]	Lớp BalloonPool trả lại quả bóng cho lớp EnemyPool.
+1187	[normal]	Lớp EnemyPool yêu cầu lớp Enemy khởi tạo kẻ địch cùng quả bóng.
+1188	[normal]	Lớp Enemy khởi tạo kẻ địch.
+1189	[normal]	Lớp Enemy trả lại kết quả cho lớp EnemyPool.
+1190	[normal]	Lớp EnemyPool trả lại kẻ địch cho lớp EnemySpawner.
+1191	[normal]	Lớp EnemySpawner trả lại kết quả cho lớp GameManager.
+1192	[normal]	Lớp GameManager gọi lớp GamePanel yêu cầu hiển thị giao diện chơi game.
+1193	[normal]	Lớp GamePanel hiển thị phông nền, pháp sư, kẻ địch, điểm số và lượng vàng cho người chơi.
+1194	[normal]	Người chơi vẽ ký hiệu tương ứng với quả bóng trên giao diện DrawAreaView.
+1195	[normal]	Lớp DrawAreaView gọi lớp GestureResultHandler yêu cầu nhận dạng ký hiệu.
+1196	[normal]	Lớp GestureResultHandler nhận dạng ký hiệu.
+1197	[normal]	Lớp GestureResultHandler trả lại ký hiệu đã nhận dạng cho lớp DrawAreaView.
+1198	[normal]	Lớp DrawAreaView gửi ký hiệu đã nhận dạng đến lớp GameManager.
+1199	[normal]	Lớp GameManager gọi lớp Enemy yêu cầu xử lý ký hiệu đã nhận dạng.
+1200	[normal]	Lớp Enemy kiểm tra ký hiệu và yêu cầu lớp Balloon xử lý phá quả bóng tương ứng.
+1201	[normal]	Lớp Balloon xử lý phá quả bóng.
+1202	[normal]	Lớp Balloon trả lại kết quả cho lớp Enemy.
+1203	[normal]	Lớp Enemy xử lý trạng thái bị tiêu diệt và trả lại điểm số, lượng vàng nhận được cho lớp GameManager.
+1204	[normal]	Lớp GameManager cập nhật điểm số, lượng vàng nhận được trong ván chơi và gọi lớp GamePanel yêu cầu cập nhật thông tin hiển thị.
+1205	[normal]	Lớp GamePanel hiển thị điểm số và lượng vàng mới cho người chơi.
+1207	[normal]	Biểu đồ tuần tự:
+1210	[normal]	Use case Pause Game:
+1211	[normal]	Người chơi chọn chế độ Arcade trên giao diện MenuPanel.
+1212	[normal]	Lớp MenuPanel gọi lớp GameManager yêu cầu bắt đầu ván chơi với chế độ Arcade.
+1213	[normal]	Lớp GameManager yêu cầu lớp Background khởi tạo phông nền phù hợp.
+1214	[normal]	Lớp Background khởi tạo phông nền.
+1215	[normal]	Lớp Background trả lại kết quả cho lớp GameManager.
+1216	[normal]	Lớp GameManager yêu cầu lớp Wizard khởi tạo pháp sư đang được sử dụng.
+1217	[normal]	Lớp Wizard khởi tạo pháp sư.
+1218	[normal]	Lớp Wizard trả lại kết quả cho lớp GameManager.
+1219	[normal]	Lớp GameManager gọi lớp EnemySpawner yêu cầu bắt đầu sinh kẻ địch theo chế độ chơi.
+1220	[normal]	Lớp EnemySpawner gọi lớp EnemyPool yêu cầu khởi tạo kẻ địch.
+1221	[normal]	Lớp EnemyPool gọi lớp BalloonPool yêu cầu khởi tạo quả bóng phù hợp.
+1222	[normal]	Lớp BalloonPool yêu cầu lớp Balloon khởi tạo quả bóng.
+1223	[normal]	Lớp Balloon khởi tạo quả bóng.
+1224	[normal]	Lớp Balloon trả lại kết quả cho lớp BalloonPool.
+1225	[normal]	Lớp BalloonPool trả lại quả bóng cho lớp EnemyPool.
+1226	[normal]	Lớp EnemyPool yêu cầu lớp Enemy khởi tạo kẻ địch cùng quả bóng.
+1227	[normal]	Lớp Enemy khởi tạo kẻ địch.
+1228	[normal]	Lớp Enemy trả lại kết quả cho lớp EnemyPool.
+1229	[normal]	Lớp EnemyPool trả lại kẻ địch cho lớp EnemySpawner.
+1230	[normal]	Lớp EnemySpawner trả lại kết quả cho lớp GameManager.
+1231	[normal]	Lớp GameManager gọi lớp GamePanel yêu cầu hiển thị giao diện chơi game.
+1232	[normal]	Lớp GamePanel hiển thị giao diện chơi game cho người chơi.
+1233	[normal]	Người chơi click nút tạm dừng trên giao diện GamePanel.
+1234	[normal]	Lớp GamePanel gọi lớp GameManager yêu cầu tạm dừng ván chơi.
+1235	[normal]	Lớp GameManager tạm dừng các hoạt động trong ván chơi.
+1236	[normal]	Lớp GameManager trả lại kết quả cho lớp GamePanel.
+1237	[normal]	Lớp GamePanel gọi lớp PausePanel yêu cầu hiển thị giao diện tạm dừng.
+1238	[normal]	Lớp PausePanel hiển thị giao diện tạm dừng cho người chơi.
+1240	[normal]	Biểu đồ tuần tự:
+1243	[normal]	Use case Game Over:
+1244	[normal]	Người chơi chọn chế độ Arcade trên giao diện MenuPanel.
+1245	[normal]	Lớp MenuPanel gọi lớp GameManager yêu cầu bắt đầu ván chơi với chế độ Arcade.
+1246	[normal]	Lớp GameManager yêu cầu lớp Background khởi tạo phông nền phù hợp.
+1247	[normal]	Lớp Background khởi tạo phông nền.
+1248	[normal]	Lớp Background trả lại kết quả cho lớp GameManager.
+1249	[normal]	Lớp GameManager yêu cầu lớp Wizard khởi tạo pháp sư đang được sử dụng.
+1250	[normal]	Lớp Wizard khởi tạo pháp sư.
+1251	[normal]	Lớp Wizard trả lại kết quả cho lớp GameManager.
+1252	[normal]	Lớp GameManager gọi lớp EnemySpawner yêu cầu bắt đầu sinh kẻ địch theo chế độ chơi.
+1253	[normal]	Lớp EnemySpawner gọi lớp EnemyPool yêu cầu khởi tạo kẻ địch.
+1254	[normal]	Lớp EnemyPool gọi lớp BalloonPool yêu cầu khởi tạo quả bóng phù hợp.
+1255	[normal]	Lớp BalloonPool yêu cầu lớp Balloon khởi tạo quả bóng.
+1256	[normal]	Lớp Balloon khởi tạo quả bóng.
+1257	[normal]	Lớp Balloon trả lại kết quả cho lớp BalloonPool.
+1258	[normal]	Lớp BalloonPool trả lại quả bóng cho lớp EnemyPool.
+1259	[normal]	Lớp EnemyPool yêu cầu lớp Enemy khởi tạo kẻ địch cùng quả bóng.
+1260	[normal]	Lớp Enemy khởi tạo kẻ địch.
+1261	[normal]	Lớp Enemy trả lại kết quả cho lớp EnemyPool.
+1262	[normal]	Lớp EnemyPool trả lại kẻ địch cho lớp EnemySpawner.
+1263	[normal]	Lớp EnemySpawner trả lại kết quả cho lớp GameManager.
+1264	[normal]	Lớp GameManager gọi lớp GamePanel yêu cầu hiển thị giao diện chơi game.
+1265	[normal]	Lớp GamePanel hiển thị giao diện chơi game cho người chơi.
+1266	[normal]	Người chơi không phá quả bóng kịp thời, khiến kẻ địch tiến đến lâu đài, gọi tới lớp GameManager yêu cầu xử lý.
+1267	[normal]	Lớp GameManager xử lý kết thúc ván chơi.
+1268	[normal]	Lớp GameManager gọi lớp GameOverPanel yêu cầu hiển thị giao diện Game Over.
+1269	[normal]	Lớp GameOverPanel hiển thị kết quả ván chơi cho người chơi.
+1271	[normal]	Biểu đồ tuần tự:
+1274	[normal]	Use case Setting (Đại diện trường hợp thay đổi trạng thái nhạc nền, các trường hợp còn lại tương tự):
+1275	[normal]	Người chơi click chọn chức năng cài đặt trên giao diện MenuPanel.
+1276	[normal]	Lớp MenuPanel gọi lớp SettingPanel yêu cầu hiển thị giao diện cài đặt.
+1277	[normal]	Lớp SettingPanel hiển thị các trạng thái cài đặt hiện tại cho người chơi.
+1278	[normal]	Người chơi click nút thay đổi trạng thái nhạc nền trên giao diện SettingPanel.
+1279	[normal]	Lớp SettingPanel gọi lớp GameManager yêu cầu thay đổi trạng thái nhạc nền.
+1280	[normal]	Lớp GameManager xử lý thay đổi trạng thái nhạc nền
+1281	[normal]	Lớp GameManager trả kết quả về cho lớp SettingPanel.
+1282	[normal]	Lớp SettingPanel hiển thị trạng thái nhạc nền mới cho người chơi.
+1284	[normal]	Biểu đồ tuần tự:
+1287	[normal]	Use case Shopping And Use Items (Đại diện trường hợp mua phông nền, các trường hợp còn lại tương tự)
+1288	[normal]	Người chơi click chọn chức năng mua sắm trên giao diện MenuPanel.
+1289	[normal]	Lớp MenuPanel gọi lớp ShopPanel yêu cầu hiển thị giao diện cửa hàng.
+1290	[normal]	Lớp ShopPanel hiển thị giao diện cửa hàng cho người chơi.
+1291	[normal]	Người chơi click chọn danh mục phông nền trên giao diện ShopPanel.
+1292	[normal]	Lớp ShopPanel gọi lớp BackgroundShopPanel yêu cầu hiển thị giao diện mua sắm phông nền.
+1293	[normal]	Lớp BackgroundShopPanel hiển thị giao diện mua sắm phông nền cho người chơi.
+1294	[normal]	Người chơi click nút mua phông nền trên giao diện BackgroundShopPanel.
+1295	[normal]	Lớp BackgroundShopPanel gọi lớp GameManager yêu cầu xử lý mua phông nền đã chọn.
+1296	[normal]	Lớp GameManager kiểm tra lượng vàng hiện có và xử lý mua phông nền.
+1297	[normal]	Lớp GameManager trả lại kết quả mua phông nền cho lớp BackgroundShopPanel.
+1298	[normal]	Lớp BackgroundShopPanel hiển thị trạng thái đã sở hữu cho người chơi.
+1299	[normal]	Người chơi click nút sử dụng phông nền trên giao diện BackgroundShopPanel.
+1300	[normal]	Lớp BackgroundShopPanel gọi lớp GameManager yêu cầu sử dụng phông nền đã chọn.
+1301	[normal]	Lớp GameManager xử lý thay đổi phông nền đang được sử dụng.
+1302	[normal]	Lớp GameManager trả lại kết quả cho lớp BackgroundShopPanel.
+1303	[normal]	Lớp BackgroundShopPanel hiển thị trạng thái đang sử dụng cho người chơi.
+1305	[normal]	Biểu đồ tuần tự:
+1308	[Heading 2]	Pha thiết kế
+1309	[Heading 3]	Sơ đồ lớp thực thể thiết kế
+1310	[normal]	Sơ đồ lớp thực thể thiết kế:
+1313	[Heading 3]	Thiết kế cơ sở dữ liệu
+1314	[normal]	Mục tiêu lưu trữ dữ liệu
+1315	[normal]	Hệ thống cần lưu trữ các thông tin thay đổi trong quá trình người chơi sử dụng trò chơi:
+1316	[normal]	Lượng vàng hiện có.
+1317	[normal]	Điểm cao theo từng chế độ chơi.
+1318	[normal]	Danh sách vật phẩm đã sở hữu.
+1319	[normal]	Pháp sư và phông nền đang được sử dụng.
+1320	[normal]	Trạng thái nhạc nền, hiệu ứng âm thanh và rung.
+1321	[normal]	Dữ liệu mặc định để phục vụ chức năng đặt lại dữ liệu.
+1322	[normal]	Hệ thống không lưu trạng thái tạm thời của một ván chơi như vị trí kẻ địch, các quả bóng đang hiển thị hoặc điểm số hiện tại. Khi thoát khỏi ván chơi, người chơi sẽ bắt đầu lại từ đầu trong lần chơi tiếp theo.
+1324	[normal]	Kiến trúc lưu trữ dữ liệu
+1325	[normal]	Hệ thống không sử dụng hệ quản trị cơ sở dữ liệu như MySQL, SQL Server hoặc PostgreSQL.
+1327	[normal]	Dữ liệu người chơi được lưu cục bộ trên thiết bị bằng file JSON: userdata.json
+1329	[normal]	Hệ thống sử dụng thư viện Newtonsoft.Json để chuyển đổi dữ liệu giữa đối tượng C# và nội dung JSON.
+1331	[normal]	Các dữ liệu cấu hình gameplay (GameModeData, EnemyData, BalloonData, WizardData, BackgroundData ShopItemData, SpellItemData, WizardItemData, BackgroundItemData) không được ghi vào file JSON. Chúng được xây dựng dưới dạng ScriptableObject của Unity và được điều phối thông qua lớp DataManager và plugin Addressables để tải dữ liệu.
+1333	[normal]	Trong đó, lớp DataManager DataManager là lớp điều phối dữ liệu trung tâm với các trách nhiệm:
+1334	[normal]	Đọc file userdata.json khi khởi động.
+1335	[normal]	Tạo dữ liệu mặc định nếu file chưa tồn tại.
+1336	[normal]	Ghi lại userdata.json khi dữ liệu người chơi thay đổi.
+1337	[normal]	Cung cấp dữ liệu người chơi cho các lớp khác.
+1338	[normal]	Điều phối việc tải và cung cấp các ScriptableObject.
+1339	[normal]	Đặt lại toàn bộ dữ liệu người chơi khi nhận yêu cầu reset.
+1341	[normal]	Cấu trúc file userdata.json
+1342	[normal]	UserData:
+1343	[normal]	UserData là đối tượng gốc chứa toàn bộ dữ liệu cần lưu của người chơi.
+1345	[normal]	StatsData:
+1346	[normal]	StatsData lưu thông tin thống kê của người chơi.
+1348	[normal]	InventoryData
+1349	[normal]	InventoryData lưu các vật phẩm đã sở hữu và vật phẩm đang được sử dụng.
+1351	[normal]	SettingsData:
+1352	[normal]	SettingsData lưu trạng thái cài đặt của trò chơi.
+1354	[normal]	Lưu trữ cấu hình, dữ liệu game
+1355	[normal]	Danh sách lớp dữ liệu:
+1357	[Heading 3]	Thiết kế giao diện
+1358	[normal]	Giao diện màn hình chính
+1361	[normal]	Giao diện của cài đặt
+1365	[normal]	Giao diện của cửa hàng
+1368	[normal]	Giao diện chơi game
+1370	[normal]	Màn hình tạm dừng game
+1373	[normal]	Màn hình kết thúc game
+1376	[normal]	Thiết kế tĩnh
+1377	[normal]	Sơ đồ lớp thiết kế:
+1380	[normal]	Thiết kế động
+1382	[Heading 1]	KẾT LUẬN, KIẾN NGHỊ
+1385	[Heading 1]	TÀI LIỆU THAM KHẢO
+1387	[normal]	CÁC SẢN PHẨM KÈM THEO
+1388	[normal]	File thiết kế tương tác : Figma
+1389	[normal]	File phân tích thiết kế UML và source code sản phẩm, kèm file cài ứng dụng đã build
+1390	[normal]	Slide và quyển báo cáo.
+1391	[normal]	Video quay sản phẩm chạy, kèm giới thiệu hoạt động.
+
+=== TABLES ===
+--- TABLE 0 rows=4 cols=2 ---
+Ký hiệu | Diễn giải
+ | 
+ | 
+ | 
+--- TABLE 1 rows=3 cols=2 ---
+ | 
+ | 
+ | 
+--- TABLE 2 rows=3 cols=2 ---
+ | 
+ | 
+ | 
+--- TABLE 3 rows=46 cols=4 ---
+STT | Tên tiếng Việt | Tên tiếng Anh | Ngữ nghĩa
+1 | Trò chơi | Game | Phần mềm giải trí
+2 | Người chơi | Player | Người trực tiếp sử dụng game và thực hiện các thao tác trên giao diện.
+3 | Phù thủy | Wizard | Nhân vật đại diện cho người chơi trong game, có nhiệm vụ bảo vệ lâu đài.
+4 | Lâu đài | Castle | Khu vực cần được bảo vệ khỏi sự tấn công của kẻ địch.
+5 | Ván chơi | Match | Một lượt chơi bắt đầu khi người chơi chọn chế độ chơi và kết thúc khi xảy ra điều kiện kết thúc.
+6 | Chế độ chơi | Game Mode | Cách thức chơi được lựa chọn trước khi bắt đầu ván chơi.
+7 | Chế độ Arcade | Arcade Mode | Chế độ chơi kết thúc khi kẻ địch tiếp cận lâu đài.
+8 | Chế độ giới hạn thời gian | Time Attack Mode | Chế độ chơi trong một khoảng thời gian nhất định, người chơi cố gắng đạt điểm cao nhất trước khi hết giờ.
+9 | Kẻ địch | Enemy | Đối tượng xuất hiện trong ván chơi, di chuyển về phía lâu đài và cần bị ngăn chặn.
+10 | Loại kẻ địch | Enemy Type | Nhóm phân loại kẻ địch theo đặc điểm hoặc mức độ nguy hiểm.
+11 | Bóng bay | Balloon | Đối tượng gắn với kẻ địch, chứa ký hiệu phép thuật cần được phá hủy.
+12 | Ký hiệu phép thuật | Spell Symbol | Hình vẽ xuất hiện trên bóng bay, người chơi cần vẽ lại để xử lý bóng bay.
+13 | Thao tác vẽ | Drawing Gesture | Hành động người chơi vẽ ký hiệu trên màn hình để tương tác với game.
+14 | Nhận diện ký hiệu | Gesture Recognition | Quá trình hệ thống xác định ký hiệu tương ứng với thao tác vẽ của người chơi.
+15 | Phá bóng bay | Pop Balloon | Hành động làm bóng bay biến mất khi người chơi vẽ đúng ký hiệu tương ứng.
+16 | Tiêu diệt kẻ địch | Kill Enemy | Hành động xử lý kẻ địch thành công sau khi bóng bay bị phá hoặc khi dùng phép thuật đặc biệt.
+17 | Sinh kẻ địch | Spawn Enemy | Quá trình hệ thống tạo kẻ địch mới trong ván chơi.
+18 | Độ khó | Difficulty | Mức thử thách của game, ảnh hưởng đến tốc độ và tần suất xuất hiện kẻ địch.
+19 | Phép thuật | Spell | Kỹ năng được kích hoạt thông qua thao tác vẽ ký hiệu.
+20 | Phép thuật đặc biệt | Special Spell | Loại phép thuật có hiệu ứng mạnh hơn thao tác phá bóng thông thường.
+21 | Làm chậm kẻ địch | Slow Enemy | Hiệu ứng làm giảm tốc độ di chuyển của các kẻ địch đang xuất hiện.
+22 | Điện giật toàn bộ | Electrocute All | Hiệu ứng tiêu diệt toàn bộ kẻ địch đang hoạt động trên màn hình.
+23 | Số lượt sử dụng phép thuật | Spell Usage | Số lần phép thuật đặc biệt có thể được sử dụng trong một ván chơi.
+24 | Điểm số | Score | Giá trị thể hiện kết quả người chơi đạt được trong một ván chơi.
+25 | Điểm cao nhất | High Score | Điểm số tốt nhất đã được lưu lại của người chơi.
+26 | Vàng | Gold | Đơn vị tiền trong game, dùng để mua vật phẩm trong cửa hàng.
+27 | Cửa hàng | Shop | Khu vực cho phép người chơi xem, mua và lựa chọn vật phẩm.
+28 | Vật phẩm | Item | Đối tượng có thể được mua, mở khóa hoặc sử dụng trong game.
+29 | Vật phẩm phép thuật | Spell Item | Vật phẩm dùng để mở khóa phép thuật đặc biệt.
+30 | Vật phẩm hình nền | Background Item | Vật phẩm dùng để thay đổi hình nền của gameplay.
+31 | Vật phẩm phù thủy | Wizard Item | Vật phẩm dùng để thay đổi nhân vật phù thủy trong game.
+32 | Mua vật phẩm | Buy Item | Hành động dùng gold để mở khóa vật phẩm chưa sở hữu.
+33 | Trang bị vật phẩm | Equip Item | Hành động chọn vật phẩm đã sở hữu để sử dụng trong game.
+34 | Vật phẩm đã sở hữu | Owned Item | Vật phẩm người chơi đã mua hoặc đã được mở khóa.
+35 | Hình nền | Background | Thành phần hình ảnh nền được hiển thị trong khu vực gameplay.
+36 | Cài đặt | Setting | Nhóm chức năng cho phép người chơi thay đổi trạng thái âm thanh và rung.
+37 | Nhạc nền | Background Music | Âm thanh phát lặp trong quá trình chơi hoặc sử dụng game.
+38 | Hiệu ứng âm thanh | Sound Effect | Âm thanh phát khi xảy ra các sự kiện trong game.
+39 | Rung | Vibration | Phản hồi rung của thiết bị khi xảy ra một số sự kiện trong game.
+40 | Tạm dừng | Pause | Trạng thái tạm ngưng ván chơi, cho phép người chơi tiếp tục, chơi lại hoặc quay về menu.
+41 | Kết thúc ván chơi | Game Over | Trạng thái xảy ra khi ván chơi kết thúc và hệ thống hiển thị kết quả cho người chơi.
+42 | Dữ liệu người chơi | User Data | Dữ liệu lưu trữ thông tin của người chơi như gold, điểm cao, vật phẩm sở hữu và cài đặt.
+43 | Kho đồ | Inventory | Danh sách vật phẩm mà người chơi đã sở hữu và vật phẩm đang được trang bị.
+44 | Dữ liệu thống kê | Statistics Data | Dữ liệu liên quan đến gold và điểm cao nhất của người chơi.
+45 | Dữ liệu cài đặt | Settings Data | Dữ liệu lưu trạng thái bật/tắt nhạc nền, hiệu ứng âm thanh và rung.
+--- TABLE 4 rows=4 cols=3 ---
+Thuộc tính | Kiểu dữ liệu | Ý nghĩa
+stats | StatsData | Thông tin thống kê của người chơi
+inventory | InventoryData | Kho vật phẩm của người chơi
+settings | SettingsData | Các cài đặt cơ bản của trò chơi
+--- TABLE 5 rows=3 cols=3 ---
+Thuộc tính | Kiểu dữ liệu | Ý nghĩa
+highScores | Dictionary<string, int> | Điểm cao tương ứng với từng chế độ chơi
+currentGold | int | Lượng vàng hiện có
+--- TABLE 6 rows=6 cols=3 ---
+Thuộc tính | Kiểu dữ liệu | Ý nghĩa
+ownedBackgrounds | List<string> | Danh sách mã phông nền đã sở hữu
+ownedWizards | List<string> | Danh sách mã pháp sư đã sở hữu
+ownedSpells | List<string> | Danh sách mã phép thuật đã sở hữu
+equippedBackground | string | Mã phông nền đang sử dụng
+equippedWizard | string | Mã pháp sư đang sử dụng
+--- TABLE 7 rows=4 cols=3 ---
+Thuộc tính | Kiểu dữ liệu | Ý nghĩa
+bgmEnabled | bool | Trạng thái bật hoặc tắt nhạc nền
+sfxEnabled | bool | Trạng thái bật hoặc tắt hiệu ứng âm thanh
+vibrationEnabled | bool | Trạng thái bật hoặc tắt rung
+--- TABLE 8 rows=10 cols=2 ---
+Lớp dữ liệu | Ý nghĩa
+GameModeData | Cấu hình chế độ Arcade hoặc Time Attack
+EnemyData | Thông tin của một loại kẻ địch
+BalloonData | Thông tin của một loại bóng và ký hiệu tương ứng
+WizardData | Dữ liệu hiển thị của pháp sư
+BackgroundData | Prefab của phông nền
+ShopItemData | Thông tin chung của vật phẩm cửa hàng
+SpellItemData | Thông tin vật phẩm phép thuật
+WizardItemData | Thông tin vật phẩm pháp sư
+BackgroundItemData | Thông tin vật phẩm phông nền

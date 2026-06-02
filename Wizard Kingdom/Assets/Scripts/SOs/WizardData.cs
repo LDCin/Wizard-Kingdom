@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SOs
 {
@@ -8,10 +8,11 @@ namespace SOs
         public string id;
 
         [Header("Animator overrides")]
-        [Tooltip("Override controller dùng cho Body animator của Player.")]
+        [Tooltip("Override controller for wizard body animator.")]
         public AnimatorOverrideController bodyController;
 
-        [Tooltip("Override controller dùng cho Head animator của Player.")]
+        [Tooltip("Override controller for wizard head animator.")]
         public AnimatorOverrideController headController;
     }
 }
+

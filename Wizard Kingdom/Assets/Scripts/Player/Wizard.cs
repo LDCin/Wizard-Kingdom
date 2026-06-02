@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Collections;
 using Managers;
 using StateMachines;
 using UnityEngine;
 using Utils;
 
-namespace Players
+namespace Wizards
 {
-    public class Player : MonoBehaviour
+    public class Wizard : MonoBehaviour
     {
         public static event Action OnDead;
         [Header("Animator")]
@@ -22,14 +22,14 @@ namespace Players
         [Header("State")]
         private StateMachine _stateMachine;
         public StateMachine StateMachine => _stateMachine;
-        private PlayerIdleState _idleState;
-        public PlayerIdleState IdleState => _idleState;
-        private PlayerSpellState _spellState;
-        public PlayerSpellState SpellState => _spellState;
-        private PlayerSnapState _snapState;
-        public PlayerSnapState SnapState => _snapState;
-        private PlayerDeadState _deadState;
-        public PlayerDeadState DeadState => _deadState;
+        private WizardIdleState _idleState;
+        public WizardIdleState IdleState => _idleState;
+        private WizardSpellState _spellState;
+        public WizardSpellState SpellState => _spellState;
+        private WizardSnapState _snapState;
+        public WizardSnapState SnapState => _snapState;
+        private WizardDeadState _deadState;
+        public WizardDeadState DeadState => _deadState;
 
         private void Start()
         {
@@ -39,15 +39,23 @@ namespace Players
             }
 
             _stateMachine = new StateMachine();
-            _idleState = new PlayerIdleState(this);
-            _spellState = new PlayerSpellState(this);
-            _snapState = new PlayerSnapState(this);
-            _deadState = new PlayerDeadState(this);
+            _idleState = new WizardIdleState(this);
+            _spellState = new WizardSpellState(this);
+            _snapState = new WizardSnapState(this);
+            _deadState = new WizardDeadState(this);
             _stateMachine.ChangeState(_idleState);
         }
         private void Update()
         {
             _stateMachine.Update();
+        }
+        private void OnEnable()
+        {
+            GameManager.OnGameOver += HandleGameOver;
+        }
+        private void OnDisable()
+        {
+            GameManager.OnGameOver -= HandleGameOver;
         }
 
         private void OnDestroy()
@@ -66,13 +74,13 @@ namespace Players
         {
             _stateMachine.ChangeState(_deadState);
         }
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag(GameConfig.Tags.Fire))
-            {
-                StartCoroutine(DeadRoutine());
-            }
-        }
+        // private void OnTriggerEnter2D(Collider2D other)
+        // {
+        //     if (other.gameObject.CompareTag(GameConfig.Tags.Fire))
+        //     {
+        //         StartCoroutine(DeadRoutine());
+        //     }
+        // }
         private IEnumerator DeadRoutine()
         {
             Debug.Log("DeadRoutine called");
@@ -118,16 +126,7 @@ namespace Players
                 _stateMachine.ChangeState(_idleState);
             }
         }
-
-        //TEST
-        private void OnEnable()
-        {
-            GameManager.OnGameOver += HandleGameOver;
-        }
-        private void OnDisable()
-        {
-            GameManager.OnGameOver -= HandleGameOver;
-        }
+        
         private void HandleGameOver()
         {
             StartCoroutine(DeadRoutine());

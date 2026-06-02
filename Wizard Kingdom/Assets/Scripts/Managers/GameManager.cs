@@ -5,13 +5,11 @@ using Enemies;
 using GestureRecognizer;
 using ObjectPool;
 using Particles;
-using Players;
+using Wizards;
 using SOs;
 using StateMachines;
 using UI;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using Utils;
 
 namespace Managers
@@ -32,7 +30,7 @@ namespace Managers
         public static event Action<float, float> OnTimeChanged;
         public static event Action OnTimeExpired;
         [SerializeField] private EnemySpawner _enemySpawnerPrefab;
-        [SerializeField] private Player _player;
+        [SerializeField] private Wizard _wizard;
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
         [SerializeField] private ParticlePool _particlePool;
@@ -40,7 +38,6 @@ namespace Managers
         // [SerializeField] private List<string> _spawnEnemyNameList;
         // [SerializeField] private float _delayTime = 1f;
         private GameModeData _currentModeData;
-        private AsyncOperationHandle<GameModeData> _currentModeHandle;
         private Coroutine _timeAttackCoroutine;
         private float _remainingTime;
         private float _totalTime;
@@ -77,7 +74,7 @@ namespace Managers
                 _isNewGame = value;
             }
         }
-        [SerializeField] private bool _playerDead = true;
+        [SerializeField] private bool _wizardDead = true;
         private Coroutine _startGameCoroutine;
         public override void Awake()
         {
@@ -106,7 +103,7 @@ namespace Managers
             PausePanel.OnRestartGame += RestartGame;
             GameOverPanel.OnRestartGame += RestartGame;
             GameOverPanel.OnBackToMenu += ChangeToMenuState;
-            Player.OnDead += ChangePlayerState;
+            Wizard.OnDead += ChangeWizardState;
             GestureResultHandler.OnDrawSymbol += HandleComboStart;
             GestureResultHandler.OnDrawSymbol += HandleSkillGesture;
             GestureResultHandler.OnRecognitionFinished += HandleComboEnd;
@@ -123,7 +120,7 @@ namespace Managers
             PausePanel.OnRestartGame -= RestartGame;
             GameOverPanel.OnRestartGame -= RestartGame;
             GameOverPanel.OnBackToMenu -= ChangeToMenuState;
-            Player.OnDead -= ChangePlayerState;
+            Wizard.OnDead -= ChangeWizardState;
             GestureResultHandler.OnDrawSymbol -= HandleComboStart;
             GestureResultHandler.OnDrawSymbol -= HandleSkillGesture;
             GestureResultHandler.OnRecognitionFinished -= HandleComboEnd;
@@ -147,36 +144,31 @@ namespace Managers
         }
         private IEnumerator LoadModeAndPlayRoutine(string modeKey)
         {
-            ReleaseCurrentModeHandle();
+            _currentModeData = null;
 
             if (string.IsNullOrEmpty(modeKey))
             {
-                Debug.LogWarning("GameManager: modeKey rỗng, không load được GameModeData.");
+                Debug.LogWarning("GameManager: modeKey r?ng, không load du?c GameModeData.");
                 yield break;
             }
 
-            _currentModeHandle = Addressables.LoadAssetAsync<GameModeData>(modeKey);
-            yield return _currentModeHandle;
+            bool completed = false;
+            DataManager.Instance.LoadGameModeData(modeKey, modeData =>
+            {
+                _currentModeData = modeData;
+                completed = true;
+            });
 
-            if (_currentModeHandle.Status == AsyncOperationStatus.Succeeded)
+            yield return new WaitUntil(() => completed);
+
+            if (_currentModeData == null)
             {
-                _currentModeData = _currentModeHandle.Result;
-                OnModeLoaded?.Invoke(_currentModeData);
-                ChangeToPlayState();
+                Debug.LogError($"GameManager: load GameModeData th?t b?i v?i key '{modeKey}'.");
+                yield break;
             }
-            else
-            {
-                Debug.LogError($"GameManager: load GameModeData thất bại với key '{modeKey}'.");
-                ReleaseCurrentModeHandle();
-            }
-        }
-        private void ReleaseCurrentModeHandle()
-        {
-            if (_currentModeHandle.IsValid())
-            {
-                Addressables.Release(_currentModeHandle);
-            }
-            _currentModeData = null;
+
+            OnModeLoaded?.Invoke(_currentModeData);
+            ChangeToPlayState();
         }
         private void ChangeToGameOverState()
         {
@@ -193,9 +185,9 @@ namespace Managers
         {
             _stateMachine.ChangeState(_pauseState);
         }
-        private void ChangePlayerState()
+        private void ChangeWizardState()
         {
-            _playerDead = true;
+            _wizardDead = true;
         }
         private void UpdateScoreAndGold(int newScore, int newGold)
         {
@@ -216,8 +208,8 @@ namespace Managers
         {
             if (!_isNewGame) return;
             _isNewGame = false;
-            _playerDead = false;
-            _player?.ResetToIdleForNewGame();
+            _wizardDead = false;
+            _wizard?.ResetToIdleForNewGame();
             _spellCaster?.ResetSpellUses();
             InitGameStat();
             DestroyEnemySpawner();
@@ -340,7 +332,7 @@ namespace Managers
         {
             _isNewGame = true;
             DestroyEnemySpawner();
-            ReleaseCurrentModeHandle();
+            _currentModeData = null;
         }
         public void GameOver()
         {
@@ -351,7 +343,7 @@ namespace Managers
             StopSpawnEnemy();
             TryVibrateGameOver();
             OnGameOver?.Invoke();
-            yield return new WaitUntil(() => _playerDead);
+            yield return new WaitUntil(() => _wizardDead);
 
             if (_gold > 0)
             {
@@ -422,3 +414,4 @@ namespace Managers
         }
     }
 }
+

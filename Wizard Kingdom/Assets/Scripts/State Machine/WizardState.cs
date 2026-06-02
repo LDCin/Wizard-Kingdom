@@ -1,0 +1,133 @@
+using Enemies;
+using GestureRecognizer;
+using Managers;
+using Wizards;
+using UnityEngine;
+using Utils;
+
+namespace StateMachines
+{
+    public class WizardIdleState : IState
+    {
+        public Wizard _wizard;
+        public WizardIdleState(Wizard wizard) => _wizard = wizard;
+
+        public void Enter()
+        {
+            Debug.Log("Wizard: Enter Idle State!");
+            _wizard.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
+            _wizard.HeadAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
+
+            DrawDetector.OnDrawStart += HandleDrawStart;
+        }
+
+        public void Update()
+        {
+        }
+
+        public void Exit()
+        {
+            _wizard.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
+            _wizard.HeadAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
+
+            DrawDetector.OnDrawStart -= HandleDrawStart;
+        }
+
+        private void HandleDrawStart()
+        {
+            if (GameManager.Instance.StateMachine.CurrentState == GameManager.Instance.PauseState)
+                return;
+
+            _wizard.StateMachine.ChangeState(_wizard.SpellState);
+        }
+    }
+    public class WizardSpellState : IState
+    {
+        private Wizard _wizard;
+        private bool _hasPoppedBalloon;
+
+        public WizardSpellState(Wizard wizard)
+        {
+            _wizard = wizard;
+        }
+
+        public void Enter()
+        {
+            _hasPoppedBalloon = false;
+
+            _wizard.BodyAnimator.SetBool(GameConfig.AnimatorParams.Spell, true);
+
+            Enemy.OnBalloonPop += HandleBalloonPop;
+            GestureResultHandler.OnRecognitionFinished += HandleRecognitionFinished;
+        }
+
+        public void Update()
+        {
+            
+        }
+
+        public void Exit()
+        {
+            _wizard.BodyAnimator.SetBool(GameConfig.AnimatorParams.Spell, false);
+
+            Enemy.OnBalloonPop -= HandleBalloonPop;
+            GestureResultHandler.OnRecognitionFinished -= HandleRecognitionFinished;
+        }
+
+        private void HandleBalloonPop()
+        {
+            _hasPoppedBalloon = true;
+            _wizard.StateMachine.ChangeState(_wizard.SnapState);
+        }
+
+        private void HandleRecognitionFinished()
+        {
+            if (_hasPoppedBalloon)
+                return;
+
+            _wizard.StateMachine.ChangeState(_wizard.IdleState);
+        }
+    }
+    public class WizardSnapState : IState
+    {
+        public Wizard _wizard;
+        public WizardSnapState(Wizard wizard) => _wizard = wizard;
+
+        public void Enter()
+        {
+            _wizard.BodyAnimator.SetTrigger(GameConfig.AnimatorParams.Snap);
+        }
+
+        public void Update()
+        {
+            
+        }
+
+        public void Exit()
+        {
+        }
+    }
+    public class WizardDeadState : IState
+    {
+        public Wizard _wizard;
+        public WizardDeadState(Wizard wizard) => _wizard = wizard;
+
+        public void Enter()
+        {
+            _wizard.SetHeadActive(false);
+            _wizard.BodyAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
+            _wizard.HeadAnimator.SetBool(GameConfig.AnimatorParams.Idle, false);
+            _wizard.BodyAnimator.SetBool(GameConfig.AnimatorParams.Dead, true);
+            _wizard.HeadAnimator.SetBool(GameConfig.AnimatorParams.Dead, true);
+        }
+
+        public void Update()
+        {
+            
+        }
+
+        public void Exit()
+        {
+        }
+    }
+}

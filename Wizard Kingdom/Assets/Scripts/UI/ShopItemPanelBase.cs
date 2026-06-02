@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Managers;
 using SOs;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using Utils;
 
@@ -11,8 +10,6 @@ namespace UI
 {
     public abstract class ShopItemPanelBase<TItem> : Panel where TItem : ShopItemData
     {
-        protected const string CatalogAddress = GameConfig.Addressables.ShopCatalog;
-
         [SerializeField] private SpriteAssetNumberText _totalCoinText;
         [SerializeField] private GameObject _priceIcon;
         [SerializeField] private SpriteAssetNumberText _priceText;
@@ -24,8 +21,6 @@ namespace UI
 
         protected IReadOnlyList<TItem> _items;
         protected int _index;
-        private AsyncOperationHandle<ShopCatalog> _catalogHandle;
-        private bool _hasHandle;
         private bool _isNavigating;
 
         protected abstract IReadOnlyList<TItem> GetItemsFrom(ShopCatalog catalog);
@@ -67,23 +62,20 @@ namespace UI
         {
             ReleaseCatalog();
 
-            yield return ShopCatalogLoader.Load(CatalogAddress, (catalog, handle) =>
+            bool completed = false;
+            DataManager.Instance.LoadShopCatalog(catalog =>
             {
-                _catalogHandle = handle;
-                _hasHandle = true;
                 _items = catalog != null ? GetItemsFrom(catalog) : null;
                 _index = 0;
                 RefreshItem();
+                completed = true;
             });
+
+            yield return new WaitUntil(() => completed);
         }
 
         private void ReleaseCatalog()
         {
-            if (_hasHandle)
-            {
-                ShopCatalogLoader.Release(_catalogHandle);
-                _hasHandle = false;
-            }
             _items = null;
             _index = 0;
         }

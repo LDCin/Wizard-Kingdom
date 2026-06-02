@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML">
+  <uml:Model xmi:id="model_wizard_kingdom" name="Wizard Kingdom Entity Class Diagram">
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_string" name="string" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_int" name="int" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_float" name="float" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_bool" name="bool" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_sprite" name="Sprite" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_animator" name="Animator" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_sprite_renderer" name="SpriteRenderer" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_runtime_animator_controller" name="RuntimeAnimatorController" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_animator_override_controller" name="AnimatorOverrideController" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_game_object" name="GameObject" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_dictionary_string_int" name="Dictionary&lt;string, int&gt;" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_list_string" name="List&lt;string&gt;" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_list_balloon" name="List&lt;Balloon&gt;" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_list_difficulty_tier" name="List&lt;DifficultyTier&gt;" />
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_list_enemy_spawn_entry" name="List&lt;EnemySpawnEntry&gt;" />
+
+    <packagedElement xmi:type="uml:Class" xmi:id="class_user_data" name="UserData">
+      <ownedAttribute xmi:id="attr_user_stats" name="stats" type="class_stats_data" />
+      <ownedAttribute xmi:id="attr_user_inventory" name="inventory" type="class_inventory_data" />
+      <ownedAttribute xmi:id="attr_user_settings" name="settings" type="class_settings_data" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_stats_data" name="StatsData">
+      <ownedAttribute xmi:id="attr_stats_high_scores" name="highScores" type="type_dictionary_string_int" />
+      <ownedAttribute xmi:id="attr_stats_current_gold" name="currentGold" type="type_int" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_inventory_data" name="InventoryData">
+      <ownedAttribute xmi:id="attr_inventory_backgrounds" name="ownedBackgrounds" type="type_list_string" />
+      <ownedAttribute xmi:id="attr_inventory_wizards" name="ownedWizards" type="type_list_string" />
+      <ownedAttribute xmi:id="attr_inventory_spells" name="ownedSpells" type="type_list_string" />
+      <ownedAttribute xmi:id="attr_inventory_equipped_background" name="equippedBackground" type="type_string" />
+      <ownedAttribute xmi:id="attr_inventory_equipped_wizard" name="equippedWizard" type="type_string" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_settings_data" name="SettingsData">
+      <ownedAttribute xmi:id="attr_settings_bgm" name="bgmEnabled" type="type_bool" />
+      <ownedAttribute xmi:id="attr_settings_sfx" name="sfxEnabled" type="type_bool" />
+      <ownedAttribute xmi:id="attr_settings_vibration" name="vibrationEnabled" type="type_bool" />
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" xmi:id="class_player" name="Player">
+      <ownedAttribute xmi:id="attr_player_body_animator" name="bodyAnimator" type="type_animator" />
+      <ownedAttribute xmi:id="attr_player_head_animator" name="headAnimator" type="type_animator" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_enemy" name="Enemy">
+      <ownedAttribute xmi:id="attr_enemy_name" name="enemyName" type="type_string" />
+      <ownedAttribute xmi:id="attr_enemy_sprite" name="sprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_enemy_type" name="enemyType" type="type_string" />
+      <ownedAttribute xmi:id="attr_enemy_animator" name="animator" type="type_animator" />
+      <ownedAttribute xmi:id="attr_enemy_gold" name="goldReward" type="type_int" />
+      <ownedAttribute xmi:id="attr_enemy_score" name="scoreReward" type="type_int" />
+      <ownedAttribute xmi:id="attr_enemy_normal_speed" name="normalSpeed" type="type_float" />
+      <ownedAttribute xmi:id="attr_enemy_move_speed" name="moveSpeed" type="type_float" />
+      <ownedAttribute xmi:id="attr_enemy_remaining_balloon" name="remainingBalloon" type="type_int" />
+      <ownedAttribute xmi:id="attr_enemy_balloon_list" name="balloonList" type="type_list_balloon" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_enemy_data" name="EnemyData">
+      <ownedAttribute xmi:id="attr_enemy_data_name" name="enemyName" type="type_string" />
+      <ownedAttribute xmi:id="attr_enemy_data_sprite" name="sprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_enemy_data_animator" name="runtimeAnimatorController" type="type_runtime_animator_controller" />
+      <ownedAttribute xmi:id="attr_enemy_data_type" name="enemyType" type="type_string" />
+      <ownedAttribute xmi:id="attr_enemy_data_symbols" name="possibleBalloonSymbols" type="type_list_string" />
+      <ownedAttribute xmi:id="attr_enemy_data_balloon_count" name="balloonSpawnCount" type="type_int" />
+      <ownedAttribute xmi:id="attr_enemy_data_gold" name="goldReward" type="type_int" />
+      <ownedAttribute xmi:id="attr_enemy_data_score" name="scoreReward" type="type_int" />
+      <ownedAttribute xmi:id="attr_enemy_data_speed" name="moveSpeed" type="type_float" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_balloon" name="Balloon">
+      <ownedAttribute xmi:id="attr_balloon_symbol" name="symbol" type="type_string" />
+      <ownedAttribute xmi:id="attr_balloon_renderer" name="spriteRenderer" type="type_sprite_renderer" />
+      <ownedAttribute xmi:id="attr_balloon_animator" name="animator" type="type_animator" />
+      <ownedAttribute xmi:id="attr_balloon_idle_sprite" name="idleSprite" type="type_sprite" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_balloon_data" name="BalloonData">
+      <ownedAttribute xmi:id="attr_balloon_data_symbol" name="symbol" type="type_string" />
+      <ownedAttribute xmi:id="attr_balloon_data_sprite" name="sprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_balloon_data_animator" name="runtimeAnimatorController" type="type_runtime_animator_controller" />
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" xmi:id="class_game_mode_data" name="GameModeData">
+      <ownedAttribute xmi:id="attr_mode_type" name="modeType" type="type_string" />
+      <ownedAttribute xmi:id="attr_mode_name" name="modeName" type="type_string" />
+      <ownedAttribute xmi:id="attr_mode_background" name="fixedBackgroundId" type="type_string" />
+      <ownedAttribute xmi:id="attr_mode_tiers" name="difficultyTiers" type="type_list_difficulty_tier" />
+      <ownedAttribute xmi:id="attr_mode_has_time" name="hasTime" type="type_bool" />
+      <ownedAttribute xmi:id="attr_mode_play_time" name="playTime" type="type_float" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_difficulty_tier" name="DifficultyTier">
+      <ownedAttribute xmi:id="attr_tier_threshold" name="scoreThreshold" type="type_int" />
+      <ownedAttribute xmi:id="attr_tier_delay" name="commonSpawnDelay" type="type_float" />
+      <ownedAttribute xmi:id="attr_tier_enemies" name="enemies" type="type_list_enemy_spawn_entry" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_enemy_spawn_entry" name="EnemySpawnEntry">
+      <ownedAttribute xmi:id="attr_entry_enemy_data" name="enemyData" type="class_enemy_data" />
+      <ownedAttribute xmi:id="attr_entry_delay" name="extraSpawnDelay" type="type_float" />
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" xmi:id="class_shop_item_data" name="ShopItemData" isAbstract="true">
+      <ownedAttribute xmi:id="attr_item_id" name="id" type="type_string" />
+      <ownedAttribute xmi:id="attr_item_name" name="displayName" type="type_string" />
+      <ownedAttribute xmi:id="attr_item_category" name="category" type="type_string" />
+      <ownedAttribute xmi:id="attr_item_price" name="price" type="type_int" />
+      <ownedAttribute xmi:id="attr_item_hand_sprite" name="handSprite" type="type_sprite" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_spell_item_data" name="SpellItemData">
+      <generalization xmi:id="gen_spell_item" general="class_shop_item_data" />
+      <ownedAttribute xmi:id="attr_spell_locked" name="lockedItemSprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_spell_unlocked" name="unlockedItemSprite" type="type_sprite" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_wizard_item_data" name="WizardItemData">
+      <generalization xmi:id="gen_wizard_item" general="class_shop_item_data" />
+      <ownedAttribute xmi:id="attr_wizard_item_locked" name="lockedFullBodySprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_wizard_item_unlocked" name="unlockedFullBodySprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_wizard_item_portrait" name="unlockedPortraitSprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_wizard_item_name" name="nameSprite" type="type_sprite" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_background_item_data" name="BackgroundItemData">
+      <generalization xmi:id="gen_background_item" general="class_shop_item_data" />
+      <ownedAttribute xmi:id="attr_background_item_locked" name="lockedItemSprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_background_item_unlocked" name="unlockedItemSprite" type="type_sprite" />
+      <ownedAttribute xmi:id="attr_background_item_name" name="nameSprite" type="type_sprite" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_wizard_data" name="WizardData">
+      <ownedAttribute xmi:id="attr_wizard_id" name="id" type="type_string" />
+      <ownedAttribute xmi:id="attr_wizard_body" name="bodyController" type="type_animator_override_controller" />
+      <ownedAttribute xmi:id="attr_wizard_head" name="headController" type="type_animator_override_controller" />
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="class_background_data" name="BackgroundData">
+      <ownedAttribute xmi:id="attr_background_id" name="id" type="type_string" />
+      <ownedAttribute xmi:id="attr_background_prefab" name="prefab" type="type_game_object" />
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_user_stats" name="UserData_has_StatsData">
+      <ownedEnd xmi:id="end_user_stats_user" type="class_user_data" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_user_stats_user" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_user_stats_user" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_user_stats_stats" type="class_stats_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_user_stats_stats" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_user_stats_stats" value="1"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_user_inventory" name="UserData_has_InventoryData">
+      <ownedEnd xmi:id="end_user_inventory_user" type="class_user_data" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_user_inventory_user" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_user_inventory_user" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_user_inventory_inventory" type="class_inventory_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_user_inventory_inventory" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_user_inventory_inventory" value="1"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_user_settings" name="UserData_has_SettingsData">
+      <ownedEnd xmi:id="end_user_settings_user" type="class_user_data" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_user_settings_user" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_user_settings_user" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_user_settings_settings" type="class_settings_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_user_settings_settings" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_user_settings_settings" value="1"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_stats_mode" name="StatsData_tracks_GameModeData">
+      <ownedEnd xmi:id="end_stats_mode_stats" type="class_stats_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_stats_mode_stats" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_stats_mode_stats" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_stats_mode_mode" type="class_game_mode_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_stats_mode_mode" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_stats_mode_mode" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_mode_tier" name="GameModeData_has_DifficultyTier">
+      <ownedEnd xmi:id="end_mode_tier_mode" type="class_game_mode_data" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_mode_tier_mode" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_mode_tier_mode" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_mode_tier_tier" type="class_difficulty_tier"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_mode_tier_tier" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_mode_tier_tier" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_tier_entry" name="DifficultyTier_has_EnemySpawnEntry">
+      <ownedEnd xmi:id="end_tier_entry_tier" type="class_difficulty_tier" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_tier_entry_tier" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_tier_entry_tier" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_tier_entry_entry" type="class_enemy_spawn_entry"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_tier_entry_entry" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_tier_entry_entry" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_enemy_data_entry" name="EnemyData_used_by_EnemySpawnEntry">
+      <ownedEnd xmi:id="end_enemy_data_entry_data" type="class_enemy_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_data_entry_data" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_data_entry_data" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_enemy_data_entry_entry" type="class_enemy_spawn_entry"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_data_entry_entry" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_data_entry_entry" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_enemy_data_enemy" name="EnemyData_creates_Enemy">
+      <ownedEnd xmi:id="end_enemy_data_enemy_data" type="class_enemy_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_data_enemy_data" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_data_enemy_data" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_enemy_data_enemy_enemy" type="class_enemy"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_data_enemy_enemy" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_data_enemy_enemy" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_enemy_data_balloon_data" name="EnemyData_uses_BalloonData">
+      <ownedEnd xmi:id="end_enemy_data_balloon_data_enemy" type="class_enemy_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_data_balloon_data_enemy" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_data_balloon_data_enemy" value="*"/></ownedEnd>
+      <ownedEnd xmi:id="end_enemy_data_balloon_data_balloon" type="class_balloon_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_data_balloon_data_balloon" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_data_balloon_data_balloon" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_balloon_data_balloon" name="BalloonData_creates_Balloon">
+      <ownedEnd xmi:id="end_balloon_data_balloon_data" type="class_balloon_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_balloon_data_balloon_data" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_balloon_data_balloon_data" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_balloon_data_balloon_balloon" type="class_balloon"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_balloon_data_balloon_balloon" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_balloon_data_balloon_balloon" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_enemy_balloon" name="Enemy_has_Balloon">
+      <ownedEnd xmi:id="end_enemy_balloon_enemy" type="class_enemy" aggregation="shared"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_balloon_enemy" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_balloon_enemy" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_enemy_balloon_balloon" type="class_balloon"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_enemy_balloon_balloon" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_enemy_balloon_balloon" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_inventory_spell" name="InventoryData_owns_SpellItemData">
+      <ownedEnd xmi:id="end_inventory_spell_inventory" type="class_inventory_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_inventory_spell_inventory" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_inventory_spell_inventory" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_inventory_spell_spell" type="class_spell_item_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_inventory_spell_spell" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_inventory_spell_spell" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_inventory_wizard" name="InventoryData_owns_WizardItemData">
+      <ownedEnd xmi:id="end_inventory_wizard_inventory" type="class_inventory_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_inventory_wizard_inventory" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_inventory_wizard_inventory" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_inventory_wizard_wizard" type="class_wizard_item_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_inventory_wizard_wizard" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_inventory_wizard_wizard" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_inventory_background" name="InventoryData_owns_BackgroundItemData">
+      <ownedEnd xmi:id="end_inventory_background_inventory" type="class_inventory_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_inventory_background_inventory" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_inventory_background_inventory" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_inventory_background_background" type="class_background_item_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_inventory_background_background" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_inventory_background_background" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_wizard_item_data" name="WizardItemData_matches_WizardData">
+      <ownedEnd xmi:id="end_wizard_item_data_item" type="class_wizard_item_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_wizard_item_data_item" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_wizard_item_data_item" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_wizard_item_data_data" type="class_wizard_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_wizard_item_data_data" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_wizard_item_data_data" value="1"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_player_wizard" name="Player_uses_WizardData">
+      <ownedEnd xmi:id="end_player_wizard_player" type="class_player"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_player_wizard_player" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_player_wizard_player" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_player_wizard_wizard" type="class_wizard_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_player_wizard_wizard" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_player_wizard_wizard" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_player_spell" name="Player_uses_SpellItemData">
+      <ownedEnd xmi:id="end_player_spell_player" type="class_player"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_player_spell_player" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_player_spell_player" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_player_spell_spell" type="class_spell_item_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_player_spell_spell" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_player_spell_spell" value="*"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_background_item_data" name="BackgroundItemData_matches_BackgroundData">
+      <ownedEnd xmi:id="end_background_item_data_item" type="class_background_item_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_background_item_data_item" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_background_item_data_item" value="1"/></ownedEnd>
+      <ownedEnd xmi:id="end_background_item_data_data" type="class_background_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_background_item_data_data" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_background_item_data_data" value="1"/></ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_mode_background" name="GameModeData_uses_BackgroundData">
+      <ownedEnd xmi:id="end_mode_background_mode" type="class_game_mode_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_mode_background_mode" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_mode_background_mode" value="*"/></ownedEnd>
+      <ownedEnd xmi:id="end_mode_background_background" type="class_background_data"><lowerValue xmi:type="uml:LiteralInteger" xmi:id="lower_mode_background_background" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="upper_mode_background_background" value="*"/></ownedEnd>
+    </packagedElement>
+  </uml:Model>
+</xmi:XMI>
