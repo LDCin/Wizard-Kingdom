@@ -18,7 +18,15 @@ namespace UI
         [Header("Bar phụ — name sprite (chỉ hiển thị khi locked)")]
         [SerializeField] private Image _nameImage;
 
+        #region Analysis And Design Properties
+
+        public Image OutWizardImage => _fullBodyImage;
+        public Image OutWizardName => _nameImage;
+
+        #endregion
+
         protected override IReadOnlyList<WizardItemData> GetItemsFrom(ShopCatalog catalog) => catalog.wizards;
+        protected override ShopCategory Category => ShopCategory.Wizard;
 
         protected override bool HasEquip => true;
 

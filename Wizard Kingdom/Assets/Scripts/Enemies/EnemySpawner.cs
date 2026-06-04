@@ -30,6 +30,13 @@ namespace Enemies
         private readonly Dictionary<string, Coroutine> _enemyCoroutines = new();
         private int _lastSpawnPointIndex = -1;
 
+        #region Analysis And Design Properties
+
+        public GameModeData CurrentGameMode => _currentModeData;
+        public EnemyPool EnemyPool => _enemyPool;
+
+        #endregion
+
         public void StartSpawn(List<string> spawnEnemyNameList, float delayTime)
         {
             StopSpawn();
@@ -54,6 +61,18 @@ namespace Enemies
 
             StartCoroutine(StartSpawnByModeRoutine());
         }
+
+        #region Analysis And Design Methods
+
+        public void SpawnEnemy(GameModeData modeData) => StartSpawn(modeData);
+        public Enemy GetEnemy(EnemySpawnEntry entry)
+        {
+            return entry != null && entry.enemyData != null && _enemyPool != null
+                ? _enemyPool.InitEnemy(entry.enemyData)
+                : null;
+        }
+
+        #endregion
 
         public void StopSpawn()
         {
@@ -227,7 +246,12 @@ namespace Enemies
 
         private void SpawnEnemyByName(string enemyName, GameObject spawnPoint)
         {
-            Enemy enemy = _enemyPool.GetEnemyByName(enemyName);
+            EnemyData enemyData = _currentModeData != null
+                ? DataManager.Instance?.FindEnemyData(_currentModeData, enemyName)
+                : null;
+            Enemy enemy = enemyData != null
+                ? _enemyPool.InitEnemy(enemyData)
+                : _enemyPool.GetEnemyByName(enemyName);
 
             if (enemy == null)
             {

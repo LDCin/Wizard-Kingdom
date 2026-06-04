@@ -755,7 +755,7 @@ MonoBehaviour:
   uiLayer: 0
   _panelBoard: {fileID: 511189563163260867}
   _panelBackground: {fileID: 7565365904543928841}
-  _totalCoinText: {fileID: 8017269074080191408}
+  _totalGoldText: {fileID: 8017269074080191408}
 --- !u!1 &5168155135314819362
 GameObject:
   m_ObjectHideFlags: 0

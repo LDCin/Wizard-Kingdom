@@ -6,13 +6,23 @@ namespace Balloons
     {
         [Header("Data")]
         [SerializeField] private Symbol _symbol;
-        public Symbol Symbol => _symbol;
+        private SOs.BalloonData _data;
 
         [Header("Components")]
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Animator _animator;
 
         private Sprite _idleSprite;
+
+        #region Analysis And Design Properties
+
+        public Symbol Symbol => _symbol;
+        public SOs.BalloonData Data => _data;
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        public Animator Animator => _animator;
+        public Sprite IdleSprite => _idleSprite;
+
+        #endregion
 
         [Header("Rope")]
         [SerializeField] private Transform _ropeTransform;
@@ -138,6 +148,21 @@ namespace Balloons
                 _animator.SetTrigger("Pop");
             }
         }
+
+        #region Analysis And Design Methods
+
+        public void Init(SOs.BalloonData data)
+        {
+            if (data == null) return;
+            _data = data.Get();
+            InitBalloonData(data.symbol, data.sprite, data.runtimeAnimatorController);
+        }
+
+        public void DestroyBalloon() => Pop();
+        public void Destroy() => DestroyBalloon();
+
+        #endregion
+
         public void OnPopAnimationComplete()
         {
             gameObject.SetActive(false);

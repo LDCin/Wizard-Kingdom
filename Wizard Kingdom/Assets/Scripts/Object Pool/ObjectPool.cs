@@ -129,6 +129,12 @@ namespace ObjectPool
             return newItem;
         }
 
+        #region Analysis And Design Methods
+
+        public TItem InitObject(TKey key) => Get(key);
+
+        #endregion
+
         protected void Return(TItem item)
         {
             if (item == null)

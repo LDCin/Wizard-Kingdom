@@ -673,7 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 1
   _editorData:
-    currentCoin: 0
+    currentGold: 0
     highScores: []
     ownedBackgrounds: []
     ownedWizards: []

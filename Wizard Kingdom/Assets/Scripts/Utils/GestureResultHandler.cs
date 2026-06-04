@@ -9,6 +9,22 @@ namespace Managers
         public static event Action<string> OnDrawSymbol;
         public static event Action OnRecognitionFinished;
 
+        #region Analysis And Design Properties
+
+        public string RecognizedSymbol { get; private set; }
+
+        #endregion
+
+        #region Analysis And Design Methods
+
+        public string RecognizeSymbol()
+        {
+            return RecognizedSymbol;
+        }
+        public string recognizeSymbol() => RecognizeSymbol();
+
+        #endregion
+
         public void OnRecognize(RecognitionResult result)
         {
             if (result == null || result.gesture == null)
@@ -21,6 +37,7 @@ namespace Managers
 
             string shapeName = result.gesture.id;
             float score = result.score.score;
+            RecognizedSymbol = shapeName;
 
             Debug.Log($"Shape: {shapeName}, Score: {score}");
 
@@ -28,5 +45,28 @@ namespace Managers
 
             OnRecognitionFinished?.Invoke();
         }
+    }
+
+    public class DrawAreaView : DrawDetector
+    {
+        [SerializeField] private GestureResultHandler _gestureResultHandler;
+
+        #region Analysis And Design Properties
+
+        public GameObject InDrawSymbol => gameObject;
+
+        #endregion
+
+        #region Analysis And Design Methods
+
+        public string SubmitDrawing()
+        {
+            return _gestureResultHandler != null
+                ? _gestureResultHandler.RecognizeSymbol()
+                : null;
+        }
+        public string submitDrawing() => SubmitDrawing();
+
+        #endregion
     }
 }

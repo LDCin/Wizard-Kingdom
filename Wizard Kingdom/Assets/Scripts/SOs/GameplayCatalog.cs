@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Balloons;
 using UnityEngine;
 
 namespace SOs
@@ -8,6 +9,7 @@ namespace SOs
     {
         public List<WizardData> wizards = new();
         public List<BackgroundData> backgrounds = new();
+        public List<BalloonData> balloons = new();
 
         public WizardData FindWizard(string id)
         {
@@ -25,6 +27,25 @@ namespace SOs
             foreach (var b in backgrounds)
             {
                 if (b != null && b.id == id) return b;
+            }
+            return null;
+        }
+
+        public BalloonData FindBalloon(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return null;
+            foreach (var balloon in balloons)
+            {
+                if (balloon != null && balloon.id == id) return balloon;
+            }
+            return null;
+        }
+
+        public BalloonData FindBalloon(Symbol symbol)
+        {
+            foreach (var balloon in balloons)
+            {
+                if (balloon != null && balloon.symbol == symbol) return balloon;
             }
             return null;
         }

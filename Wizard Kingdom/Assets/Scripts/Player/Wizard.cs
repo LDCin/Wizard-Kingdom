@@ -16,8 +16,12 @@ namespace Wizards
         [SerializeField] private GameObject _headRoot;
         private bool _deadAnimationFinished;
 
+        #region Analysis And Design Properties
+
         public Animator BodyAnimator => _bodyAnimator;
         public Animator HeadAnimator => _headAnimator;
+
+        #endregion
 
         [Header("State")]
         private StateMachine _stateMachine;
@@ -126,6 +130,16 @@ namespace Wizards
                 _stateMachine.ChangeState(_idleState);
             }
         }
+
+        #region Analysis And Design Methods
+
+        public void Init()
+        {
+            GetComponent<WizardLoader>()?.Init();
+            ResetToIdleForNewGame();
+        }
+
+        #endregion
         
         private void HandleGameOver()
         {

@@ -12,9 +12,22 @@ namespace UI
     public class GamePanel : Panel
     {
         public static event Action OnPauseGame;
+
+        #region Analysis And Design Properties
+
         [SerializeField] private SpriteAssetNumberText _arcadeScoreText;
         [SerializeField] private SpriteAssetNumberText _timeAttackScoreText;
         [SerializeField] private SpriteAssetNumberText _goldText;
+        [SerializeField] private Button _subPauseGame;
+
+        public SpriteAssetNumberText OutScore => _arcadeScoreText;
+        public SpriteAssetNumberText OutGold => _goldText;
+        public Button SubPauseGame => _subPauseGame;
+
+        #endregion
+
+        #region Runtime Extension Properties
+
         [Header("Spell Usage UI")]
         [SerializeField] private Image _spellIconImage;
         [SerializeField] private SpriteAssetNumberText _spellRemainingText;
@@ -22,6 +35,9 @@ namespace UI
         [SerializeField] private float _spellBlinkDuration = 1.0f;
         [SerializeField] private float _spellBlinkInterval = 0.15f;
         private Coroutine _spellDisplayCoroutine;
+
+        #endregion
+
         private void OnEnable()
         {
             GameManager.OnUpdateScoreAndGold += UpdateScoreAndGoldText;
@@ -40,17 +56,27 @@ namespace UI
             GameManager.OnModeLoaded -= HandleModeLoaded;
             SpellCaster.OnSpellUsageUpdated -= ShowSpellUsage;
         }
+        #region Analysis And Design Methods
+
         public void PauseGame()
         {
             OnPauseGame?.Invoke();
             UIManager.Instance.OpenPanel(GameConfig.Panel.Pause);
         }
+        public void pauseGame() => PauseGame();
+
         public void UpdateScoreAndGoldText(int newScore, int newGold)
         {
             if (_arcadeScoreText != null) _arcadeScoreText.SetValue(newScore);
             if (_timeAttackScoreText != null) _timeAttackScoreText.SetValue(newScore);
             _goldText.SetValue(newGold);
         }
+        public void updateScoreAndGoldText(int newScore, int newGold)
+        {
+            UpdateScoreAndGoldText(newScore, newGold);
+        }
+
+        #endregion
 
         private void HandleModeLoaded(GameModeData modeData)
         {

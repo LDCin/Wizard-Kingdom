@@ -989,7 +989,7 @@ GameObject:
   - component: {fileID: 4317072364703801337}
   - component: {fileID: 759105093160806922}
   m_Layer: 5
-  m_Name: Text (TMP) - Total Coin
+  m_Name: Text (TMP) - Total Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1563,7 +1563,7 @@ MonoBehaviour:
   uiLayer: 0
   _panelBoard: {fileID: 450832990832824864}
   _panelBackground: {fileID: 2342722049727067240}
-  _totalCoinText: {fileID: 4317072364703801337}
+  _totalGoldText: {fileID: 4317072364703801337}
   _priceIcon: {fileID: 0}
   _priceText: {fileID: 5579246758362040032}
   _buyButton: {fileID: 3179265640895081043}

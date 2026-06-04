@@ -9,5 +9,6 @@ namespace SOs
         public Sprite unlockedFullBodySprite;
         public Sprite unlockedPortraitSprite;
         public Sprite nameSprite;
+        public WizardData wizardData;
     }
 }

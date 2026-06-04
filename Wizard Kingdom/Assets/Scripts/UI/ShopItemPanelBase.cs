@@ -10,11 +10,29 @@ namespace UI
 {
     public abstract class ShopItemPanelBase<TItem> : Panel where TItem : ShopItemData
     {
-        [SerializeField] private SpriteAssetNumberText _totalCoinText;
-        [SerializeField] private GameObject _priceIcon;
+        #region Analysis And Design Properties
+
+        [SerializeField] private SpriteAssetNumberText _totalGoldText;
         [SerializeField] private SpriteAssetNumberText _priceText;
+        [SerializeField] private Button _subPreviousItem;
+        [SerializeField] private Button _subNextItem;
         [SerializeField] private Button _buyButton;
         [SerializeField] private Button _equipButton;
+        [SerializeField] private Button _subShop;
+
+        public SpriteAssetNumberText OutGold => _totalGoldText;
+        public SpriteAssetNumberText OutPrice => _priceText;
+        public Button SubPreviousItem => _subPreviousItem;
+        public Button SubNextItem => _subNextItem;
+        public Button SubBuyItem => _buyButton;
+        public Button SubUseItem => _equipButton;
+        public Button SubShop => _subShop;
+
+        #endregion
+
+        #region Runtime Extension Properties
+
+        [SerializeField] private GameObject _priceIcon;
         [SerializeField] private Button _equippedButton;
         [SerializeField] private Button _unlockedButton;
         [SerializeField] private ShopkeeperAnimator _shopkeeper;
@@ -23,7 +41,10 @@ namespace UI
         protected int _index;
         private bool _isNavigating;
 
+        #endregion
+
         protected abstract IReadOnlyList<TItem> GetItemsFrom(ShopCatalog catalog);
+        protected abstract ShopCategory Category { get; }
 
         protected abstract bool HasEquip { get; }
         protected abstract void RenderItem(TItem item, bool owned);
@@ -35,20 +56,20 @@ namespace UI
 
         private void OnEnable()
         {
-            DataManager.OnCoinChanged += OnCoinChanged;
+            DataManager.OnGoldChanged += OnGoldChanged;
             DataManager.OnBackgroundPurchased += OnInventoryChanged;
             DataManager.OnWizardPurchased += OnInventoryChanged;
             DataManager.OnSpellPurchased += OnInventoryChanged;
             DataManager.OnEquippedBackgroundChanged += OnInventoryChanged;
             DataManager.OnEquippedWizardChanged += OnInventoryChanged;
 
-            RefreshCoin();
+            RefreshGold();
             StartCoroutine(LoadCatalogRoutine());
         }
 
         private void OnDisable()
         {
-            DataManager.OnCoinChanged -= OnCoinChanged;
+            DataManager.OnGoldChanged -= OnGoldChanged;
             DataManager.OnBackgroundPurchased -= OnInventoryChanged;
             DataManager.OnWizardPurchased -= OnInventoryChanged;
             DataManager.OnSpellPurchased -= OnInventoryChanged;
@@ -65,7 +86,7 @@ namespace UI
             bool completed = false;
             DataManager.Instance.LoadShopCatalog(catalog =>
             {
-                _items = catalog != null ? GetItemsFrom(catalog) : null;
+                _items = catalog != null ? GetData() : null;
                 _index = 0;
                 RefreshItem();
                 completed = true;
@@ -103,10 +124,14 @@ namespace UI
             if (!TryGetCurrentItem(out TItem item)) return;
             if (IsOwned(item)) return;
 
-            if (item.price > 0 && !DataManager.Instance.TrySpendCoin(item.price)) return;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.BuyItem(item, HasEquip);
+                return;
+            }
 
+            if (item.price > 0 && !DataManager.Instance.SpendGold(item.price)) return;
             AddToInventory(item);
-
             if (HasEquip) Equip(item);
         }
 
@@ -115,14 +140,44 @@ namespace UI
             if (!TryGetCurrentItem(out TItem item)) return;
             if (!HasEquip) return;
             if (!IsOwned(item)) return;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.UseItem(item);
+                return;
+            }
+
             Equip(item);
         }
+
+        #region Analysis And Design Methods
+
+        public void PreviousItem() => Prev();
+        public void NextItem() => Next();
+        public void BuyItem() => Buy();
+        public void UseItem() => EquipCurrent();
+
+        public virtual IReadOnlyList<TItem> GetData()
+        {
+            if (DataManager.Instance == null)
+            {
+                _items = null;
+                return _items;
+            }
+
+            _items = DataManager.Instance.GetItemData<TItem>(Category);
+            RefreshItem();
+            return _items;
+        }
+
+        public IReadOnlyList<TItem> getData() => GetData();
 
         public void BackToShop()
         {
             UIManager.Instance.OpenPanel(GameConfig.Panel.Shop);
             Close();
         }
+
+        #endregion
 
         protected bool TryGetCurrentItem(out TItem item)
         {
@@ -133,14 +188,14 @@ namespace UI
             return item != null;
         }
 
-        private void OnCoinChanged(int _) => RefreshCoin();
+        private void OnGoldChanged(int _) => RefreshGold();
         private void OnInventoryChanged(string _) => RefreshItem();
 
-        private void RefreshCoin()
+        private void RefreshGold()
         {
-            if (_totalCoinText == null) return;
-            int coin = DataManager.Instance != null ? DataManager.Instance.GetCoin() : 0;
-            _totalCoinText.SetValue(coin);
+            if (_totalGoldText == null) return;
+            int gold = DataManager.Instance != null ? DataManager.Instance.GetGold() : 0;
+            _totalGoldText.SetValue(gold);
         }
 
         private void RefreshItem()
