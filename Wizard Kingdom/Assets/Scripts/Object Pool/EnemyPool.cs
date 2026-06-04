@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Balloons;
+using Managers;
 using SOs;
 using UnityEngine;
 using Enemies;
@@ -45,6 +46,7 @@ namespace ObjectPool
 
         protected override void ApplyDataToItem(Enemy enemy, EnemyData data)
         {
+            data.Get();
             enemy.InitEnemyData(
                 data.enemyName,
                 data.sprite,
@@ -75,11 +77,19 @@ namespace ObjectPool
 
             List<Balloon> balloons = GetRandomBalloonsForEnemy(enemyData);
 
-            enemy.ResetEnemyState();
-            enemy.SetupBalloons(balloons);
+            enemyData.Init(enemy, balloons);
 
             return enemy;
         }
+
+        #region Analysis And Design Methods
+
+        public Enemy InitEnemy(EnemyData data)
+        {
+            return data != null ? GetEnemyByName(data.enemyName) : null;
+        }
+
+        #endregion
 
         public string GetRandomEnemyName()
         {
@@ -108,6 +118,13 @@ namespace ObjectPool
         private List<Balloon> GetRandomBalloonsForEnemy(EnemyData enemyData)
         {
             List<Symbol> tempSymbols = new(enemyData.possibleBalloonSymbols);
+            foreach (BalloonData balloonData in enemyData.balloonDataList ?? new List<BalloonData>())
+            {
+                if (balloonData != null && !tempSymbols.Contains(balloonData.symbol))
+                {
+                    tempSymbols.Add(balloonData.symbol);
+                }
+            }
             List<Balloon> result = new();
 
             int count = Mathf.Min(enemyData.balloonSpawnCount, tempSymbols.Count);
@@ -117,7 +134,14 @@ namespace ObjectPool
                 int randomIndex = Random.Range(0, tempSymbols.Count);
 
                 Symbol selectedSymbol = tempSymbols[randomIndex];
-                Balloon balloon = _balloonPool.GetBalloon(selectedSymbol);
+                BalloonData balloonData = DataManager.Instance != null
+                    ? DataManager.Instance.FindBalloonData(selectedSymbol)
+                    : null;
+                balloonData ??= enemyData.balloonDataList?.Find(data =>
+                    data != null && data.symbol == selectedSymbol);
+                Balloon balloon = balloonData != null
+                    ? _balloonPool.InitBalloon(balloonData)
+                    : _balloonPool.GetBalloon(selectedSymbol);
 
                 if (balloon != null)
                 {

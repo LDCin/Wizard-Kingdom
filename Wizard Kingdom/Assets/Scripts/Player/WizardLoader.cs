@@ -13,6 +13,11 @@ namespace Wizards
 
         private void Start()
         {
+            Init();
+        }
+
+        public void Init()
+        {
             StartCoroutine(LoadAndApplyWizardSkin());
         }
 
@@ -37,11 +42,7 @@ namespace Wizards
                     return;
                 }
 
-                if (_bodyAnimator != null && data.bodyController != null)
-                    _bodyAnimator.runtimeAnimatorController = data.bodyController;
-
-                if (_headAnimator != null && data.headController != null)
-                    _headAnimator.runtimeAnimatorController = data.headController;
+                data.Init(_bodyAnimator, _headAnimator);
 
                 completed = true;
             });

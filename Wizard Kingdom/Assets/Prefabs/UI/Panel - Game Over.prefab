@@ -1254,7 +1254,7 @@ MonoBehaviour:
   uiLayer: 0
   _panelBoard: {fileID: 7460439926333857127}
   _panelBackground: {fileID: 2536420573306729440}
-  _totalCoin: {fileID: 9045467471220528190}
+  _totalGold: {fileID: 9045467471220528190}
   _highScore: {fileID: 3565671726736536218}
   _score: {fileID: 133377913937190167}
 --- !u!114 &2536420573306729440

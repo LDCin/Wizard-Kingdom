@@ -12,6 +12,12 @@ namespace BackgroundSystem
         private GameObject _currentInstance;
         private bool _isCatalogReady;
 
+        #region Analysis And Design Properties
+
+        public GameObject OutPrefab => _currentInstance;
+
+        #endregion
+
         private void Awake()
         {
             if (_backgroundRoot == null) _backgroundRoot = transform;
@@ -24,8 +30,17 @@ namespace BackgroundSystem
 
         private void Start()
         {
+            Init();
+        }
+
+        #region Analysis And Design Methods
+
+        public void Init()
+        {
             StartCoroutine(LoadAndApplyBackground());
         }
+
+        #endregion
 
         private void OnDisable()
         {
@@ -71,7 +86,7 @@ namespace BackgroundSystem
                 return;
             }
 
-            SpawnBackground(data.prefab);
+            SpawnBackground(data);
         }
 
         private string ResolveBackgroundId(GameModeData modeData)
@@ -86,14 +101,13 @@ namespace BackgroundSystem
             return DataManager.Instance != null ? DataManager.Instance.GetEquippedBackground() : null;
         }
 
-        private void SpawnBackground(GameObject prefab)
+        private void SpawnBackground(BackgroundData data)
         {
-            if (_currentInstance != null)
-            {
-                Destroy(_currentInstance);
-                _currentInstance = null;
-            }
-            _currentInstance = Instantiate(prefab, _backgroundRoot);
+            _currentInstance = data.Init(_backgroundRoot, _currentInstance);
         }
+    }
+
+    public class Background : BackgroundLoader
+    {
     }
 }

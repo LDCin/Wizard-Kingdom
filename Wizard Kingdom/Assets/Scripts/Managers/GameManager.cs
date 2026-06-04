@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using BackgroundSystem;
 using Enemies;
 using GestureRecognizer;
 using ObjectPool;
@@ -38,6 +39,7 @@ namespace Managers
         // [SerializeField] private List<string> _spawnEnemyNameList;
         // [SerializeField] private float _delayTime = 1f;
         private GameModeData _currentModeData;
+        private readonly HashSet<Enemy> _activeEnemies = new();
         private Coroutine _timeAttackCoroutine;
         private float _remainingTime;
         private float _totalTime;
@@ -45,24 +47,14 @@ namespace Managers
         private bool _comboActive;
         private bool _isGameOver;
 
-        public string CurrentModeKey => _currentModeData != null ? _currentModeData.modeName : null;
-        public GameModeData CurrentModeData => _currentModeData;
-        public float RemainingTime => _remainingTime;
-        public float TotalTime => _totalTime;
-        public bool IsGameOver => _isGameOver;
-
         [SerializeField] private float _startSpawnDelayTime = 5f;
         [SerializeField] private int _score;
         [SerializeField] private int _highScore;
         [SerializeField] private int _gold;
         [SerializeField] private List<GestureSpellBinding> _gestureSpellBindings = new();
-        public int Score => _score;
-        public int Gold => _gold;
         private StateMachine _stateMachine;
-        public StateMachine StateMachine => _stateMachine;
         private IState _playState;
         private IState _pauseState;
-        public IState PauseState => _pauseState;
         private IState _menuState;
         private IState _gameOverState;
         private bool _isNewGame = true;
@@ -76,6 +68,35 @@ namespace Managers
         }
         [SerializeField] private bool _wizardDead = true;
         private Coroutine _startGameCoroutine;
+
+        #region Analysis And Design Properties
+
+        public int Score => _score;
+        public int Gold => _gold;
+        public float RemainingTime => _remainingTime;
+        public EnemySpawner EnemySpawner => _currentEnemySpawner;
+        public IReadOnlyCollection<Enemy> ActiveEnemy => _activeEnemies;
+        public GameModeData CurrentGameMode => _currentModeData;
+        public IReadOnlyList<string> OwnedSpellList => DataManager.Instance?.Data?.inventory?.ownedSpells;
+        public IReadOnlyList<string> OwnedWizardList => DataManager.Instance?.Data?.inventory?.ownedWizards;
+        public IReadOnlyList<string> OwnedBackgroundList => DataManager.Instance?.Data?.inventory?.ownedBackgrounds;
+        public string CurrentWizard => DataManager.Instance?.GetEquippedWizard();
+        public string CurrentBackground => DataManager.Instance?.GetEquippedBackground();
+
+        #endregion
+
+        #region Runtime Extension Properties
+
+        public string CurrentModeKey => _currentModeData != null ? _currentModeData.modeName : null;
+        public GameModeData CurrentModeData => _currentModeData;
+        public float TotalTime => _totalTime;
+        public bool IsGameOver => _isGameOver;
+        public StateMachine StateMachine => _stateMachine;
+        public IState PauseState => _pauseState;
+        public IReadOnlyCollection<Enemy> ActiveEnemies => _activeEnemies;
+
+        #endregion
+
         public override void Awake()
         {
             base.Awake();
@@ -106,6 +127,7 @@ namespace Managers
             Wizard.OnDead += ChangeWizardState;
             GestureResultHandler.OnDrawSymbol += HandleComboStart;
             GestureResultHandler.OnDrawSymbol += HandleSkillGesture;
+            GestureResultHandler.OnDrawSymbol += HandleRecognizedSymbol;
             GestureResultHandler.OnRecognitionFinished += HandleComboEnd;
         }
         private void OnDisable()
@@ -123,6 +145,7 @@ namespace Managers
             Wizard.OnDead -= ChangeWizardState;
             GestureResultHandler.OnDrawSymbol -= HandleComboStart;
             GestureResultHandler.OnDrawSymbol -= HandleSkillGesture;
+            GestureResultHandler.OnDrawSymbol -= HandleRecognizedSymbol;
             GestureResultHandler.OnRecognitionFinished -= HandleComboEnd;
         }
 
@@ -142,6 +165,7 @@ namespace Managers
         {
             StartCoroutine(LoadModeAndPlayRoutine(modeKey));
         }
+
         private IEnumerator LoadModeAndPlayRoutine(string modeKey)
         {
             _currentModeData = null;
@@ -189,17 +213,6 @@ namespace Managers
         {
             _wizardDead = true;
         }
-        private void UpdateScoreAndGold(int newScore, int newGold)
-        {
-            _score += newScore;
-            _gold += newGold;
-            OnUpdateScoreAndGold?.Invoke(_score, _gold);
-
-            if (_currentEnemySpawner != null)
-            {
-                _currentEnemySpawner.OnScoreChanged(_score);
-            }
-        }
         private void InitGameStat()
         {
             UpdateScoreAndGold(-_score, -_gold);
@@ -209,9 +222,10 @@ namespace Managers
             if (!_isNewGame) return;
             _isNewGame = false;
             _wizardDead = false;
-            _wizard?.ResetToIdleForNewGame();
+            _wizard?.Init();
             _spellCaster?.ResetSpellUses();
             InitGameStat();
+            InitializeSceneDataAdapters();
             DestroyEnemySpawner();
             _currentEnemySpawner = Instantiate(_enemySpawnerPrefab, transform);
             _startGameCoroutine = StartCoroutine(StartGameRoutine());
@@ -265,16 +279,6 @@ namespace Managers
             _remainingTime = Mathf.Min(_remainingTime + seconds, _totalTime);
             OnTimeChanged?.Invoke(_remainingTime, _totalTime);
         }
-        private void ContinueGame()
-        {
-            ChangeToPlayState();
-        }
-        private void RestartGame()
-        {
-            _isNewGame = true;
-            ChangeToPlayState();
-        }
-
         private void HandleComboStart(string shapeName)
         {
             _comboPopCount = 0;
@@ -334,10 +338,6 @@ namespace Managers
             DestroyEnemySpawner();
             _currentModeData = null;
         }
-        public void GameOver()
-        {
-            StartCoroutine(GameOverRoutine());
-        }
         private IEnumerator GameOverRoutine()
         {
             StopSpawnEnemy();
@@ -345,15 +345,7 @@ namespace Managers
             OnGameOver?.Invoke();
             yield return new WaitUntil(() => _wizardDead);
 
-            if (_gold > 0)
-            {
-                DataManager.Instance.AddCoin(_gold);
-            }
-
-            if (_currentModeData != null)
-            {
-                DataManager.Instance.TrySetHighScore(_currentModeData.modeName, _score);
-            }
+            DataManager.Instance?.UpdateHighScoreAndGold(_currentModeData != null ? _currentModeData.modeName : null, _score, _gold);
 
             DestroyEnemySpawner();
             SceneLoader.LoadScene(GameConfig.Scene.GameOver, GameConfig.Panel.GameOver);
@@ -393,13 +385,196 @@ namespace Managers
             }
         }
 
+        #region Analysis And Design Methods
+
+        public void StartGame(string modeKey)
+        {
+            OnPlayGameSelected(modeKey);
+        }
+        public void startGame(string modeKey) => StartGame(modeKey);
+
+        public void UpdateScoreAndGold(int newScore, int newGold)
+        {
+            _score += newScore;
+            _gold += newGold;
+            OnUpdateScoreAndGold?.Invoke(_score, _gold);
+
+            if (_currentEnemySpawner != null)
+            {
+                _currentEnemySpawner.OnScoreChanged(_score);
+            }
+        }
+        public void updateScoreAndGold(int newScore, int newGold)
+        {
+            UpdateScoreAndGold(newScore, newGold);
+        }
+
+        public void PauseGame()
+        {
+            ChangeToPauseState();
+        }
+        public void pauseGame() => PauseGame();
+
+        public void ContinueGame()
+        {
+            ChangeToPlayState();
+        }
+        public void continueGame() => ContinueGame();
+
+        public void RestartGame()
+        {
+            _isNewGame = true;
+            ChangeToPlayState();
+        }
+        public void restartGame() => RestartGame();
+
+        public void GameOver()
+        {
+            StartCoroutine(GameOverRoutine());
+        }
+        public void gameOver() => GameOver();
+
+        public void HandleRecognizedSymbol(string symbol)
+        {
+            if (string.IsNullOrWhiteSpace(symbol)) return;
+
+            Enemy[] enemies = new Enemy[_activeEnemies.Count];
+            _activeEnemies.CopyTo(enemies);
+
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy == null) continue;
+
+                if (enemy.Data != null)
+                {
+                    enemy.Data.CheckSymbol(enemy, symbol);
+                }
+                else
+                {
+                    enemy.CheckSymbol(symbol);
+                }
+            }
+        }
+        public void handleRecognizedSymbol(string symbol) => HandleRecognizedSymbol(symbol);
+
+        public bool BuyItem(ShopItemData item, bool equipAfterPurchase = false)
+        {
+            if (item == null || DataManager.Instance == null) return false;
+            if (IsOwned(item)) return false;
+            if (item.price > 0 && !DataManager.Instance.SpendGold(item.price)) return false;
+
+            bool added = item switch
+            {
+                SpellItemData spell => DataManager.Instance.AddSpell(spell.id),
+                WizardItemData wizard => DataManager.Instance.AddWizard(wizard.id),
+                BackgroundItemData background => DataManager.Instance.AddBackground(background.id),
+                _ => false
+            };
+
+            if (added && equipAfterPurchase)
+            {
+                UseItem(item);
+            }
+
+            return added;
+        }
+        public bool buyItem(ShopItemData item, bool equipAfterPurchase = false)
+        {
+            return BuyItem(item, equipAfterPurchase);
+        }
+
+        public bool UseItem(ShopItemData item)
+        {
+            if (item == null || DataManager.Instance == null) return false;
+
+            return item switch
+            {
+                WizardItemData wizard => DataManager.Instance.EquipWizard(wizard.id),
+                BackgroundItemData background => DataManager.Instance.EquipBackground(background.id),
+                SpellItemData spell => DataManager.Instance.OwnsSpell(spell.id),
+                _ => false
+            };
+        }
+        public bool useItem(ShopItemData item) => UseItem(item);
+
+        public void ToggleBGM()
+        {
+            if (DataManager.Instance == null) return;
+            DataManager.Instance.ChangeBGMState(!DataManager.Instance.BgmEnabled);
+        }
+        public void toggleBGM() => ToggleBGM();
+
+        public void ToggleSFX()
+        {
+            if (DataManager.Instance == null) return;
+            DataManager.Instance.ChangeSFXState(!DataManager.Instance.SfxEnabled);
+        }
+        public void toggleSFX() => ToggleSFX();
+
+        public void ToggleVibration()
+        {
+            if (DataManager.Instance == null) return;
+            DataManager.Instance.ChangeVibrationState(!DataManager.Instance.VibrationEnabled);
+        }
+        public void toggleVibration() => ToggleVibration();
+
+        public void ResetData()
+        {
+            DataManager.Instance?.ResetUserData();
+        }
+        public void resetData() => ResetData();
+
+        public void OpenSetting()
+        {
+            StartCoroutine(OpenSettingRoutine());
+        }
+
+        public void openSetting() => OpenSetting();
+
+        #endregion
+
+        private void InitializeSceneDataAdapters()
+        {
+            BackgroundLoader backgroundLoader = FindObjectOfType<BackgroundLoader>();
+            backgroundLoader?.Init();
+
+            WizardLoader wizardLoader = FindObjectOfType<WizardLoader>();
+            wizardLoader?.Init();
+        }
+
+        private IEnumerator OpenSettingRoutine()
+        {
+            if (UIManager.Instance == null) yield break;
+
+            UIManager.Instance.ClosePanel(GameConfig.Panel.Menu);
+            yield return UIManager.Instance.LoadPanel(GameConfig.Panel.Setting);
+
+            if (UIManager.Instance.GetPanel(GameConfig.Panel.Setting) is SettingPanel settingPanel)
+            {
+                settingPanel.GetData();
+                settingPanel.Open();
+            }
+            else
+            {
+                UIManager.Instance.OpenPanel(GameConfig.Panel.Setting);
+            }
+        }
+
+        private static bool IsOwned(ShopItemData item)
+        {
+            return item switch
+            {
+                SpellItemData spell => DataManager.Instance.OwnsSpell(spell.id),
+                WizardItemData wizard => DataManager.Instance.OwnsWizard(wizard.id),
+                BackgroundItemData background => DataManager.Instance.OwnsBackground(background.id),
+                _ => false
+            };
+        }
+
         private bool IsGestureMatch(string a, string b)
         {
             return string.Equals(a, b, StringComparison.Ordinal);
         }
-
-        private readonly HashSet<Enemy> _activeEnemies = new();
-        public IReadOnlyCollection<Enemy> ActiveEnemies => _activeEnemies;
 
         public void RegisterEnemy(Enemy enemy)
         {

@@ -23,17 +23,24 @@ namespace ObjectPool
 
         protected override void ApplyDataToItem(Balloon balloon, BalloonData data)
         {
-            balloon.InitBalloonData(
-                data.symbol,
-                data.sprite,
-                data.runtimeAnimatorController
-            );
+            data.Init(balloon);
         }
 
         public Balloon GetBalloon(Symbol symbol)
         {
             return Get(symbol);
         }
+
+        #region Analysis And Design Methods
+
+        public Balloon InitBalloon(BalloonData data)
+        {
+            if (data == null) return null;
+            Balloon balloon = GetBalloon(data.symbol);
+            return data.Init(balloon);
+        }
+
+        #endregion
 
         public void ReturnBalloon(Balloon balloon)
         {

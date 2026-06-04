@@ -9,7 +9,19 @@ namespace UI
         public static event Action OnContinueGame;
         public static event Action OnBackToMenu;
         public static event Action OnRestartGame;
-        public void ReturnToMenu()
+
+        #region Analysis And Design Properties
+
+        [SerializeField] private UnityEngine.UI.Button _subContinueGame;
+        [SerializeField] private UnityEngine.UI.Button _subRestartGame;
+        [SerializeField] private UnityEngine.UI.Button _subReturnToMenu;
+
+        public UnityEngine.UI.Button SubContinueGame => _subContinueGame;
+        public UnityEngine.UI.Button SubRestartGame => _subRestartGame;
+        public UnityEngine.UI.Button SubReturnToMenu => _subReturnToMenu;
+
+        #endregion
+        private void HandleReturnToMenu()
         {
             OnBackToMenu?.Invoke();
             SceneLoader.LoadScene(GameConfig.Scene.Menu, GameConfig.Panel.Menu);
@@ -28,5 +40,16 @@ namespace UI
             OnContinueGame?.Invoke();
             Close();
         }
+
+        #region Analysis And Design Methods
+
+        public void ContinueGame() => Continue();
+        public void RestartGame() => Restart();
+        public void ReturnToMenu() => HandleReturnToMenu();
+        public void continueGame() => ContinueGame();
+        public void restartGame() => RestartGame();
+        public void returnToMenu() => ReturnToMenu();
+
+        #endregion
     }
 }

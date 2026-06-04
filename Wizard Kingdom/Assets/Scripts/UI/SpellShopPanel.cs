@@ -16,7 +16,14 @@ namespace UI
         [SerializeField] private Sprite _lockedBackgroundSprite;
         [SerializeField] private Sprite _unlockedBackgroundSprite;
 
+        #region Analysis And Design Properties
+
+        public Image OutSpellImage => _itemImage;
+
+        #endregion
+
         protected override IReadOnlyList<SpellItemData> GetItemsFrom(ShopCatalog catalog) => catalog.spells;
+        protected override ShopCategory Category => ShopCategory.Spell;
 
         protected override bool HasEquip => false;
 

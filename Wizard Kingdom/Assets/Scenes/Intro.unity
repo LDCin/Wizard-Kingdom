@@ -425,7 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 1
   _editorData:
-    currentCoin: 90000
+    currentGold: 90000
     highScores: []
     ownedBackgrounds: []
     ownedWizards: []

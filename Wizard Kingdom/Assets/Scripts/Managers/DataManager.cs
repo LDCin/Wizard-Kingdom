@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Balloons;
 using Data;
 using Newtonsoft.Json;
 using SOs;
@@ -14,7 +15,7 @@ namespace Managers
 {
     public class DataManager : Singleton<DataManager>
     {
-        public static event Action<int> OnCoinChanged;
+        public static event Action<int> OnGoldChanged;
         public static event Action<string, int> OnHighScoreChanged;
         public static event Action<string> OnEquippedBackgroundChanged;
         public static event Action<string> OnEquippedWizardChanged;
@@ -161,6 +162,8 @@ namespace Managers
             StartCoroutine(LoadShopCatalogRoutine(onLoaded));
         }
 
+        #region Analysis And Design Configuration Methods
+
         public void LoadGameModeData(string modeKey, Action<GameModeData> onLoaded)
         {
             if (string.IsNullOrWhiteSpace(modeKey))
@@ -174,7 +177,7 @@ namespace Managers
                 && cachedHandle.Status == AsyncOperationStatus.Succeeded
                 && cachedHandle.Result != null)
             {
-                onLoaded?.Invoke(cachedHandle.Result);
+                onLoaded?.Invoke(cachedHandle.Result.Get());
                 return;
             }
 
@@ -183,12 +186,22 @@ namespace Managers
 
         public WizardData FindWizardData(string id)
         {
-            return _gameplayCatalog != null ? _gameplayCatalog.FindWizard(id) : null;
+            return _gameplayCatalog != null ? _gameplayCatalog.FindWizard(id)?.Get() : null;
         }
 
         public BackgroundData FindBackgroundData(string id)
         {
-            return _gameplayCatalog != null ? _gameplayCatalog.FindBackground(id) : null;
+            return _gameplayCatalog != null ? _gameplayCatalog.FindBackground(id)?.Get() : null;
+        }
+
+        public BalloonData FindBalloonData(string id)
+        {
+            return _gameplayCatalog != null ? _gameplayCatalog.FindBalloon(id)?.Get() : null;
+        }
+
+        public BalloonData FindBalloonData(Symbol symbol)
+        {
+            return _gameplayCatalog != null ? _gameplayCatalog.FindBalloon(symbol)?.Get() : null;
         }
 
         public EnemyData FindEnemyData(GameModeData modeData, string enemyName)
@@ -203,13 +216,30 @@ namespace Managers
                     if (entry == null || entry.enemyData == null) continue;
                     if (string.Equals(entry.enemyData.enemyName, enemyName, StringComparison.Ordinal))
                     {
-                        return entry.enemyData;
+                        return entry.enemyData.Get();
                     }
                 }
             }
 
             return null;
         }
+
+        public void loadGameModeData(string modeKey, Action<GameModeData> onLoaded)
+        {
+            LoadGameModeData(modeKey, onLoaded);
+        }
+
+        public EnemyData findEnemyData(GameModeData modeData, string enemyName)
+        {
+            return FindEnemyData(modeData, enemyName);
+        }
+
+        public WizardData findWizardData(string id) => FindWizardData(id);
+        public BackgroundData findBackgroundData(string id) => FindBackgroundData(id);
+        public BalloonData findBalloonData(string id) => FindBalloonData(id);
+        public BalloonData findBalloonData(Symbol symbol) => FindBalloonData(symbol);
+
+        #endregion
 
         private IEnumerator LoadGameplayCatalogRoutine(Action<GameplayCatalog> onLoaded)
         {
@@ -262,7 +292,7 @@ namespace Managers
             }
 
             _gameModeHandles[modeKey] = handle;
-            onLoaded?.Invoke(handle.Result);
+            onLoaded?.Invoke(handle.Result.Get());
         }
 
         private void OnDestroy()
@@ -349,54 +379,101 @@ namespace Managers
             userData.settings ??= new SettingsData();
         }
 
-        public int GetCoin() => Data.stats.currentCoin;
+        #region Analysis And Design User Data Methods
 
-        public void AddCoin(int amount)
+        public int GetGold() => Data.Get().stats.currentGold;
+
+        public void AddGold(int amount)
         {
             if (amount == 0) return;
-            Data.stats.currentCoin = Mathf.Max(0, Data.stats.currentCoin + amount);
-            SaveData<UserData>();
-            OnCoinChanged?.Invoke(Data.stats.currentCoin);
+            UpdateHighScoreAndGold(null, 0, amount);
         }
 
-        public bool TrySpendCoin(int amount)
+        public bool SpendGold(int amount)
         {
             if (amount < 0) return false;
-            if (Data.stats.currentCoin < amount) return false;
+            UserData userData = Data.Get();
+            if (userData.stats.currentGold < amount) return false;
 
-            Data.stats.currentCoin -= amount;
+            userData.Set(data => data.stats.UpdateData(null, 0, -amount));
             SaveData<UserData>();
-            OnCoinChanged?.Invoke(Data.stats.currentCoin);
+            OnGoldChanged?.Invoke(Data.stats.currentGold);
             return true;
         }
 
         public int GetHighScore(string modeKey)
         {
             if (string.IsNullOrEmpty(modeKey)) return 0;
-            return Data.stats.highScores.TryGetValue(modeKey, out int v) ? v : 0;
+            StatsData stats = Data.Get().stats.GetData();
+            return stats.highScores.TryGetValue(modeKey, out int v) ? v : 0;
         }
 
         public bool TrySetHighScore(string modeKey, int score)
         {
             if (string.IsNullOrEmpty(modeKey)) return false;
-            int current = GetHighScore(modeKey);
-            if (score <= current) return false;
+            return UpdateHighScoreAndGold(modeKey, score, 0);
+        }
 
-            Data.stats.highScores[modeKey] = score;
+        public bool SetHighScore(string modeKey, int score) => TrySetHighScore(modeKey, score);
+
+        public bool UpdateHighScoreAndGold(string modeKey, int score, int gold)
+        {
+            UserData userData = Data.Get();
+            int previousGold = userData.stats.currentGold;
+            int previousHighScore = GetHighScore(modeKey);
+            bool changed = false;
+
+            userData.Set(data =>
+            {
+                changed = data.stats.UpdateData(modeKey, score, gold);
+            });
+
+            if (!changed) return false;
+
             SaveData<UserData>();
-            OnHighScoreChanged?.Invoke(modeKey, score);
+
+            if (Data.stats.currentGold != previousGold)
+            {
+                OnGoldChanged?.Invoke(Data.stats.currentGold);
+            }
+
+            int currentHighScore = GetHighScore(modeKey);
+            if (!string.IsNullOrEmpty(modeKey) && currentHighScore > previousHighScore)
+            {
+                OnHighScoreChanged?.Invoke(modeKey, currentHighScore);
+            }
+
             return true;
         }
 
-        public bool OwnsBackground(string id) => Data.inventory.ownedBackgrounds.Contains(id);
-        public bool OwnsWizard(string id) => Data.inventory.ownedWizards.Contains(id);
-        public bool OwnsSpell(string id) => Data.inventory.ownedSpells.Contains(id);
+        public bool OwnsBackground(string id)
+        {
+            return !string.IsNullOrEmpty(id)
+                && Data.Get().inventory.GetData().ownedBackgrounds.Contains(id);
+        }
+
+        public bool OwnsWizard(string id)
+        {
+            return !string.IsNullOrEmpty(id)
+                && Data.Get().inventory.GetData().ownedWizards.Contains(id);
+        }
+
+        public bool OwnsSpell(string id)
+        {
+            return !string.IsNullOrEmpty(id)
+                && Data.Get().inventory.GetData().ownedSpells.Contains(id);
+        }
 
         public bool AddBackground(string id)
         {
             if (string.IsNullOrEmpty(id) || OwnsBackground(id)) return false;
-            Data.inventory.ownedBackgrounds.Add(id);
+            Data.Set(data =>
+            {
+                data.inventory.GetData().ownedBackgrounds.Add(id);
+                data.inventory.UpdateData();
+            });
             SaveData<UserData>();
+            ApplyShopItemDataState(FindShopItemData(ShopCategory.Background, id));
             OnBackgroundPurchased?.Invoke(id);
             return true;
         }
@@ -404,8 +481,13 @@ namespace Managers
         public bool AddWizard(string id)
         {
             if (string.IsNullOrEmpty(id) || OwnsWizard(id)) return false;
-            Data.inventory.ownedWizards.Add(id);
+            Data.Set(data =>
+            {
+                data.inventory.GetData().ownedWizards.Add(id);
+                data.inventory.UpdateData();
+            });
             SaveData<UserData>();
+            ApplyShopItemDataState(FindShopItemData(ShopCategory.Wizard, id));
             OnWizardPurchased?.Invoke(id);
             return true;
         }
@@ -413,22 +495,34 @@ namespace Managers
         public bool AddSpell(string id)
         {
             if (string.IsNullOrEmpty(id) || OwnsSpell(id)) return false;
-            Data.inventory.ownedSpells.Add(id);
+            Data.Set(data =>
+            {
+                data.inventory.GetData().ownedSpells.Add(id);
+                data.inventory.UpdateData();
+            });
             SaveData<UserData>();
+            ApplyShopItemDataState(FindShopItemData(ShopCategory.Spell, id));
             OnSpellPurchased?.Invoke(id);
             return true;
         }
 
-        public string GetEquippedBackground() => Data.inventory.equippedBackground;
-        public string GetEquippedWizard() => Data.inventory.equippedWizard;
+        public string GetEquippedBackground() => Data.Get().inventory.GetData().equippedBackground;
+        public string GetEquippedWizard() => Data.Get().inventory.GetData().equippedWizard;
+        public string getEquippedBackground() => GetEquippedBackground();
+        public string getEquippedWizard() => GetEquippedWizard();
 
         public bool EquipBackground(string id)
         {
             if (!OwnsBackground(id)) return false;
-            if (Data.inventory.equippedBackground == id) return false;
+            if (Data.inventory.GetData().equippedBackground == id) return false;
 
-            Data.inventory.equippedBackground = id;
+            Data.Set(data =>
+            {
+                data.inventory.GetData().equippedBackground = id;
+                data.inventory.UpdateData();
+            });
             SaveData<UserData>();
+            RefreshShopItemDataState(ShopCategory.Background);
             OnEquippedBackgroundChanged?.Invoke(id);
             return true;
         }
@@ -436,47 +530,130 @@ namespace Managers
         public bool EquipWizard(string id)
         {
             if (!OwnsWizard(id)) return false;
-            if (Data.inventory.equippedWizard == id) return false;
+            if (Data.inventory.GetData().equippedWizard == id) return false;
 
-            Data.inventory.equippedWizard = id;
+            Data.Set(data =>
+            {
+                data.inventory.GetData().equippedWizard = id;
+                data.inventory.UpdateData();
+            });
             SaveData<UserData>();
+            RefreshShopItemDataState(ShopCategory.Wizard);
             OnEquippedWizardChanged?.Invoke(id);
             return true;
         }
 
-        public bool BgmEnabled => Data.settings.bgmEnabled;
-        public bool SfxEnabled => Data.settings.sfxEnabled;
-        public bool VibrationEnabled => Data.settings.vibrationEnabled;
+        public bool BgmEnabled => Data.Get().settings.GetData().bgmEnabled;
+        public bool SfxEnabled => Data.Get().settings.GetData().sfxEnabled;
+        public bool VibrationEnabled => Data.Get().settings.GetData().vibrationEnabled;
 
         public void SetBgmEnabled(bool value)
         {
-            if (Data.settings.bgmEnabled == value) return;
-            Data.settings.bgmEnabled = value;
+            if (Data.Get().settings.bgmEnabled == value) return;
+            Data.Set(data => data.settings.UpdateData(bgmEnabled: value));
             SaveData<UserData>();
             OnSettingsChanged?.Invoke();
         }
+
+        public void ChangeBGMState(bool value) => SetBgmEnabled(value);
 
         public void SetSfxEnabled(bool value)
         {
-            if (Data.settings.sfxEnabled == value) return;
-            Data.settings.sfxEnabled = value;
+            if (Data.Get().settings.sfxEnabled == value) return;
+            Data.Set(data => data.settings.UpdateData(sfxEnabled: value));
             SaveData<UserData>();
             OnSettingsChanged?.Invoke();
         }
 
+        public void ChangeSFXState(bool value) => SetSfxEnabled(value);
+
         public void SetVibrationEnabled(bool value)
         {
-            if (Data.settings.vibrationEnabled == value) return;
-            Data.settings.vibrationEnabled = value;
+            if (Data.Get().settings.vibrationEnabled == value) return;
+            Data.Set(data => data.settings.UpdateData(vibrationEnabled: value));
             SaveData<UserData>();
             OnSettingsChanged?.Invoke();
         }
+
+        public void ChangeVibrationState(bool value) => SetVibrationEnabled(value);
+
+        public IReadOnlyList<ShopItemData> GetItemData()
+        {
+            List<ShopItemData> items = new List<ShopItemData>();
+            foreach (ShopCategory category in Enum.GetValues(typeof(ShopCategory)))
+            {
+                items.AddRange(GetItemData(category));
+            }
+
+            return items;
+        }
+
+        public IReadOnlyList<ShopItemData> GetItemData(ShopCategory category)
+        {
+            if (_shopCatalog == null) return Array.Empty<ShopItemData>();
+
+            Data.Get().inventory.GetData();
+            List<ShopItemData> items = new List<ShopItemData>();
+
+            switch (category)
+            {
+                case ShopCategory.Background:
+                    AddShopItems(items, _shopCatalog.backgrounds);
+                    break;
+                case ShopCategory.Wizard:
+                    AddShopItems(items, _shopCatalog.wizards);
+                    break;
+                case ShopCategory.Spell:
+                    AddShopItems(items, _shopCatalog.spells);
+                    break;
+            }
+
+            foreach (ShopItemData item in items)
+            {
+                ApplyShopItemDataState(item);
+            }
+
+            return items;
+        }
+
+        public IReadOnlyList<TItem> GetItemData<TItem>(ShopCategory category) where TItem : ShopItemData
+        {
+            IReadOnlyList<ShopItemData> items = GetItemData(category);
+            List<TItem> typedItems = new List<TItem>();
+
+            foreach (ShopItemData item in items)
+            {
+                if (item is TItem typedItem)
+                {
+                    typedItems.Add(typedItem);
+                }
+            }
+
+            return typedItems;
+        }
+
+        public bool spendGold(int amount) => SpendGold(amount);
+        public bool updateHighScoreAndGold(string modeKey, int score, int gold)
+        {
+            return UpdateHighScoreAndGold(modeKey, score, gold);
+        }
+        public bool addBackground(string id) => AddBackground(id);
+        public bool addWizard(string id) => AddWizard(id);
+        public bool addSpell(string id) => AddSpell(id);
+        public bool equipBackground(string id) => EquipBackground(id);
+        public bool equipWizard(string id) => EquipWizard(id);
+        public void changeBGMState(bool value) => ChangeBGMState(value);
+        public void changeSFXState(bool value) => ChangeSFXState(value);
+        public void changeVibrationState(bool value) => ChangeVibrationState(value);
+        public void resetUserData() => ResetUserData();
+        public IReadOnlyList<ShopItemData> getItemData() => GetItemData();
+        public IReadOnlyList<ShopItemData> getItemData(ShopCategory category) => GetItemData(category);
 
         public void ResetUserData()
         {
             ResetData<UserData>();
 
-            OnCoinChanged?.Invoke(Data.stats.currentCoin);
+            OnGoldChanged?.Invoke(Data.stats.currentGold);
             OnEquippedBackgroundChanged?.Invoke(Data.inventory.equippedBackground);
             OnEquippedWizardChanged?.Invoke(Data.inventory.equippedWizard);
             OnSettingsChanged?.Invoke();
@@ -487,6 +664,71 @@ namespace Managers
             }
         }
 
+        #endregion
+
+        private static void AddShopItems<TItem>(List<ShopItemData> target, IEnumerable<TItem> source)
+            where TItem : ShopItemData
+        {
+            if (source == null) return;
+            foreach (TItem item in source)
+            {
+                if (item != null)
+                {
+                    target.Add(item);
+                }
+            }
+        }
+
+        private ShopItemData FindShopItemData(ShopCategory category, string id)
+        {
+            if (_shopCatalog == null || string.IsNullOrEmpty(id)) return null;
+
+            foreach (ShopItemData item in GetItemData(category))
+            {
+                if (item != null && string.Equals(item.id, id, StringComparison.Ordinal))
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
+        private void RefreshShopItemDataState(ShopCategory category)
+        {
+            foreach (ShopItemData item in GetItemData(category))
+            {
+                ApplyShopItemDataState(item);
+            }
+        }
+
+        private void ApplyShopItemDataState(ShopItemData item)
+        {
+            if (item == null) return;
+            item.GetData().UpdateData(IsOwned(item), IsEquipped(item));
+        }
+
+        private bool IsOwned(ShopItemData item)
+        {
+            return item switch
+            {
+                BackgroundItemData background => OwnsBackground(background.id),
+                WizardItemData wizard => OwnsWizard(wizard.id),
+                SpellItemData spell => OwnsSpell(spell.id),
+                _ => false
+            };
+        }
+
+        private bool IsEquipped(ShopItemData item)
+        {
+            return item switch
+            {
+                BackgroundItemData background => GetEquippedBackground() == background.id,
+                WizardItemData wizard => GetEquippedWizard() == wizard.id,
+                _ => false
+            };
+        }
+
 #if UNITY_EDITOR
         public void LoadEditorDataFromUserData()
         {
@@ -495,7 +737,7 @@ namespace Managers
                 RegisterData("user", "userdata.json", UserData.CreateDefault);
             }
 
-            _editorData.currentCoin = Data.stats.currentCoin;
+            _editorData.currentGold = Data.stats.currentGold;
 
             _editorData.highScores = new List<HighScoreEntry>();
             foreach (KeyValuePair<string, int> entry in Data.stats.highScores)
@@ -525,7 +767,7 @@ namespace Managers
                 RegisterData("user", "userdata.json", UserData.CreateDefault);
             }
 
-            Data.stats.currentCoin = Mathf.Max(0, _editorData.currentCoin);
+            Data.stats.currentGold = Mathf.Max(0, _editorData.currentGold);
             Data.stats.highScores = new Dictionary<string, int>();
 
             if (_editorData.highScores != null)
@@ -561,7 +803,7 @@ namespace Managers
 
             if (triggerEvents)
             {
-                OnCoinChanged?.Invoke(Data.stats.currentCoin);
+                OnGoldChanged?.Invoke(Data.stats.currentGold);
                 OnEquippedBackgroundChanged?.Invoke(Data.inventory.equippedBackground);
                 OnEquippedWizardChanged?.Invoke(Data.inventory.equippedWizard);
                 OnSettingsChanged?.Invoke();
@@ -589,7 +831,7 @@ namespace Managers
         public class EditorUserData
         {
             public string id;
-            public int currentCoin;
+            public int currentGold;
             public List<HighScoreEntry> highScores = new List<HighScoreEntry>();
             public List<string> ownedBackgrounds = new List<string>();
             public List<string> ownedWizards = new List<string>();

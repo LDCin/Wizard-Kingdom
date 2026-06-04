@@ -1,4 +1,5 @@
 using Managers;
+using Data;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -37,6 +38,14 @@ namespace UI
         [SerializeField] private ToggleSprites _sfxVisual;
         [SerializeField] private ToggleSprites _vibrationVisual;
 
+        #region Analysis And Design Properties
+
+        public Button SubBGM => _bgmVisual != null ? _bgmVisual.targetButton : null;
+        public Button SubSFX => _sfxVisual != null ? _sfxVisual.targetButton : null;
+        public Button SubVibration => _vibrationVisual != null ? _vibrationVisual.targetButton : null;
+
+        #endregion
+
         [Header("Reset (triple-tap)")]
         [Tooltip("Số click liên tiếp cần để reset data.")]
         [SerializeField] private int _resetClickThreshold = 3;
@@ -70,23 +79,41 @@ namespace UI
 
         public void ToggleBgm()
         {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.ToggleBGM();
+                return;
+            }
+
             var dm = DataManager.Instance;
-            dm.SetBgmEnabled(!dm.BgmEnabled);
+            dm?.ChangeBGMState(!dm.BgmEnabled);
         }
 
         public void ToggleSfx()
         {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.ToggleSFX();
+                return;
+            }
+
             var dm = DataManager.Instance;
-            dm.SetSfxEnabled(!dm.SfxEnabled);
+            dm?.ChangeSFXState(!dm.SfxEnabled);
         }
 
-        public void ToggleVibration()
+        private void ToggleVibrationInternal()
         {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.ToggleVibration();
+                return;
+            }
+
             var dm = DataManager.Instance;
-            dm.SetVibrationEnabled(!dm.VibrationEnabled);
+            dm?.ChangeVibrationState(!dm.VibrationEnabled);
         }
 
-        public void ResetData()
+        private void ResetDataInternal()
         {
             float now = Time.unscaledTime;
 
@@ -103,7 +130,14 @@ namespace UI
             if (_resetClickCount >= _resetClickThreshold)
             {
                 _resetClickCount = 0;
-                DataManager.Instance.ResetUserData();
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.ResetData();
+                }
+                else
+                {
+                    DataManager.Instance?.ResetUserData();
+                }
                 Debug.Log("SettingPanel: user data reset.");
             }
             else
@@ -111,6 +145,24 @@ namespace UI
                 Debug.Log($"SettingPanel: press {remaining} time to reset data.");
             }
         }
+
+        #region Analysis And Design Methods
+
+        public void ToggleBGM() => ToggleBgm();
+        public void ToggleSFX() => ToggleSfx();
+        public void ToggleVibration() => ToggleVibrationInternal();
+        public void ResetData() => ResetDataInternal();
+
+        public SettingsData GetData()
+        {
+            SettingsData settingsData = DataManager.Instance?.Data?.Get().settings.GetData();
+            RefreshAllVisuals();
+            return settingsData;
+        }
+
+        public SettingsData getData() => GetData();
+
+        #endregion
 
         public void CloseSetting()
         {

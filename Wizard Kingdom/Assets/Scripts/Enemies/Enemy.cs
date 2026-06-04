@@ -5,6 +5,7 @@ using Balloons;
 using Managers;
 using ObjectPool;
 using Particles;
+using SOs;
 using StateMachines;
 using UnityEngine;
 using Utils;
@@ -32,14 +33,12 @@ namespace Enemies
 
         [Header("Data")]
         [SerializeField] private string _enemyName;
-        public string EnemyName => _enemyName;
+        private EnemyData _data;
 
         [SerializeField] private Sprite _sprite;
         [SerializeField] private EnemyType _enemyType;
-        public EnemyType EnemyType => _enemyType;
 
         private Animator _animator;
-        public Animator Animator => _animator;
 
         [SerializeField] private int _goldReward;
         [SerializeField] private int _scoreReward;
@@ -51,25 +50,37 @@ namespace Enemies
 
         [SerializeField] private float _moveSpeed = 1f;
 
-        public float MoveSpeed
-        {
-            get => _moveSpeed;
-            set => _moveSpeed = value;
-        }
-
         [Header("Offscreen")]
         [SerializeField] private float _offscreenDespawnMargin = 1f;
         private bool _isDespawning;
 
         [Header("Stat")]
         private int _remainingBalloon = 1;
-        public int RemainingBalloon => _remainingBalloon;
         [SerializeField] private GameObject _fireOnInvadeCastle;
 
         [Header("Balloon")]
         [SerializeField] private Transform _balloonRoot;
         [SerializeField] private Transform _ropeTargetPoint;
         [SerializeField] private List<Balloon> _balloonList = new List<Balloon>();
+
+        #region Analysis And Design Properties
+
+        public string EnemyName => _enemyName;
+        public EnemyData Data => _data;
+        public Sprite Sprite => _sprite;
+        public EnemyType EnemyType => _enemyType;
+        public Animator Animator => _animator;
+        public int GoldReward => _goldReward;
+        public int ScoreReward => _scoreReward;
+        public float MoveSpeed
+        {
+            get => _moveSpeed;
+            set => _moveSpeed = value;
+        }
+        public int RemainingBalloon => _remainingBalloon;
+        public IReadOnlyList<Balloon> BalloonList => _balloonList;
+
+        #endregion
 
         [Header("Balloon Layout")]
         [SerializeField] private Vector2 _balloonClusterOffset = Vector2.zero;
@@ -127,7 +138,6 @@ namespace Enemies
                 GameManager.Instance.RegisterEnemy(this);
             }
 
-            GestureResultHandler.OnDrawSymbol += TryPopBalloon;
         }
 
         private void OnDisable()
@@ -137,7 +147,6 @@ namespace Enemies
                 GameManager.Instance.UnregisterEnemy(this);
             }
 
-            GestureResultHandler.OnDrawSymbol -= TryPopBalloon;
         }
 
         private void Update()
@@ -225,6 +234,8 @@ namespace Enemies
             OnEnemyDie?.Invoke(_scoreReward, _goldReward);
         }
 
+        public void DestroyEnemy() => Die();
+
         public void InvadeCastle()
         {
             if (_stateMachine.CurrentState == _victoryState)
@@ -256,7 +267,14 @@ namespace Enemies
             }
             else
             {
-                InvadeCastle();
+                if (_data != null)
+                {
+                    _data.InvadeCastle(this);
+                }
+                else
+                {
+                    InvadeCastle();
+                }
             }
         }
 
@@ -289,7 +307,14 @@ namespace Enemies
                     continue;
                 }
 
-                balloon.Pop();
+                if (balloon.Data != null)
+                {
+                    balloon.Data.Destroy(balloon);
+                }
+                else
+                {
+                    balloon.Destroy();
+                }
 
                 OnBalloonPop?.Invoke();
 
@@ -307,7 +332,14 @@ namespace Enemies
 
                     if (timeAttackNoGround)
                     {
-                        Die();
+                        if (_data != null)
+                        {
+                            _data.Destroy(this);
+                        }
+                        else
+                        {
+                            Die();
+                        }
                     }
                     else
                     {
@@ -318,6 +350,35 @@ namespace Enemies
                 return;
             }
         }
+
+        #region Analysis And Design Methods
+
+        public void Init(EnemyData data, List<Balloon> balloons)
+        {
+            if (data == null) return;
+            _data = data.Get();
+
+            InitEnemyData(
+                data.enemyName,
+                data.sprite,
+                data.runtimeAnimatorController,
+                data.enemyType,
+                data.goldReward,
+                data.scoreReward,
+                data.moveSpeed);
+
+            ResetEnemyState();
+            SetupBalloons(balloons ?? new List<Balloon>());
+        }
+
+        public void CheckSymbol(string symbol)
+        {
+            TryPopBalloon(symbol);
+        }
+
+        public void Destroy() => DestroyEnemy();
+
+        #endregion
 
         public void SetupBalloons(List<Balloon> balloons)
         {

@@ -14,7 +14,15 @@ namespace UI
         [Header("Bar phụ — name sprite (luôn hiển thị)")]
         [SerializeField] private Image _nameImage;
 
+        #region Analysis And Design Properties
+
+        public Image OutBackgroundImage => _itemImage;
+        public Image OutBackgroundName => _nameImage;
+
+        #endregion
+
         protected override IReadOnlyList<BackgroundItemData> GetItemsFrom(ShopCatalog catalog) => catalog.backgrounds;
+        protected override ShopCategory Category => ShopCategory.Background;
 
         protected override bool HasEquip => true;
 

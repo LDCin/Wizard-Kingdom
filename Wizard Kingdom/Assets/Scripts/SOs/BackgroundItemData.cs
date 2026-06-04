@@ -8,5 +8,6 @@ namespace SOs
         public Sprite lockedItemSprite;
         public Sprite unlockedItemSprite;
         public Sprite nameSprite;
+        public BackgroundData backgroundData;
     }
 }
