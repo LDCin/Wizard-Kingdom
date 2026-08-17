@@ -9,62 +9,35 @@ namespace UI
 {
     public class IntroPanel : Panel
     {
-        [System.Serializable]
-        public class FlyInItem
-        {
-            public RectTransform rect;
-            public float delay;
-
-            [HideInInspector] public Vector3 finalLocalPosition;
-        }
-
-        [Header("Scene")]
-        public string mainMenuSceneName = GameConfig.Scene.Menu;
-
         [Header("UI")]
-        public RectTransform canvasRoot;
-        public RectTransform introContainer;
-        public CanvasGroup introCanvasGroup;
-        public RectTransform gameContentContainer;
-        public Image hourglass;
-        public CanvasGroup tapToStartGroup;
+        [SerializeField] private RectTransform introContainer;
+        [SerializeField] private RectTransform gameContentContainer;
+        [SerializeField] private Image hourglass;
+        [SerializeField] private CanvasGroup tapToStartGroup;
 
         [Header("Background")]
-        public Image introBackground;
-        public Image gameBackground;
-        public Color targetBackgroundColor;
-        public float backgroundColorChangeTime = 0.8f;
-
-        [Header("Intro Fade")]
-        public float introFadeOutTime = 1.0f;
-
-        [Header("Fly In Objects")]
-        public FlyInItem[] flyInItems;
-
-        [Header("Fly In Settings")]
-        public float flyStartY = -1000f;
-        public float flyDuration = 1.5f;
-        public Ease flyEase = Ease.OutQuart;
+        [SerializeField] private Image introBackground;
+        [SerializeField] private Image gameBackground;
+        [SerializeField] private Color targetBackgroundColor;
+        [SerializeField] private float backgroundColorChangeTime = 0.8f;
 
         [Header("Start Effect")]
-        public Image wizardImage;
-        public Sprite wizardOpenEyesSprite;
-        public CanvasGroup whiteFlashGroup;
+        [SerializeField] private Image wizardImage;
+        [SerializeField] private Sprite wizardOpenEyesSprite;
+        [SerializeField] private CanvasGroup whiteFlashGroup;
+        [SerializeField] private GameObject[] flyingItems;
 
-        public float startZoomScale = 0.85f;
-        public float startZoomDuration = 0.6f;
-        public float whiteFlashDuration = 0.45f;
-        public Ease startZoomEase = Ease.InOutQuart;
+        [SerializeField] private float startZoomScale = 0.85f;
+        [SerializeField] private float startZoomDuration = 0.6f;
+        [SerializeField] private float whiteFlashDuration = 0.45f;
+        [SerializeField] private Ease startZoomEase = Ease.InOutQuart;
 
-        private float screenHeight;
         private bool canTap = false;
         private bool tapped = false;
         private Tween tapBlinkTween;
 
         void Start()
         {
-            screenHeight = canvasRoot.rect.height;
-
             introContainer.anchoredPosition = Vector2.zero;
             gameContentContainer.anchoredPosition = Vector2.zero;
             gameContentContainer.localScale = Vector3.one;
@@ -78,33 +51,11 @@ namespace UI
                 whiteFlashGroup.blocksRaycasts = false;
             }
 
-            if (introCanvasGroup != null)
-            {
-                introCanvasGroup.alpha = 1f;
-                introCanvasGroup.blocksRaycasts = true;
-            }
-
             SetImageAlpha(hourglass, 0f);
 
-            if (tapToStartGroup != null)
-            {
-                tapToStartGroup.alpha = 1f;
-            }
-
-            PrepareFlyInObjects();
+            SetCanvasGroupAlpha(tapToStartGroup, 0f);
+            SetFlyingItemsActive(false);
             PlayIntro();
-        }
-
-        void PrepareFlyInObjects()
-        {
-            foreach (FlyInItem item in flyInItems)
-            {
-                if (item.rect == null)
-                    continue;
-
-                item.finalLocalPosition = item.rect.localPosition;
-                item.rect.localPosition = item.finalLocalPosition + new Vector3(0f, flyStartY, 0f);
-            }
         }
 
         void PlayIntro()
@@ -127,38 +78,13 @@ namespace UI
 
             float revealStartTime = seq.Duration();
 
-            if (introCanvasGroup != null)
-            {
-                seq.Insert(
-                    revealStartTime,
-                    introCanvasGroup.DOFade(0f, introFadeOutTime)
-                        .SetEase(Ease.InOutSine)
-                );
-
-                seq.InsertCallback(revealStartTime + introFadeOutTime, () =>
-                {
-                    introCanvasGroup.blocksRaycasts = false;
-                    introContainer.gameObject.SetActive(false);
-                });
-            }
-            else
+            if (introContainer != null)
             {
                 seq.InsertCallback(revealStartTime, () =>
                 {
                     introContainer.gameObject.SetActive(false);
+                    SetFlyingItemsActive(true);
                 });
-            }
-
-            foreach (FlyInItem item in flyInItems)
-            {
-                if (item.rect == null)
-                    continue;
-
-                seq.Insert(
-                    revealStartTime + item.delay,
-                    item.rect.DOLocalMove(item.finalLocalPosition, flyDuration)
-                        .SetEase(flyEase)
-                );
             }
 
             seq.OnComplete(() =>
@@ -252,7 +178,7 @@ namespace UI
 
             startSeq.OnComplete(() =>
             {
-                SceneManager.LoadScene(mainMenuSceneName);
+                SceneManager.LoadScene(GameConfig.Scene.Menu);
                 UIManager.Instance.OpenPanel(GameConfig.Panel.Menu);
                 Close();
             });
@@ -266,6 +192,28 @@ namespace UI
             Color c = image.color;
             c.a = alpha;
             image.color = c;
+        }
+
+        void SetCanvasGroupAlpha(CanvasGroup canvasGroup, float alpha)
+        {
+            if (canvasGroup == null)
+                return;
+
+            canvasGroup.alpha = alpha;
+        }
+
+        void SetFlyingItemsActive(bool isActive)
+        {
+            if (flyingItems == null)
+                return;
+
+            foreach (GameObject flyingItem in flyingItems)
+            {
+                if (flyingItem == null)
+                    continue;
+
+                flyingItem.SetActive(isActive);
+            }
         }
     }
 }

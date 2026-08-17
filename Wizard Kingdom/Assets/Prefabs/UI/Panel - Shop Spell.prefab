@@ -1511,6 +1511,7 @@ GameObject:
   - component: {fileID: 5216459187140687789}
   - component: {fileID: 2707740565870785093}
   - component: {fileID: 2342722049727067240}
+  - component: {fileID: 4587573657705906353}
   m_Layer: 5
   m_Name: Panel - Shop Spell
   m_TagString: Untagged
@@ -1559,10 +1560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyOnClose: 1
-  _hasEffect: 1
   uiLayer: 0
-  _panelBoard: {fileID: 450832990832824864}
-  _panelBackground: {fileID: 2342722049727067240}
   _totalCoinText: {fileID: 4317072364703801337}
   _priceIcon: {fileID: 0}
   _priceText: {fileID: 5579246758362040032}
@@ -1605,6 +1603,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4587573657705906353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5550911170678540925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9c34d72ee48af4aa3e99a41ceb2606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoPlay: 1
+  deltaTimeIndependent: 0
+  useClosePanelEffect: 1
+  showDelayTime: 0
+  hidePanelDelayTime: 0
+  panel: {fileID: 8169199485147503470}
+  panelBackground: {fileID: 0}
+  openOffset: {x: 0, y: -3000}
+  openDuration: 0.35
+  closeDuration: 0.35
+  backgroundFadeDuration: 0.5
+  ease: 9
 --- !u!1 &6168979538149382143
 GameObject:
   m_ObjectHideFlags: 0

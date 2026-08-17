@@ -22,6 +22,7 @@ namespace UI
         protected IReadOnlyList<TItem> _items;
         protected int _index;
         private bool _isNavigating;
+        private Coroutine _loadCatalogCoroutine;
 
         protected abstract IReadOnlyList<TItem> GetItemsFrom(ShopCatalog catalog);
 
@@ -39,9 +40,6 @@ namespace UI
             Observer.Subscribe<string>(ObserverEvent.InventoryChanged, OnInventoryChanged);
             Observer.Subscribe<string>(ObserverEvent.EquippedBackgroundChanged, OnInventoryChanged);
             Observer.Subscribe<string>(ObserverEvent.EquippedWizardChanged, OnInventoryChanged);
-
-            RefreshCoin();
-            StartCoroutine(LoadCatalogRoutine());
         }
 
         private void OnDisable()
@@ -51,7 +49,17 @@ namespace UI
             Observer.Unsubscribe<string>(ObserverEvent.EquippedBackgroundChanged, OnInventoryChanged);
             Observer.Unsubscribe<string>(ObserverEvent.EquippedWizardChanged, OnInventoryChanged);
 
+            StopLoadCatalogRoutine();
             ReleaseCatalog();
+        }
+
+        public override void UpdateVisual()
+        {
+            base.UpdateVisual();
+
+            RefreshCoin();
+            StopLoadCatalogRoutine();
+            _loadCatalogCoroutine = StartCoroutine(LoadCatalogRoutine());
         }
 
         private IEnumerator LoadCatalogRoutine()
@@ -68,6 +76,18 @@ namespace UI
             });
 
             yield return new WaitUntil(() => completed);
+            _loadCatalogCoroutine = null;
+        }
+
+        private void StopLoadCatalogRoutine()
+        {
+            if (_loadCatalogCoroutine == null)
+            {
+                return;
+            }
+
+            StopCoroutine(_loadCatalogCoroutine);
+            _loadCatalogCoroutine = null;
         }
 
         private void ReleaseCatalog()

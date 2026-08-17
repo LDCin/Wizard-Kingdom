@@ -408,6 +408,8 @@ GameObject:
   - component: {fileID: 1775751697468213337}
   - component: {fileID: 558788673117901710}
   - component: {fileID: 5821940830994438934}
+  - component: {fileID: 7097091299179155927}
+  - component: {fileID: 8058305417162385791}
   m_Layer: 5
   m_Name: Panel - Pause
   m_TagString: Untagged
@@ -456,10 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyOnClose: 0
-  _hasEffect: 1
   uiLayer: 0
-  _panelBoard: {fileID: 8120544416216051108}
-  _panelBackground: {fileID: 5821940830994438934}
 --- !u!114 &5821940830994438934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +489,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &7097091299179155927
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526595763455336471}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &8058305417162385791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526595763455336471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f82d217cd89f74192e61245c898eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoPlay: 1
+  deltaTimeIndependent: 1
+  useClosePanelEffect: 1
+  showDelayTime: 0
+  hidePanelDelayTime: 0
+  canvasGroup: {fileID: 7097091299179155927}
+  openDuration: 0.35
+  closeDuration: 0.35
+  canInteractWhileFading: 1
 --- !u!1 &8120544416216051108
 GameObject:
   m_ObjectHideFlags: 0

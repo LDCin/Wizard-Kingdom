@@ -1088,6 +1088,7 @@ GameObject:
   - component: {fileID: 5179732493147116096}
   - component: {fileID: 3309948594822638287}
   - component: {fileID: 2079467725043914281}
+  - component: {fileID: 6281067582338822072}
   m_Layer: 5
   m_Name: Panel - Menu
   m_TagString: Untagged
@@ -1137,10 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyOnClose: 0
-  _hasEffect: 1
   uiLayer: 0
-  _panelBoard: {fileID: 3926193691721618126}
-  _panelBackground: {fileID: 0}
   _arcadeModeKey: ArcadeMode
   _timeAttackModeKey: TimeAttackMode
 --- !u!114 &2079467725043914281
@@ -1173,3 +1171,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6281067582338822072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6436867429603058698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9c34d72ee48af4aa3e99a41ceb2606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoPlay: 1
+  deltaTimeIndependent: 0
+  useClosePanelEffect: 1
+  showDelayTime: 0
+  hidePanelDelayTime: 0
+  panel: {fileID: 5365579983937554121}
+  panelBackground: {fileID: 0}
+  openOffset: {x: 0, y: -3000}
+  openDuration: 0.35
+  closeDuration: 0.35
+  backgroundFadeDuration: 0.5
+  ease: 9

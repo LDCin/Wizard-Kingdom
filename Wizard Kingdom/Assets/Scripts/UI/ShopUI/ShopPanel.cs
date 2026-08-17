@@ -11,12 +11,17 @@ namespace UI
         private void OnEnable()
         {
             Observer.Subscribe<int>(ObserverEvent.CoinChanged, OnCoinChanged);
-            RefreshCoin();
         }
 
         private void OnDisable()
         {
             Observer.Unsubscribe<int>(ObserverEvent.CoinChanged, OnCoinChanged);
+        }
+
+        public override void UpdateVisual()
+        {
+            base.UpdateVisual();
+            RefreshCoin();
         }
 
         public void OpenSpellCategory() => OpenAndClose(GameConfig.Panel.ShopSpell);

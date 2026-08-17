@@ -26,12 +26,6 @@ namespace UI
             Observer.Subscribe<ScoreAndGoldPayload>(ObserverEvent.ScoreAndGoldChanged, HandleScoreAndGoldChanged);
             Observer.Subscribe<GameModeData>(ObserverEvent.ModeLoaded, HandleModeLoaded);
             Observer.Subscribe<SpellUsagePayload>(ObserverEvent.SpellUsageUpdated, HandleSpellUsageUpdated);
-
-            if (GameManager.Instance != null)
-            {
-                ApplyModeUI(GameManager.Instance.CurrentModeData);
-                UpdateScoreAndGoldText(GameManager.Instance.Score, GameManager.Instance.Gold);
-            }
         }
 
         private void OnDisable()
@@ -39,6 +33,19 @@ namespace UI
             Observer.Unsubscribe<ScoreAndGoldPayload>(ObserverEvent.ScoreAndGoldChanged, HandleScoreAndGoldChanged);
             Observer.Unsubscribe<GameModeData>(ObserverEvent.ModeLoaded, HandleModeLoaded);
             Observer.Unsubscribe<SpellUsagePayload>(ObserverEvent.SpellUsageUpdated, HandleSpellUsageUpdated);
+        }
+
+        public override void UpdateVisual()
+        {
+            base.UpdateVisual();
+
+            if (GameManager.Instance == null)
+            {
+                return;
+            }
+
+            ApplyModeUI(GameManager.Instance.CurrentModeData);
+            UpdateScoreAndGoldText(GameManager.Instance.Score, GameManager.Instance.Gold);
         }
 
         public void PauseGame()

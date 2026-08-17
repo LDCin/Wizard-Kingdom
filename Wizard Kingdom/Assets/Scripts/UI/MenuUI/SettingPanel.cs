@@ -2,12 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using System;
 
 namespace UI
 {
     public class SettingPanel : Panel
     {
-        [System.Serializable]
+        [Serializable]
         private class ToggleSprites
         {
             public Button targetButton;
@@ -47,13 +48,19 @@ namespace UI
         private void OnEnable()
         {
             Observer.Subscribe(ObserverEvent.SettingsChanged, RefreshAllVisuals);
-            _resetClickCount = 0;
-            RefreshAllVisuals();
         }
 
         private void OnDisable()
         {
             Observer.Unsubscribe(ObserverEvent.SettingsChanged, RefreshAllVisuals);
+        }
+
+        public override void UpdateVisual()
+        {
+            base.UpdateVisual();
+
+            _resetClickCount = 0;
+            RefreshAllVisuals();
         }
 
         private void RefreshAllVisuals()

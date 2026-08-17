@@ -10,8 +10,15 @@ namespace UI
         [SerializeField] private SpriteAssetNumberText _highScore;
         [SerializeField] private SpriteAssetNumberText _score;
 
-        public void OnEnable()
+        public override void UpdateVisual()
         {
+            base.UpdateVisual();
+
+            if (DataManager.Instance == null || GameManager.Instance == null)
+            {
+                return;
+            }
+
             _totalCoin.SetValue(DataManager.Instance.GetCoin());
 
             string modeKey = GameManager.Instance.CurrentModeKey;

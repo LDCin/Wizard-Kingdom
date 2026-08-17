@@ -2340,6 +2340,7 @@ GameObject:
   - component: {fileID: 6450061467598427385}
   - component: {fileID: 6194403308687725110}
   - component: {fileID: 3013111934809793736}
+  - component: {fileID: 1437142625102224069}
   m_Layer: 5
   m_Name: Panel - Shop Wizard
   m_TagString: Untagged
@@ -2388,10 +2389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyOnClose: 1
-  _hasEffect: 1
   uiLayer: 0
-  _panelBoard: {fileID: 5494542140197205227}
-  _panelBackground: {fileID: 3013111934809793736}
   _totalCoinText: {fileID: 8837698285000883560}
   _priceIcon: {fileID: 4505470048526006616}
   _priceText: {fileID: 6429912821867845449}
@@ -2434,6 +2432,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1437142625102224069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866244368991747511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9c34d72ee48af4aa3e99a41ceb2606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoPlay: 1
+  deltaTimeIndependent: 0
+  useClosePanelEffect: 1
+  showDelayTime: 0
+  hidePanelDelayTime: 0
+  panel: {fileID: 1655948130081373313}
+  panelBackground: {fileID: 0}
+  openOffset: {x: 0, y: -3000}
+  openDuration: 0.35
+  closeDuration: 0.35
+  backgroundFadeDuration: 0.5
+  ease: 9
 --- !u!1 &8953534832315264405
 GameObject:
   m_ObjectHideFlags: 0
