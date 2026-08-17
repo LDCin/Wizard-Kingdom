@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UPool = uPools.ObjectPool<UnityEngine.MonoBehaviour>;
 
 namespace ObjectPool
 {
@@ -16,7 +17,7 @@ namespace ObjectPool
         [SerializeField] private int _numberOfEachItem = 10;
 
         private readonly List<TData> _dataList = new();
-        private readonly Dictionary<TKey, Queue<TItem>> _poolDict = new();
+        private readonly Dictionary<TKey, UPool> _poolDict = new();
         private readonly HashSet<TItem> _activeItems = new();
 
         private AsyncOperationHandle<IList<TData>> _loadHandle;
@@ -39,13 +40,9 @@ namespace ObjectPool
 
             if (_loadHandle.Status == AsyncOperationStatus.Succeeded)
             {
-                Debug.Log($"{GetType().Name}: Load data successfully!");
-
                 InitPool();
 
                 IsReady = true;
-
-                Debug.Log($"{GetType().Name} is ready!");
             }
             else
             {
@@ -59,18 +56,10 @@ namespace ObjectPool
 
             if (HasData(key))
             {
-                Debug.LogWarning($"{GetType().Name}: Duplicate data key: {key}");
                 return;
             }
 
             _dataList.Add(data);
-
-            if (!_poolDict.ContainsKey(key))
-            {
-                _poolDict.Add(key, new Queue<TItem>());
-            }
-
-            Debug.Log($"{GetType().Name}: Load data: {key}");
         }
 
         private void InitPool()
@@ -79,20 +68,28 @@ namespace ObjectPool
             {
                 TKey key = GetKeyFromData(data);
 
-                if (!_poolDict.ContainsKey(key))
+                if (_poolDict.ContainsKey(key))
                 {
-                    _poolDict.Add(key, new Queue<TItem>());
+                    continue;
                 }
 
-                for (int i = 0; i < _numberOfEachItem; i++)
-                {
-                    TItem item = CreateItem(data);
-                    _poolDict[key].Enqueue(item);
-                }
+                UPool pool = CreatePool(data);
+                pool.Prewarm(_numberOfEachItem);
+                _poolDict.Add(key, pool);
             }
         }
 
-        private TItem CreateItem(TData data)
+        private UPool CreatePool(TData data)
+        {
+            return new UPool(
+                () => CreateItem(data),
+                OnRentFromPool,
+                OnReturnToPool,
+                item => Destroy(item.gameObject)
+            );
+        }
+
+        private MonoBehaviour CreateItem(TData data)
         {
             TItem item = Instantiate(_prefab, transform);
 
@@ -105,31 +102,22 @@ namespace ObjectPool
 
         protected TItem Get(TKey key)
         {
-            if (!_poolDict.TryGetValue(key, out Queue<TItem> queue))
+            if (!_poolDict.TryGetValue(key, out UPool pool))
             {
-                Debug.LogError($"{GetType().Name}: Pool queue not found for key: {key}");
+                Debug.LogError($"{GetType().Name}: Pool not found for key: {key}");
                 return null;
             }
 
-            if (queue.Count > 0)
+            TItem itemFromPool = pool.Rent() as TItem;
+            if (itemFromPool == null)
             {
-                TItem itemFromPool = queue.Dequeue();
-                _activeItems.Add(itemFromPool);
-                return itemFromPool;
-            }
-
-            TData data = GetData(key);
-
-            if (data == null)
-            {
-                Debug.LogError($"{GetType().Name}: Data not found for key: {key}");
+                Debug.LogError($"{GetType().Name}: Pool item type mismatch. Key: {key}");
                 return null;
             }
 
-            TItem newItem = CreateItem(data);
-            _activeItems.Add(newItem);
+            _activeItems.Add(itemFromPool);
 
-            return newItem;
+            return itemFromPool;
         }
 
         protected void Return(TItem item)
@@ -146,15 +134,14 @@ namespace ObjectPool
 
             TKey key = GetKeyFromItem(item);
 
-            if (!_poolDict.ContainsKey(key))
+            if (!_poolDict.TryGetValue(key, out UPool pool))
             {
-                Debug.LogWarning($"{GetType().Name}: Pool queue missing when returning item. Key: {key}");
-                _poolDict.Add(key, new Queue<TItem>());
+                Debug.LogWarning($"{GetType().Name}: Pool missing when returning item. Key: {key}");
+                OnReturn(item);
+                return;
             }
 
-            OnReturn(item);
-
-            _poolDict[key].Enqueue(item);
+            pool.Return(item);
         }
 
         protected TData GetData(TKey key)
@@ -195,6 +182,24 @@ namespace ObjectPool
             return false;
         }
 
+        private void OnRentFromPool(MonoBehaviour item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            item.transform.SetParent(transform);
+        }
+
+        private void OnReturnToPool(MonoBehaviour item)
+        {
+            if (item is TItem typedItem)
+            {
+                OnReturn(typedItem);
+            }
+        }
+
         protected virtual void OnReturn(TItem item)
         {
             item.gameObject.SetActive(false);
@@ -211,6 +216,17 @@ namespace ObjectPool
             {
                 Addressables.Release(_loadHandle);
             }
+
+            foreach (UPool pool in _poolDict.Values)
+            {
+                if (!pool.IsDisposed)
+                {
+                    pool.Dispose();
+                }
+            }
+
+            _poolDict.Clear();
+            _activeItems.Clear();
         }
     }
 }
