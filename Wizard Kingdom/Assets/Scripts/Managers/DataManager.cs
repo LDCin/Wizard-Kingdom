@@ -1,29 +1,42 @@
-using System;
-using System.IO;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Data;
 using Newtonsoft.Json;
+using SOs;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Utils;
 
 namespace Managers
 {
     public class DataManager : Singleton<DataManager>
     {
-        private const string FileName = "userdata.json";
-        public static event Action<int> OnCoinChanged;
-        public static event Action<string, int> OnHighScoreChanged;
-        public static event Action<string> OnEquippedBackgroundChanged;
-        public static event Action<string> OnEquippedWizardChanged;
-        public static event Action<string> OnBackgroundPurchased;
-        public static event Action<string> OnWizardPurchased;
-        public static event Action<string> OnSpellPurchased;
-        public static event Action OnSettingsChanged;
 
-        private UserData _data;
-        private string _filePath;
+        private sealed class DataSlot
+        {
+            public string key;
+            public string filePath;
+            public Type type;
+            public Func<object> defaultFactory;
+            public object data;
+        }
+
+        private readonly Dictionary<Type, DataSlot> _dataSlotsByType = new Dictionary<Type, DataSlot>();
+        private readonly Dictionary<string, DataSlot> _dataSlotsByKey = new Dictionary<string, DataSlot>();
+        private readonly Dictionary<string, AsyncOperationHandle<GameModeData>> _gameModeHandles
+            = new Dictionary<string, AsyncOperationHandle<GameModeData>>();
+
         private JsonSerializerSettings _jsonSettings;
-        public UserData Data => _data;
+        private AsyncOperationHandle<GameplayCatalog> _gameplayCatalogHandle;
+        private bool _hasGameplayCatalogHandle;
+        private GameplayCatalog _gameplayCatalog;
+        private AsyncOperationHandle<ShopCatalog> _shopCatalogHandle;
+        private bool _hasShopCatalogHandle;
+        private ShopCatalog _shopCatalog;
+        public UserData Data => GetData<UserData>();
 
 #if UNITY_EDITOR
         [Header("Editor Debug")]
@@ -35,87 +48,324 @@ namespace Managers
             base.Awake();
             if (Instance != this) return;
 
-            _filePath = Path.Combine(Application.persistentDataPath, FileName);
             _jsonSettings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,
                 NullValueHandling = NullValueHandling.Include
             };
 
-            Load();
+            RegisterData("user", "userdata.json", UserData.CreateDefault);
+
 #if UNITY_EDITOR
             LoadEditorDataFromUserData();
 #endif
         }
-        private void Load()
+
+        public void RegisterData<T>(string key, string fileName, Func<T> defaultFactory) where T : class
         {
-            if (!File.Exists(_filePath))
+            if (string.IsNullOrWhiteSpace(key)) throw new ArgumentException("Data key is required.", nameof(key));
+            if (string.IsNullOrWhiteSpace(fileName)) throw new ArgumentException("File name is required.", nameof(fileName));
+            if (defaultFactory == null) throw new ArgumentNullException(nameof(defaultFactory));
+
+            Type type = typeof(T);
+            if (_dataSlotsByType.ContainsKey(type))
             {
-                _data = UserData.CreateDefault();
-                Save();
+                return;
+            }
+
+            var slot = new DataSlot
+            {
+                key = key,
+                filePath = Path.Combine(Application.persistentDataPath, fileName),
+                type = type,
+                defaultFactory = () => defaultFactory()
+            };
+
+            _dataSlotsByType[type] = slot;
+            _dataSlotsByKey[key] = slot;
+            LoadSlot(slot);
+        }
+
+        public bool HasData<T>() where T : class
+        {
+            return _dataSlotsByType.ContainsKey(typeof(T));
+        }
+
+        public T GetData<T>() where T : class
+        {
+            if (_dataSlotsByType.TryGetValue(typeof(T), out DataSlot slot))
+            {
+                return slot.data as T;
+            }
+
+            return null;
+        }
+
+        public T GetDataByKey<T>(string key) where T : class
+        {
+            if (string.IsNullOrWhiteSpace(key)) return null;
+            if (_dataSlotsByKey.TryGetValue(key, out DataSlot slot))
+            {
+                return slot.data as T;
+            }
+
+            return null;
+        }
+
+        public void SaveData<T>() where T : class
+        {
+            if (_dataSlotsByType.TryGetValue(typeof(T), out DataSlot slot))
+            {
+                SaveSlot(slot);
+            }
+        }
+
+        public void ResetData<T>() where T : class
+        {
+            if (!_dataSlotsByType.TryGetValue(typeof(T), out DataSlot slot))
+            {
+                return;
+            }
+
+            slot.data = slot.defaultFactory();
+            SaveSlot(slot);
+        }
+
+        public void LoadGameplayCatalog(Action<GameplayCatalog> onLoaded)
+        {
+            if (_gameplayCatalog != null)
+            {
+                onLoaded?.Invoke(_gameplayCatalog);
+                return;
+            }
+
+            StartCoroutine(LoadGameplayCatalogRoutine(onLoaded));
+        }
+
+        public void LoadShopCatalog(Action<ShopCatalog> onLoaded)
+        {
+            if (_shopCatalog != null)
+            {
+                onLoaded?.Invoke(_shopCatalog);
+                return;
+            }
+
+            StartCoroutine(LoadShopCatalogRoutine(onLoaded));
+        }
+
+        public void LoadGameModeData(string modeKey, Action<GameModeData> onLoaded)
+        {
+            if (string.IsNullOrWhiteSpace(modeKey))
+            {
+                onLoaded?.Invoke(null);
+                return;
+            }
+
+            if (_gameModeHandles.TryGetValue(modeKey, out AsyncOperationHandle<GameModeData> cachedHandle)
+                && cachedHandle.IsValid()
+                && cachedHandle.Status == AsyncOperationStatus.Succeeded
+                && cachedHandle.Result != null)
+            {
+                onLoaded?.Invoke(cachedHandle.Result);
+                return;
+            }
+
+            StartCoroutine(LoadGameModeDataRoutine(modeKey, onLoaded));
+        }
+
+        public WizardData FindWizardData(string id)
+        {
+            return _gameplayCatalog != null ? _gameplayCatalog.FindWizard(id) : null;
+        }
+
+        public BackgroundData FindBackgroundData(string id)
+        {
+            return _gameplayCatalog != null ? _gameplayCatalog.FindBackground(id) : null;
+        }
+
+        public EnemyData FindEnemyData(GameModeData modeData, string enemyName)
+        {
+            if (modeData == null || string.IsNullOrWhiteSpace(enemyName)) return null;
+
+            foreach (DifficultyTier tier in modeData.difficultyTiers)
+            {
+                if (tier == null || tier.enemies == null) continue;
+                foreach (EnemySpawnEntry entry in tier.enemies)
+                {
+                    if (entry == null || entry.enemyData == null) continue;
+                    if (string.Equals(entry.enemyData.enemyName, enemyName, StringComparison.Ordinal))
+                    {
+                        return entry.enemyData;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private IEnumerator LoadGameplayCatalogRoutine(Action<GameplayCatalog> onLoaded)
+        {
+            _gameplayCatalogHandle = Addressables.LoadAssetAsync<GameplayCatalog>(GameConfig.Addressables.GameplayCatalog);
+            yield return _gameplayCatalogHandle;
+
+            if (_gameplayCatalogHandle.Status != AsyncOperationStatus.Succeeded || _gameplayCatalogHandle.Result == null)
+            {
+                Debug.LogError($"DataManager: failed to load GameplayCatalog at '{GameConfig.Addressables.GameplayCatalog}'.");
+                _hasGameplayCatalogHandle = false;
+                _gameplayCatalog = null;
+                onLoaded?.Invoke(null);
+                yield break;
+            }
+
+            _hasGameplayCatalogHandle = true;
+            _gameplayCatalog = _gameplayCatalogHandle.Result;
+            onLoaded?.Invoke(_gameplayCatalog);
+        }
+
+        private IEnumerator LoadShopCatalogRoutine(Action<ShopCatalog> onLoaded)
+        {
+            _shopCatalogHandle = Addressables.LoadAssetAsync<ShopCatalog>(GameConfig.Addressables.ShopCatalog);
+            yield return _shopCatalogHandle;
+
+            if (_shopCatalogHandle.Status != AsyncOperationStatus.Succeeded || _shopCatalogHandle.Result == null)
+            {
+                Debug.LogError($"DataManager: failed to load ShopCatalog at '{GameConfig.Addressables.ShopCatalog}'.");
+                _hasShopCatalogHandle = false;
+                _shopCatalog = null;
+                onLoaded?.Invoke(null);
+                yield break;
+            }
+
+            _hasShopCatalogHandle = true;
+            _shopCatalog = _shopCatalogHandle.Result;
+            onLoaded?.Invoke(_shopCatalog);
+        }
+
+        private IEnumerator LoadGameModeDataRoutine(string modeKey, Action<GameModeData> onLoaded)
+        {
+            AsyncOperationHandle<GameModeData> handle = Addressables.LoadAssetAsync<GameModeData>(modeKey);
+            yield return handle;
+
+            if (handle.Status != AsyncOperationStatus.Succeeded || handle.Result == null)
+            {
+                Debug.LogError($"DataManager: failed to load GameModeData with key '{modeKey}'.");
+                onLoaded?.Invoke(null);
+                yield break;
+            }
+
+            _gameModeHandles[modeKey] = handle;
+            onLoaded?.Invoke(handle.Result);
+        }
+
+        private void OnDestroy()
+        {
+            if (_hasGameplayCatalogHandle && _gameplayCatalogHandle.IsValid())
+            {
+                Addressables.Release(_gameplayCatalogHandle);
+            }
+
+            if (_hasShopCatalogHandle && _shopCatalogHandle.IsValid())
+            {
+                Addressables.Release(_shopCatalogHandle);
+            }
+
+            foreach (KeyValuePair<string, AsyncOperationHandle<GameModeData>> pair in _gameModeHandles)
+            {
+                if (pair.Value.IsValid())
+                {
+                    Addressables.Release(pair.Value);
+                }
+            }
+            _gameModeHandles.Clear();
+        }
+
+        private void LoadSlot(DataSlot slot)
+        {
+            if (!File.Exists(slot.filePath))
+            {
+                slot.data = slot.defaultFactory();
+                SaveSlot(slot);
                 return;
             }
 
             try
             {
-                string json = File.ReadAllText(_filePath);
-                _data = JsonConvert.DeserializeObject<UserData>(json, _jsonSettings)
-                        ?? UserData.CreateDefault();
-
-                _data.stats ??= new StatsData();
-                _data.stats.highScores ??= new System.Collections.Generic.Dictionary<string, int>();
-                _data.inventory ??= new InventoryData();
-                _data.inventory.ownedBackgrounds ??= new System.Collections.Generic.List<string>();
-                _data.inventory.ownedWizards ??= new System.Collections.Generic.List<string>();
-                _data.inventory.ownedSpells ??= new System.Collections.Generic.List<string>();
-                _data.settings ??= new SettingsData();
+                string json = File.ReadAllText(slot.filePath);
+                slot.data = JsonConvert.DeserializeObject(json, slot.type, _jsonSettings)
+                           ?? slot.defaultFactory();
+                EnsureDataValidity(slot);
             }
             catch (Exception e)
             {
-                Debug.LogError($"DataManager: lỗi khi load '{_filePath}': {e.Message}. Reset về default.");
-                _data = UserData.CreateDefault();
-                Save();
+                Debug.LogError($"DataManager: load failed '{slot.filePath}': {e.Message}. Reset to default.");
+                slot.data = slot.defaultFactory();
+                SaveSlot(slot);
             }
         }
 
-        private void Save()
+        private void SaveSlot(DataSlot slot)
         {
             try
             {
-                string json = JsonConvert.SerializeObject(_data, _jsonSettings);
-                File.WriteAllText(_filePath, json);
+                EnsureDataValidity(slot);
+                string json = JsonConvert.SerializeObject(slot.data, slot.type, _jsonSettings);
+                File.WriteAllText(slot.filePath, json);
             }
             catch (Exception e)
             {
-                Debug.LogError($"DataManager: lỗi khi save '{_filePath}': {e.Message}");
+                Debug.LogError($"DataManager: save failed '{slot.filePath}': {e.Message}");
             }
         }
 
-        public int GetCoin() => _data.stats.currentCoin;
+        private static void EnsureDataValidity(DataSlot slot)
+        {
+            if (slot.data is UserData userData)
+            {
+                EnsureUserDataValidity(userData);
+            }
+        }
+
+        private static void EnsureUserDataValidity(UserData userData)
+        {
+            if (userData == null)
+            {
+                return;
+            }
+
+            userData.stats ??= new StatsData();
+            userData.stats.highScores ??= new Dictionary<string, int>();
+            userData.inventory ??= new InventoryData();
+            userData.inventory.ownedBackgrounds ??= new List<string>();
+            userData.inventory.ownedWizards ??= new List<string>();
+            userData.inventory.ownedSpells ??= new List<string>();
+            userData.settings ??= new SettingsData();
+        }
+
+        public int GetCoin() => Data.stats.currentCoin;
 
         public void AddCoin(int amount)
         {
             if (amount == 0) return;
-            _data.stats.currentCoin = Mathf.Max(0, _data.stats.currentCoin + amount);
-            Save();
-            OnCoinChanged?.Invoke(_data.stats.currentCoin);
+            Data.stats.currentCoin = Mathf.Max(0, Data.stats.currentCoin + amount);
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.CoinChanged, Data.stats.currentCoin);
         }
 
         public bool TrySpendCoin(int amount)
         {
             if (amount < 0) return false;
-            if (_data.stats.currentCoin < amount) return false;
+            if (Data.stats.currentCoin < amount) return false;
 
-            _data.stats.currentCoin -= amount;
-            Save();
-            OnCoinChanged?.Invoke(_data.stats.currentCoin);
+            Data.stats.currentCoin -= amount;
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.CoinChanged, Data.stats.currentCoin);
             return true;
         }
 
         public int GetHighScore(string modeKey)
         {
             if (string.IsNullOrEmpty(modeKey)) return 0;
-            return _data.stats.highScores.TryGetValue(modeKey, out int v) ? v : 0;
+            return Data.stats.highScores.TryGetValue(modeKey, out int v) ? v : 0;
         }
 
         public bool TrySetHighScore(string modeKey, int score)
@@ -124,125 +374,133 @@ namespace Managers
             int current = GetHighScore(modeKey);
             if (score <= current) return false;
 
-            _data.stats.highScores[modeKey] = score;
-            Save();
-            OnHighScoreChanged?.Invoke(modeKey, score);
+            Data.stats.highScores[modeKey] = score;
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.InventoryChanged, modeKey);
             return true;
         }
 
-        public bool OwnsBackground(string id) => _data.inventory.ownedBackgrounds.Contains(id);
-        public bool OwnsWizard(string id) => _data.inventory.ownedWizards.Contains(id);
-        public bool OwnsSpell(string id) => _data.inventory.ownedSpells.Contains(id);
+        public bool OwnsBackground(string id) => Data.inventory.ownedBackgrounds.Contains(id);
+        public bool OwnsWizard(string id) => Data.inventory.ownedWizards.Contains(id);
+        public bool OwnsSpell(string id) => Data.inventory.ownedSpells.Contains(id);
 
         public bool AddBackground(string id)
         {
             if (string.IsNullOrEmpty(id) || OwnsBackground(id)) return false;
-            _data.inventory.ownedBackgrounds.Add(id);
-            Save();
-            OnBackgroundPurchased?.Invoke(id);
+            Data.inventory.ownedBackgrounds.Add(id);
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.InventoryChanged, id);
             return true;
         }
 
         public bool AddWizard(string id)
         {
             if (string.IsNullOrEmpty(id) || OwnsWizard(id)) return false;
-            _data.inventory.ownedWizards.Add(id);
-            Save();
-            OnWizardPurchased?.Invoke(id);
+            Data.inventory.ownedWizards.Add(id);
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.InventoryChanged, id);
             return true;
         }
 
         public bool AddSpell(string id)
         {
             if (string.IsNullOrEmpty(id) || OwnsSpell(id)) return false;
-            _data.inventory.ownedSpells.Add(id);
-            Save();
-            OnSpellPurchased?.Invoke(id);
+            Data.inventory.ownedSpells.Add(id);
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.InventoryChanged, id);
             return true;
         }
 
-        public string GetEquippedBackground() => _data.inventory.equippedBackground;
-        public string GetEquippedWizard() => _data.inventory.equippedWizard;
+        public string GetEquippedBackground() => Data.inventory.equippedBackground;
+        public string GetEquippedWizard() => Data.inventory.equippedWizard;
 
         public bool EquipBackground(string id)
         {
             if (!OwnsBackground(id)) return false;
-            if (_data.inventory.equippedBackground == id) return false;
+            if (Data.inventory.equippedBackground == id) return false;
 
-            _data.inventory.equippedBackground = id;
-            Save();
-            OnEquippedBackgroundChanged?.Invoke(id);
+            Data.inventory.equippedBackground = id;
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.EquippedBackgroundChanged, id);
             return true;
         }
 
         public bool EquipWizard(string id)
         {
             if (!OwnsWizard(id)) return false;
-            if (_data.inventory.equippedWizard == id) return false;
+            if (Data.inventory.equippedWizard == id) return false;
 
-            _data.inventory.equippedWizard = id;
-            Save();
-            OnEquippedWizardChanged?.Invoke(id);
+            Data.inventory.equippedWizard = id;
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.EquippedWizardChanged, id);
             return true;
         }
 
-        public bool BgmEnabled => _data.settings.bgmEnabled;
-        public bool SfxEnabled => _data.settings.sfxEnabled;
-        public bool VibrationEnabled => _data.settings.vibrationEnabled;
+        public bool BgmEnabled => Data.settings.bgmEnabled;
+        public bool SfxEnabled => Data.settings.sfxEnabled;
+        public bool VibrationEnabled => Data.settings.vibrationEnabled;
 
         public void SetBgmEnabled(bool value)
         {
-            if (_data.settings.bgmEnabled == value) return;
-            _data.settings.bgmEnabled = value;
-            Save();
-            OnSettingsChanged?.Invoke();
+            if (Data.settings.bgmEnabled == value) return;
+            Data.settings.bgmEnabled = value;
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.SettingsChanged);
         }
 
         public void SetSfxEnabled(bool value)
         {
-            if (_data.settings.sfxEnabled == value) return;
-            _data.settings.sfxEnabled = value;
-            Save();
-            OnSettingsChanged?.Invoke();
+            if (Data.settings.sfxEnabled == value) return;
+            Data.settings.sfxEnabled = value;
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.SettingsChanged);
         }
 
         public void SetVibrationEnabled(bool value)
         {
-            if (_data.settings.vibrationEnabled == value) return;
-            _data.settings.vibrationEnabled = value;
-            Save();
-            OnSettingsChanged?.Invoke();
+            if (Data.settings.vibrationEnabled == value) return;
+            Data.settings.vibrationEnabled = value;
+            SaveData<UserData>();
+            Observer.Publish(ObserverEvent.SettingsChanged);
         }
 
-        /// <summary>
-        /// Reset toàn bộ user data về default. Phát events để UI subscribe có thể refresh.
-        /// </summary>
+        public void ResetData()
+        {
+            ResetData<UserData>();
+
+            Observer.Publish(ObserverEvent.CoinChanged, Data.stats.currentCoin);
+            Observer.Publish(ObserverEvent.InventoryChanged, string.Empty);
+            Observer.Publish(ObserverEvent.EquippedBackgroundChanged, Data.inventory.equippedBackground);
+            Observer.Publish(ObserverEvent.EquippedWizardChanged, Data.inventory.equippedWizard);
+            Observer.Publish(ObserverEvent.SettingsChanged);
+
+#if UNITY_EDITOR
+            LoadEditorDataFromUserData();
+#endif
+
+            if (_dataSlotsByType.TryGetValue(typeof(UserData), out DataSlot userDataSlot))
+            {
+                Debug.Log($"DataManager: reset user data at {userDataSlot.filePath}");
+            }
+        }
+
         public void ResetUserData()
         {
-            _data = UserData.CreateDefault();
-            Save();
-
-            // Báo cho UI biết mọi thứ đã đổi
-            OnCoinChanged?.Invoke(_data.stats.currentCoin);
-            OnEquippedBackgroundChanged?.Invoke(_data.inventory.equippedBackground);
-            OnEquippedWizardChanged?.Invoke(_data.inventory.equippedWizard);
-            OnSettingsChanged?.Invoke();
-
-            Debug.Log($"DataManager: reset user data tại {_filePath}");
+            ResetData();
         }
 
 #if UNITY_EDITOR
         public void LoadEditorDataFromUserData()
         {
-            if (_data == null)
+            if (Data == null)
             {
-                _data = UserData.CreateDefault();
+                RegisterData("user", "userdata.json", UserData.CreateDefault);
             }
 
-            _editorData.currentCoin = _data.stats.currentCoin;
+            _editorData.currentCoin = Data.stats.currentCoin;
 
             _editorData.highScores = new List<HighScoreEntry>();
-            foreach (KeyValuePair<string, int> entry in _data.stats.highScores)
+            foreach (KeyValuePair<string, int> entry in Data.stats.highScores)
             {
                 _editorData.highScores.Add(new HighScoreEntry
                 {
@@ -251,26 +509,26 @@ namespace Managers
                 });
             }
 
-            _editorData.ownedBackgrounds = new List<string>(_data.inventory.ownedBackgrounds);
-            _editorData.ownedWizards = new List<string>(_data.inventory.ownedWizards);
-            _editorData.ownedSpells = new List<string>(_data.inventory.ownedSpells);
-            _editorData.equippedBackground = _data.inventory.equippedBackground;
-            _editorData.equippedWizard = _data.inventory.equippedWizard;
+            _editorData.ownedBackgrounds = new List<string>(Data.inventory.ownedBackgrounds);
+            _editorData.ownedWizards = new List<string>(Data.inventory.ownedWizards);
+            _editorData.ownedSpells = new List<string>(Data.inventory.ownedSpells);
+            _editorData.equippedBackground = Data.inventory.equippedBackground;
+            _editorData.equippedWizard = Data.inventory.equippedWizard;
 
-            _editorData.bgmEnabled = _data.settings.bgmEnabled;
-            _editorData.sfxEnabled = _data.settings.sfxEnabled;
-            _editorData.vibrationEnabled = _data.settings.vibrationEnabled;
+            _editorData.bgmEnabled = Data.settings.bgmEnabled;
+            _editorData.sfxEnabled = Data.settings.sfxEnabled;
+            _editorData.vibrationEnabled = Data.settings.vibrationEnabled;
         }
 
         public void ApplyEditorDataToUserData(bool triggerEvents = true)
         {
-            if (_data == null)
+            if (Data == null)
             {
-                _data = UserData.CreateDefault();
+                RegisterData("user", "userdata.json", UserData.CreateDefault);
             }
 
-            _data.stats.currentCoin = Mathf.Max(0, _editorData.currentCoin);
-            _data.stats.highScores = new Dictionary<string, int>();
+            Data.stats.currentCoin = Mathf.Max(0, _editorData.currentCoin);
+            Data.stats.highScores = new Dictionary<string, int>();
 
             if (_editorData.highScores != null)
             {
@@ -281,45 +539,45 @@ namespace Managers
                         continue;
                     }
 
-                    _data.stats.highScores[entry.modeKey] = entry.score;
+                    Data.stats.highScores[entry.modeKey] = entry.score;
                 }
             }
 
-            _data.inventory.ownedBackgrounds = _editorData.ownedBackgrounds != null
+            Data.inventory.ownedBackgrounds = _editorData.ownedBackgrounds != null
                 ? new List<string>(_editorData.ownedBackgrounds)
                 : new List<string>();
-            _data.inventory.ownedWizards = _editorData.ownedWizards != null
+            Data.inventory.ownedWizards = _editorData.ownedWizards != null
                 ? new List<string>(_editorData.ownedWizards)
                 : new List<string>();
-            _data.inventory.ownedSpells = _editorData.ownedSpells != null
+            Data.inventory.ownedSpells = _editorData.ownedSpells != null
                 ? new List<string>(_editorData.ownedSpells)
                 : new List<string>();
-            _data.inventory.equippedBackground = _editorData.equippedBackground;
-            _data.inventory.equippedWizard = _editorData.equippedWizard;
+            Data.inventory.equippedBackground = _editorData.equippedBackground;
+            Data.inventory.equippedWizard = _editorData.equippedWizard;
 
-            _data.settings.bgmEnabled = _editorData.bgmEnabled;
-            _data.settings.sfxEnabled = _editorData.sfxEnabled;
-            _data.settings.vibrationEnabled = _editorData.vibrationEnabled;
+            Data.settings.bgmEnabled = _editorData.bgmEnabled;
+            Data.settings.sfxEnabled = _editorData.sfxEnabled;
+            Data.settings.vibrationEnabled = _editorData.vibrationEnabled;
 
-            Save();
+            SaveData<UserData>();
 
             if (triggerEvents)
             {
-                OnCoinChanged?.Invoke(_data.stats.currentCoin);
-                OnEquippedBackgroundChanged?.Invoke(_data.inventory.equippedBackground);
-                OnEquippedWizardChanged?.Invoke(_data.inventory.equippedWizard);
-                OnSettingsChanged?.Invoke();
+                Observer.Publish(ObserverEvent.CoinChanged, Data.stats.currentCoin);
+                Observer.Publish(ObserverEvent.EquippedBackgroundChanged, Data.inventory.equippedBackground);
+                Observer.Publish(ObserverEvent.EquippedWizardChanged, Data.inventory.equippedWizard);
+                Observer.Publish(ObserverEvent.SettingsChanged);
 
-                foreach (KeyValuePair<string, int> entry in _data.stats.highScores)
+                foreach (KeyValuePair<string, int> entry in Data.stats.highScores)
                 {
-                    OnHighScoreChanged?.Invoke(entry.Key, entry.Value);
+                    Observer.Publish(ObserverEvent.InventoryChanged, entry.Key);
                 }
             }
         }
 
         public void SaveUserData()
         {
-            Save();
+            SaveData<UserData>();
         }
 
         [Serializable]
@@ -348,13 +606,17 @@ namespace Managers
 
 #if UNITY_EDITOR
         [ContextMenu("Reset User Data")]
-        private void ResetUserDataMenu() => ResetUserData();
+        private void ResetUserDataMenu() => ResetData();
 
         [ContextMenu("Open Save Folder")]
         private void OpenSaveFolder()
         {
-            UnityEditor.EditorUtility.RevealInFinder(_filePath);
+            if (_dataSlotsByType.TryGetValue(typeof(UserData), out DataSlot userDataSlot))
+            {
+                UnityEditor.EditorUtility.RevealInFinder(userDataSlot.filePath);
+            }
         }
 #endif
     }
 }
+

@@ -1,21 +1,17 @@
-﻿using System;
-using GestureRecognizer;
+﻿using GestureRecognizer;
 using UnityEngine;
+using Utils;
 
 namespace Managers
 {
     public class GestureResultHandler : MonoBehaviour
     {
-        public static event Action<string> OnDrawSymbol;
-        public static event Action OnRecognitionFinished;
-
         public void OnRecognize(RecognitionResult result)
         {
             if (result == null || result.gesture == null)
             {
-                Debug.Log("Không nhận diện được shape");
-
-                OnRecognitionFinished?.Invoke();
+                Debug.Log("Khong nhan dien duoc shape");
+                Observer.Publish(ObserverEvent.RecognitionFinished);
                 return;
             }
 
@@ -24,9 +20,8 @@ namespace Managers
 
             Debug.Log($"Shape: {shapeName}, Score: {score}");
 
-            OnDrawSymbol?.Invoke(shapeName);
-
-            OnRecognitionFinished?.Invoke();
+            Observer.Publish(ObserverEvent.DrawSymbol, shapeName);
+            Observer.Publish(ObserverEvent.RecognitionFinished);
         }
     }
 }

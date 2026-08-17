@@ -2,50 +2,38 @@ using System.Collections;
 using Managers;
 using SOs;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using Utils;
 
-namespace Players
+namespace Wizards
 {
-    public class PlayerLoader : MonoBehaviour
+    public class WizardLoader : MonoBehaviour
     {
         [Header("Animators (drag từ scene)")]
         [SerializeField] private Animator _bodyAnimator;
         [SerializeField] private Animator _headAnimator;
-
-        private AsyncOperationHandle<GameplayCatalog> _catalogHandle;
-        private bool _hasCatalogHandle;
 
         private void Start()
         {
             StartCoroutine(LoadAndApplyWizardSkin());
         }
 
-        private void OnDestroy()
-        {
-            if (_hasCatalogHandle)
-            {
-                GameplayCatalogLoader.Release(_catalogHandle);
-                _hasCatalogHandle = false;
-            }
-        }
-
         private IEnumerator LoadAndApplyWizardSkin()
         {
-            yield return GameplayCatalogLoader.Load((catalog, handle) =>
+            bool completed = false;
+            DataManager.Instance.LoadGameplayCatalog(catalog =>
             {
-                _catalogHandle = handle;
-                _hasCatalogHandle = true;
-
-                if (catalog == null) return;
-                if (DataManager.Instance == null) return;
+                if (catalog == null || DataManager.Instance == null)
+                {
+                    completed = true;
+                    return;
+                }
 
                 string id = DataManager.Instance.GetEquippedWizard();
-                WizardData data = catalog.FindWizard(id);
+                WizardData data = DataManager.Instance.FindWizardData(id);
 
                 if (data == null)
                 {
-                    Debug.LogWarning($"PlayerLoader: not found WizardData for id '{id}' in GameplayCatalog.");
+                    Debug.LogWarning($"WizardLoader: not found WizardData for id '{id}' in GameplayCatalog.");
+                    completed = true;
                     return;
                 }
 
@@ -54,7 +42,11 @@ namespace Players
 
                 if (_headAnimator != null && data.headController != null)
                     _headAnimator.runtimeAnimatorController = data.headController;
+
+                completed = true;
             });
+
+            yield return new WaitUntil(() => completed);
         }
     }
 }

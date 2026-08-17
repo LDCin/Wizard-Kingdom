@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using Utils;
@@ -8,7 +7,6 @@ namespace UI
 {
     public static class SceneLoader
     {
-        public static event Action OnTransitionComplete;
 
         private static bool _isLoading;
 
@@ -73,7 +71,7 @@ namespace UI
             trans.HideTransition(() =>
             {
                 _isLoading = false;
-                OnTransitionComplete?.Invoke();
+                Observer.Publish(ObserverEvent.TransitionComplete);
             });
         }
     }

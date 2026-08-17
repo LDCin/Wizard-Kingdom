@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Enemies;
 using Utils;
 
 namespace Managers
@@ -10,29 +9,27 @@ namespace Managers
         [SerializeField] private AudioSource _SFX;
 
         [SerializeField] private AudioClip _defaultSFX;
-        // [SerializeField] private AudioClip _gameOverSound;
         [SerializeField] private AudioClip _balloonPopSound;
         [SerializeField] private AudioClip _enemyBreakSound;
 
         public override void Awake()
         {
             base.Awake();
-
             ApplySettingsFromUserData();
         }
 
         private void OnEnable()
         {
-            DataManager.OnSettingsChanged += ApplySettingsFromUserData;
-            Enemy.OnBalloonPop += PlayBalloonPopSound;
-            Enemy.OnEnemyDie += HandleEnemyDie;
+            Observer.Subscribe(ObserverEvent.SettingsChanged, ApplySettingsFromUserData);
+            Observer.Subscribe(ObserverEvent.BalloonPopped, PlayBalloonPopSound);
+            Observer.Subscribe<RewardPayload>(ObserverEvent.EnemyDied, HandleEnemyDie);
         }
 
         private void OnDisable()
         {
-            DataManager.OnSettingsChanged -= ApplySettingsFromUserData;
-            Enemy.OnBalloonPop -= PlayBalloonPopSound;
-            Enemy.OnEnemyDie -= HandleEnemyDie;
+            Observer.Unsubscribe(ObserverEvent.SettingsChanged, ApplySettingsFromUserData);
+            Observer.Unsubscribe(ObserverEvent.BalloonPopped, PlayBalloonPopSound);
+            Observer.Unsubscribe<RewardPayload>(ObserverEvent.EnemyDied, HandleEnemyDie);
         }
 
         private void ApplySettingsFromUserData()
@@ -73,7 +70,7 @@ namespace Managers
             _SFX.mute = !enabled;
         }
 
-        private void HandleEnemyDie(int scoreReward, int goldReward)
+        private void HandleEnemyDie(RewardPayload reward)
         {
             PlayEnemyBreakSound();
         }
@@ -161,7 +158,6 @@ namespace Managers
             else PlayBGM();
         }
 
-
         public void PlayBalloonPopSound()
         {
             if (_SFX == null || _balloonPopSound == null)
@@ -172,7 +168,7 @@ namespace Managers
 
             _SFX.PlayOneShot(_balloonPopSound);
         }
-        
+
         public void PlayEnemyBreakSound()
         {
             if (_SFX == null || _enemyBreakSound == null)
@@ -185,3 +181,4 @@ namespace Managers
         }
     }
 }
+

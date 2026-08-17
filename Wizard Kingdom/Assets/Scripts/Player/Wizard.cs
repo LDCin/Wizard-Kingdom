@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Managers;
 using StateMachines;
 using UnityEngine;
 using Utils;
 
-namespace Players
+namespace Wizards
 {
-    public class Player : MonoBehaviour
+    public class Wizard : MonoBehaviour
     {
-        public static event Action OnDead;
         [Header("Animator")]
         [SerializeField] private Animator _bodyAnimator;
         [SerializeField] private Animator _headAnimator;
@@ -20,16 +18,8 @@ namespace Players
         public Animator HeadAnimator => _headAnimator;
 
         [Header("State")]
-        private StateMachine _stateMachine;
-        public StateMachine StateMachine => _stateMachine;
-        private PlayerIdleState _idleState;
-        public PlayerIdleState IdleState => _idleState;
-        private PlayerSpellState _spellState;
-        public PlayerSpellState SpellState => _spellState;
-        private PlayerSnapState _snapState;
-        public PlayerSnapState SnapState => _snapState;
-        private PlayerDeadState _deadState;
-        public PlayerDeadState DeadState => _deadState;
+        private StateMachine<WizardStateType> _stateMachine;
+        public StateMachine<WizardStateType> StateMachine => _stateMachine;
 
         private void Start()
         {
@@ -38,16 +28,27 @@ namespace Players
                 _headRoot = _headAnimator.gameObject;
             }
 
-            _stateMachine = new StateMachine();
-            _idleState = new PlayerIdleState(this);
-            _spellState = new PlayerSpellState(this);
-            _snapState = new PlayerSnapState(this);
-            _deadState = new PlayerDeadState(this);
-            _stateMachine.ChangeState(_idleState);
+            _stateMachine = new StateMachine<WizardStateType>();
+            _stateMachine.RegisterState(WizardStateType.Idle, new WizardIdleState(this));
+            _stateMachine.RegisterState(WizardStateType.Spell, new WizardSpellState(this));
+            _stateMachine.RegisterState(WizardStateType.Snap, new WizardSnapState(this));
+            _stateMachine.RegisterState(WizardStateType.Dead, new WizardDeadState(this));
+            _stateMachine.ChangeState(WizardStateType.Idle);
         }
+
         private void Update()
         {
             _stateMachine.Update();
+        }
+
+        private void OnEnable()
+        {
+            Observer.Subscribe(ObserverEvent.GameOver, HandleGameOver);
+        }
+
+        private void OnDisable()
+        {
+            Observer.Unsubscribe(ObserverEvent.GameOver, HandleGameOver);
         }
 
         private void OnDestroy()
@@ -57,22 +58,17 @@ namespace Players
 
         public void OnSnapAnimationFinished()
         {
-            if (_stateMachine.CurrentState == _snapState)
+            if (_stateMachine.CurrentStateType == WizardStateType.Snap)
             {
-                _stateMachine.ChangeState(_idleState);
+                _stateMachine.ChangeState(WizardStateType.Idle);
             }
         }
+
         private void ChangeToDeadState()
         {
-            _stateMachine.ChangeState(_deadState);
+            _stateMachine.ChangeState(WizardStateType.Dead);
         }
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag(GameConfig.Tags.Fire))
-            {
-                StartCoroutine(DeadRoutine());
-            }
-        }
+
         private IEnumerator DeadRoutine()
         {
             Debug.Log("DeadRoutine called");
@@ -80,7 +76,7 @@ namespace Players
             ChangeToDeadState();
 
             yield return new WaitUntil(() => _deadAnimationFinished);
-            OnDead?.Invoke();
+            Observer.Publish(ObserverEvent.WizardDead);
         }
 
         public void OnDeadAnimationFinished()
@@ -113,21 +109,9 @@ namespace Players
                 _headAnimator.SetBool(GameConfig.AnimatorParams.Idle, true);
             }
 
-            if (_stateMachine != null)
-            {
-                _stateMachine.ChangeState(_idleState);
-            }
+            _stateMachine?.ChangeState(WizardStateType.Idle);
         }
 
-        //TEST
-        private void OnEnable()
-        {
-            GameManager.OnGameOver += HandleGameOver;
-        }
-        private void OnDisable()
-        {
-            GameManager.OnGameOver -= HandleGameOver;
-        }
         private void HandleGameOver()
         {
             StartCoroutine(DeadRoutine());

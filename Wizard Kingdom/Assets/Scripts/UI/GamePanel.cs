@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Managers;
 using SOs;
 using TMPro;
@@ -11,7 +10,6 @@ namespace UI
 {
     public class GamePanel : Panel
     {
-        public static event Action OnPauseGame;
         [SerializeField] private SpriteAssetNumberText _arcadeScoreText;
         [SerializeField] private SpriteAssetNumberText _timeAttackScoreText;
         [SerializeField] private SpriteAssetNumberText _goldText;
@@ -22,11 +20,12 @@ namespace UI
         [SerializeField] private float _spellBlinkDuration = 1.0f;
         [SerializeField] private float _spellBlinkInterval = 0.15f;
         private Coroutine _spellDisplayCoroutine;
+
         private void OnEnable()
         {
-            GameManager.OnUpdateScoreAndGold += UpdateScoreAndGoldText;
-            GameManager.OnModeLoaded += HandleModeLoaded;
-            SpellCaster.OnSpellUsageUpdated += ShowSpellUsage;
+            Observer.Subscribe<ScoreAndGoldPayload>(ObserverEvent.ScoreAndGoldChanged, HandleScoreAndGoldChanged);
+            Observer.Subscribe<GameModeData>(ObserverEvent.ModeLoaded, HandleModeLoaded);
+            Observer.Subscribe<SpellUsagePayload>(ObserverEvent.SpellUsageUpdated, HandleSpellUsageUpdated);
 
             if (GameManager.Instance != null)
             {
@@ -34,17 +33,25 @@ namespace UI
                 UpdateScoreAndGoldText(GameManager.Instance.Score, GameManager.Instance.Gold);
             }
         }
+
         private void OnDisable()
         {
-            GameManager.OnUpdateScoreAndGold -= UpdateScoreAndGoldText;
-            GameManager.OnModeLoaded -= HandleModeLoaded;
-            SpellCaster.OnSpellUsageUpdated -= ShowSpellUsage;
+            Observer.Unsubscribe<ScoreAndGoldPayload>(ObserverEvent.ScoreAndGoldChanged, HandleScoreAndGoldChanged);
+            Observer.Unsubscribe<GameModeData>(ObserverEvent.ModeLoaded, HandleModeLoaded);
+            Observer.Unsubscribe<SpellUsagePayload>(ObserverEvent.SpellUsageUpdated, HandleSpellUsageUpdated);
         }
+
         public void PauseGame()
         {
-            OnPauseGame?.Invoke();
+            Observer.Publish(ObserverEvent.PauseGame);
             UIManager.Instance.OpenPanel(GameConfig.Panel.Pause);
         }
+
+        private void HandleScoreAndGoldChanged(ScoreAndGoldPayload payload)
+        {
+            UpdateScoreAndGoldText(payload.Score, payload.Gold);
+        }
+
         public void UpdateScoreAndGoldText(int newScore, int newGold)
         {
             if (_arcadeScoreText != null) _arcadeScoreText.SetValue(newScore);
@@ -62,6 +69,11 @@ namespace UI
             bool showArcade = modeData == null || modeData.modeType == GameModeType.Arcade;
             if (_arcadeScoreText != null) _arcadeScoreText.gameObject.SetActive(showArcade);
             if (_timeAttackScoreText != null) _timeAttackScoreText.gameObject.SetActive(!showArcade);
+        }
+
+        private void HandleSpellUsageUpdated(SpellUsagePayload payload)
+        {
+            ShowSpellUsage(payload.Icon, payload.RemainingUses);
         }
 
         private void ShowSpellUsage(Sprite icon, int remainingUses)

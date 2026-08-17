@@ -1,4 +1,4 @@
-using Managers;
+﻿using Managers;
 using Utils;
 
 namespace UI
@@ -10,13 +10,13 @@ namespace UI
 
         private void OnEnable()
         {
-            DataManager.OnCoinChanged += OnCoinChanged;
+            Observer.Subscribe<int>(ObserverEvent.CoinChanged, OnCoinChanged);
             RefreshCoin();
         }
 
         private void OnDisable()
         {
-            DataManager.OnCoinChanged -= OnCoinChanged;
+            Observer.Unsubscribe<int>(ObserverEvent.CoinChanged, OnCoinChanged);
         }
 
         public void OpenSpellCategory() => OpenAndClose(GameConfig.Panel.ShopSpell);
@@ -49,3 +49,4 @@ namespace UI
         }
     }
 }
+

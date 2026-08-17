@@ -16,6 +16,7 @@ namespace GestureRecognizer {
 
 	[System.Serializable]
 	public class GestureData {
+		public string id;
 		public List<GestureLine> lines = new List<GestureLine>();
 		public GestureLine LastLine { get { return lines [lines.Count - 1]; } }
 	}

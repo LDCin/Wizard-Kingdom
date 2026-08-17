@@ -1,5 +1,4 @@
-using System;
-using Managers;
+﻿using Managers;
 using UnityEngine;
 using Utils;
 
@@ -7,8 +6,6 @@ namespace UI
 {
     public class GameOverPanel : Panel
     {
-        public static event Action OnRestartGame;
-        public static event Action OnBackToMenu;
         [SerializeField] private SpriteAssetNumberText _totalCoin;
         [SerializeField] private SpriteAssetNumberText _highScore;
         [SerializeField] private SpriteAssetNumberText _score;
@@ -22,18 +19,23 @@ namespace UI
 
             _score.SetValue(GameManager.Instance.Score);
         }
-        public void Shop(){
+
+        public void Shop()
+        {
             UIManager.Instance.ClosePanel(GameConfig.Panel.GameOver);
             UIManager.Instance.OpenPanel(GameConfig.Panel.Shop);
         }
+
         public void Restart()
         {
-            OnRestartGame?.Invoke();
+            Observer.Publish(ObserverEvent.RestartGame);
             SceneLoader.LoadScene(GameConfig.Scene.Game, GameConfig.Panel.Game, GameConfig.Panel.DrawAreaFree);
             Close();
         }
-        public void BackToMenu(){
-            OnBackToMenu?.Invoke();
+
+        public void BackToMenu()
+        {
+            Observer.Publish(ObserverEvent.BackToMenu);
             SceneLoader.LoadScene(GameConfig.Scene.Menu, GameConfig.Panel.Menu);
         }
 
@@ -41,11 +43,13 @@ namespace UI
         {
             Application.OpenURL(GameConfig.Links.ShareLink);
         }
-        public void MoreNitrome(){
 
+        public void MoreNitrome()
+        {
         }
-        public void RemoveAds(){
 
+        public void RemoveAds()
+        {
         }
     }
 }

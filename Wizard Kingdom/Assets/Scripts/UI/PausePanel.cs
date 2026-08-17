@@ -1,31 +1,27 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Utils;
 
 namespace UI
 {
     public class PausePanel : Panel
     {
-        public static event Action OnContinueGame;
-        public static event Action OnBackToMenu;
-        public static event Action OnRestartGame;
         public void ReturnToMenu()
         {
-            OnBackToMenu?.Invoke();
+            Observer.Publish(ObserverEvent.BackToMenu);
             SceneLoader.LoadScene(GameConfig.Scene.Menu, GameConfig.Panel.Menu);
             Close();
         }
 
         public void Restart()
         {
-            OnRestartGame?.Invoke();
+            Observer.Publish(ObserverEvent.RestartGame);
             SceneLoader.LoadScene(GameConfig.Scene.Game, GameConfig.Panel.Game, GameConfig.Panel.DrawAreaFree);
             Close();
         }
 
         public void Continue()
         {
-            OnContinueGame?.Invoke();
+            Observer.Publish(ObserverEvent.ContinueGame);
             Close();
         }
     }

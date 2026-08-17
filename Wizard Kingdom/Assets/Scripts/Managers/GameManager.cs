@@ -5,13 +5,11 @@ using Enemies;
 using GestureRecognizer;
 using ObjectPool;
 using Particles;
-using Players;
+using Wizards;
 using SOs;
 using StateMachines;
 using UI;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using Utils;
 
 namespace Managers
@@ -25,14 +23,8 @@ namespace Managers
             public SpellItemData spell;
         }
 
-        public static event Action<GesturePattern, SpellItemData> OnSpellCastRequested;
-        public static event Action OnGameOver;
-        public static event Action<int, int> OnUpdateScoreAndGold;
-        public static event Action<GameModeData> OnModeLoaded;
-        public static event Action<float, float> OnTimeChanged;
-        public static event Action OnTimeExpired;
         [SerializeField] private EnemySpawner _enemySpawnerPrefab;
-        [SerializeField] private Player _player;
+        [SerializeField] private Wizard _wizard;
         private EnemySpawner _currentEnemySpawner;
         [SerializeField] private Recognizer _recognizer;
         [SerializeField] private ParticlePool _particlePool;
@@ -40,7 +32,6 @@ namespace Managers
         // [SerializeField] private List<string> _spawnEnemyNameList;
         // [SerializeField] private float _delayTime = 1f;
         private GameModeData _currentModeData;
-        private AsyncOperationHandle<GameModeData> _currentModeHandle;
         private Coroutine _timeAttackCoroutine;
         private float _remainingTime;
         private float _totalTime;
@@ -61,13 +52,8 @@ namespace Managers
         [SerializeField] private List<GestureSpellBinding> _gestureSpellBindings = new();
         public int Score => _score;
         public int Gold => _gold;
-        private StateMachine _stateMachine;
-        public StateMachine StateMachine => _stateMachine;
-        private IState _playState;
-        private IState _pauseState;
-        public IState PauseState => _pauseState;
-        private IState _menuState;
-        private IState _gameOverState;
+        private StateMachine<GameStateType> _stateMachine;
+        public StateMachine<GameStateType> StateMachine => _stateMachine;
         private bool _isNewGame = true;
         public bool IsNewGame
         {
@@ -77,16 +63,16 @@ namespace Managers
                 _isNewGame = value;
             }
         }
-        [SerializeField] private bool _playerDead = true;
+        [SerializeField] private bool _wizardDead = true;
         private Coroutine _startGameCoroutine;
         public override void Awake()
         {
             base.Awake();
-            _stateMachine = new StateMachine();
-            _playState = new PlayState(this);
-            _pauseState = new PauseState(this);
-            _menuState = new MenuState(this);
-            _gameOverState = new GameOverState(this);
+            _stateMachine = new StateMachine<GameStateType>();
+            _stateMachine.RegisterState(GameStateType.Menu, new MenuState(this));
+            _stateMachine.RegisterState(GameStateType.Play, new PlayState(this));
+            _stateMachine.RegisterState(GameStateType.Pause, new PauseState(this));
+            _stateMachine.RegisterState(GameStateType.GameOver, new GameOverState(this));
 
             if (_spellCaster == null)
             {
@@ -96,50 +82,46 @@ namespace Managers
 
         private void OnEnable()
         {
-            Enemy.OnEnemyReachCastle += ChangeToGameOverState;
-            Enemy.OnEnemyDie += UpdateScoreAndGold;
-            Enemy.OnBalloonPop += HandleBalloonPop;
-            GamePanel.OnPauseGame += ChangeToPauseState;
-            MenuPanel.OnPlayGame += OnPlayGameSelected;
-            PausePanel.OnBackToMenu += ChangeToMenuState;
-            PausePanel.OnContinueGame += ContinueGame;
-            PausePanel.OnRestartGame += RestartGame;
-            GameOverPanel.OnRestartGame += RestartGame;
-            GameOverPanel.OnBackToMenu += ChangeToMenuState;
-            Player.OnDead += ChangePlayerState;
-            GestureResultHandler.OnDrawSymbol += HandleComboStart;
-            GestureResultHandler.OnDrawSymbol += HandleSkillGesture;
-            GestureResultHandler.OnRecognitionFinished += HandleComboEnd;
+            Observer.Subscribe(ObserverEvent.EnemyReachedCastle, ChangeToGameOverState);
+            Observer.Subscribe<RewardPayload>(ObserverEvent.EnemyDied, HandleEnemyDied);
+            Observer.Subscribe(ObserverEvent.BalloonPopped, HandleBalloonPop);
+            Observer.Subscribe(ObserverEvent.PauseGame, ChangeToPauseState);
+            Observer.Subscribe<string>(ObserverEvent.PlayGame, OnPlayGameSelected);
+            Observer.Subscribe(ObserverEvent.BackToMenu, ChangeToMenuState);
+            Observer.Subscribe(ObserverEvent.ContinueGame, ContinueGame);
+            Observer.Subscribe(ObserverEvent.RestartGame, RestartGame);
+            Observer.Subscribe(ObserverEvent.WizardDead, ChangeWizardState);
+            Observer.Subscribe<string>(ObserverEvent.DrawSymbol, HandleComboStart);
+            Observer.Subscribe<string>(ObserverEvent.DrawSymbol, HandleSkillGesture);
+            Observer.Subscribe(ObserverEvent.RecognitionFinished, HandleComboEnd);
         }
         private void OnDisable()
         {
-            Enemy.OnEnemyReachCastle -= ChangeToGameOverState;
-            Enemy.OnEnemyDie -= UpdateScoreAndGold;
-            Enemy.OnBalloonPop -= HandleBalloonPop;
-            GamePanel.OnPauseGame -= ChangeToPauseState;
-            MenuPanel.OnPlayGame -= OnPlayGameSelected;
-            PausePanel.OnBackToMenu -= ChangeToMenuState;
-            PausePanel.OnContinueGame -= ContinueGame;
-            PausePanel.OnRestartGame -= RestartGame;
-            GameOverPanel.OnRestartGame -= RestartGame;
-            GameOverPanel.OnBackToMenu -= ChangeToMenuState;
-            Player.OnDead -= ChangePlayerState;
-            GestureResultHandler.OnDrawSymbol -= HandleComboStart;
-            GestureResultHandler.OnDrawSymbol -= HandleSkillGesture;
-            GestureResultHandler.OnRecognitionFinished -= HandleComboEnd;
+            Observer.Unsubscribe(ObserverEvent.EnemyReachedCastle, ChangeToGameOverState);
+            Observer.Unsubscribe<RewardPayload>(ObserverEvent.EnemyDied, HandleEnemyDied);
+            Observer.Unsubscribe(ObserverEvent.BalloonPopped, HandleBalloonPop);
+            Observer.Unsubscribe(ObserverEvent.PauseGame, ChangeToPauseState);
+            Observer.Unsubscribe<string>(ObserverEvent.PlayGame, OnPlayGameSelected);
+            Observer.Unsubscribe(ObserverEvent.BackToMenu, ChangeToMenuState);
+            Observer.Unsubscribe(ObserverEvent.ContinueGame, ContinueGame);
+            Observer.Unsubscribe(ObserverEvent.RestartGame, RestartGame);
+            Observer.Unsubscribe(ObserverEvent.WizardDead, ChangeWizardState);
+            Observer.Unsubscribe<string>(ObserverEvent.DrawSymbol, HandleComboStart);
+            Observer.Unsubscribe<string>(ObserverEvent.DrawSymbol, HandleSkillGesture);
+            Observer.Unsubscribe(ObserverEvent.RecognitionFinished, HandleComboEnd);
         }
 
         private void Start()
         {
             Debug.Log("Start GameManager");
-            _stateMachine.ChangeState(_menuState);
+            _stateMachine.ChangeState(GameStateType.Menu);
             ParticlePool newParticlePool = Instantiate(_particlePool, transform);
             _particlePool = newParticlePool;
         }
         private void ChangeToPlayState()
         {
             _isGameOver = false;
-            _stateMachine.ChangeState(_playState);
+            _stateMachine.ChangeState(GameStateType.Play);
         }
         private void OnPlayGameSelected(string modeKey)
         {
@@ -147,61 +129,61 @@ namespace Managers
         }
         private IEnumerator LoadModeAndPlayRoutine(string modeKey)
         {
-            ReleaseCurrentModeHandle();
+            _currentModeData = null;
 
             if (string.IsNullOrEmpty(modeKey))
             {
-                Debug.LogWarning("GameManager: modeKey rỗng, không load được GameModeData.");
+                Debug.LogWarning("GameManager: modeKey r?ng, không load du?c GameModeData.");
                 yield break;
             }
 
-            _currentModeHandle = Addressables.LoadAssetAsync<GameModeData>(modeKey);
-            yield return _currentModeHandle;
+            bool completed = false;
+            DataManager.Instance.LoadGameModeData(modeKey, modeData =>
+            {
+                _currentModeData = modeData;
+                completed = true;
+            });
 
-            if (_currentModeHandle.Status == AsyncOperationStatus.Succeeded)
+            yield return new WaitUntil(() => completed);
+
+            if (_currentModeData == null)
             {
-                _currentModeData = _currentModeHandle.Result;
-                OnModeLoaded?.Invoke(_currentModeData);
-                ChangeToPlayState();
+                Debug.LogError($"GameManager: load GameModeData th?t b?i v?i key '{modeKey}'.");
+                yield break;
             }
-            else
-            {
-                Debug.LogError($"GameManager: load GameModeData thất bại với key '{modeKey}'.");
-                ReleaseCurrentModeHandle();
-            }
-        }
-        private void ReleaseCurrentModeHandle()
-        {
-            if (_currentModeHandle.IsValid())
-            {
-                Addressables.Release(_currentModeHandle);
-            }
-            _currentModeData = null;
+
+            Observer.Publish(ObserverEvent.ModeLoaded, _currentModeData);
+            ChangeToPlayState();
         }
         private void ChangeToGameOverState()
         {
             _isGameOver = true;
-            _stateMachine.ChangeState(_gameOverState);
+            _stateMachine.ChangeState(GameStateType.GameOver);
         }
         private void ChangeToMenuState()
         {
             _isGameOver = false;
-            _stateMachine.ChangeState(_menuState);
+            _stateMachine.ChangeState(GameStateType.Menu);
         }
 
         private void ChangeToPauseState()
         {
-            _stateMachine.ChangeState(_pauseState);
+            _stateMachine.ChangeState(GameStateType.Pause);
         }
-        private void ChangePlayerState()
+        private void ChangeWizardState()
         {
-            _playerDead = true;
+            _wizardDead = true;
         }
+        private void HandleEnemyDied(RewardPayload reward)
+        {
+            UpdateScoreAndGold(reward.Score, reward.Gold);
+        }
+
         private void UpdateScoreAndGold(int newScore, int newGold)
         {
             _score += newScore;
             _gold += newGold;
-            OnUpdateScoreAndGold?.Invoke(_score, _gold);
+            Observer.Publish(ObserverEvent.ScoreAndGoldChanged, new ScoreAndGoldPayload(_score, _gold));
 
             if (_currentEnemySpawner != null)
             {
@@ -216,8 +198,8 @@ namespace Managers
         {
             if (!_isNewGame) return;
             _isNewGame = false;
-            _playerDead = false;
-            _player?.ResetToIdleForNewGame();
+            _wizardDead = false;
+            _wizard?.ResetToIdleForNewGame();
             _spellCaster?.ResetSpellUses();
             InitGameStat();
             DestroyEnemySpawner();
@@ -237,7 +219,7 @@ namespace Managers
                     {
                         _totalTime = _currentModeData.playTime;
                         _remainingTime = _totalTime;
-                        OnTimeChanged?.Invoke(_remainingTime, _totalTime);
+                        Observer.Publish(ObserverEvent.TimeChanged, new TimePayload(_remainingTime, _totalTime));
                         _timeAttackCoroutine = StartCoroutine(TimeAttackCountdownRoutine());
                     }
                 }
@@ -256,12 +238,12 @@ namespace Managers
             {
                 _remainingTime -= Time.deltaTime;
                 if (_remainingTime < 0f) _remainingTime = 0f;
-                OnTimeChanged?.Invoke(_remainingTime, _totalTime);
+                Observer.Publish(ObserverEvent.TimeChanged, new TimePayload(_remainingTime, _totalTime));
                 yield return null;
             }
 
             _timeAttackCoroutine = null;
-            OnTimeExpired?.Invoke();
+            Observer.Publish(ObserverEvent.TimeExpired);
             ChangeToGameOverState();
         }
 
@@ -271,7 +253,7 @@ namespace Managers
             if (seconds <= 0f) return;
 
             _remainingTime = Mathf.Min(_remainingTime + seconds, _totalTime);
-            OnTimeChanged?.Invoke(_remainingTime, _totalTime);
+            Observer.Publish(ObserverEvent.TimeChanged, new TimePayload(_remainingTime, _totalTime));
         }
         private void ContinueGame()
         {
@@ -340,7 +322,7 @@ namespace Managers
         {
             _isNewGame = true;
             DestroyEnemySpawner();
-            ReleaseCurrentModeHandle();
+            _currentModeData = null;
         }
         public void GameOver()
         {
@@ -350,8 +332,8 @@ namespace Managers
         {
             StopSpawnEnemy();
             TryVibrateGameOver();
-            OnGameOver?.Invoke();
-            yield return new WaitUntil(() => _playerDead);
+            Observer.Publish(ObserverEvent.GameOver);
+            yield return new WaitUntil(() => _wizardDead);
 
             if (_gold > 0)
             {
@@ -396,7 +378,7 @@ namespace Managers
                     return;
                 }
 
-                OnSpellCastRequested?.Invoke(binding.pattern, binding.spell);
+                Observer.Publish(ObserverEvent.SpellCastRequested, new SpellCastRequestPayload(binding.pattern, binding.spell));
                 return;
             }
         }
@@ -422,3 +404,6 @@ namespace Managers
         }
     }
 }
+
+
+

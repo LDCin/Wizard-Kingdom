@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Utils;
 
 namespace GestureRecognizer {
 
@@ -13,8 +14,6 @@ namespace GestureRecognizer {
 	/// Calls 'OnRecognize' event when something is recognized.
 	/// </summary>
 	public class DrawDetector : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler {
-
-		public static event System.Action OnDrawStart;
 
 		public Recognizer recognizer;
 
@@ -100,7 +99,7 @@ namespace GestureRecognizer {
 
 		public void OnBeginDrag (PointerEventData eventData) {
 
-			OnDrawStart?.Invoke();
+			Observer.Publish(ObserverEvent.DrawStart);
 
 			if (data.lines.Count >= maxLines) {
 				switch (removeStrategy) {

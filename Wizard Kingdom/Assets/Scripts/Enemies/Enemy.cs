@@ -25,10 +25,6 @@ namespace Enemies
     // }
     public class Enemy : MonoBehaviour
     {
-        public static event Action<int, int> OnEnemyDie;
-        public static event Action OnBalloonPop;
-        public static event Action<Enemy> OnReturnEnemyToPool;
-        public static event Action OnEnemyReachCastle;
 
         [Header("Data")]
         [SerializeField] private string _enemyName;
@@ -81,41 +77,28 @@ namespace Enemies
         [SerializeField] private float _balloonReflowDuration = 0.25f;
 
         [Header("State")]
-        private StateMachine _stateMachine;
-        public StateMachine StateMachine => _stateMachine;
+        private StateMachine<EnemyStateType> _stateMachine;
+        public StateMachine<EnemyStateType> StateMachine => _stateMachine;
 
-        private EnemyIdleState _idleState;
-        public EnemyIdleState IdleState => _idleState;
-
-        private EnemyFallState _fallState;
-        public EnemyFallState FallState => _fallState;
-
-        private EnemyVictoryState _victoryState;
-        public EnemyVictoryState VictoryState => _victoryState;
-
-        private EnemyDeadState _deadState;
-        public EnemyDeadState DeadState => _deadState;
-
-        public bool IsIdle => _stateMachine != null && _stateMachine.CurrentState == _idleState;
-        public bool IsFalling => _stateMachine != null && _stateMachine.CurrentState == _fallState;
-        public bool IsDead => _stateMachine != null && _stateMachine.CurrentState == _deadState;
-        public bool IsEnemyVictory => _stateMachine != null && _stateMachine.CurrentState == _victoryState;
+        public bool IsIdle => _stateMachine != null && _stateMachine.CurrentStateType == EnemyStateType.Idle;
+        public bool IsFalling => _stateMachine != null && _stateMachine.CurrentStateType == EnemyStateType.Fall;
+        public bool IsDead => _stateMachine != null && _stateMachine.CurrentStateType == EnemyStateType.Dead;
+        public bool IsEnemyVictory => _stateMachine != null && _stateMachine.CurrentStateType == EnemyStateType.Victory;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
 
-            _stateMachine = new StateMachine();
-
-            _idleState = new EnemyIdleState(this);
-            _fallState = new EnemyFallState(this);
-            _victoryState = new EnemyVictoryState(this);
-            _deadState = new EnemyDeadState(this);
+            _stateMachine = new StateMachine<EnemyStateType>();
+            _stateMachine.RegisterState(EnemyStateType.Idle, new EnemyIdleState(this));
+            _stateMachine.RegisterState(EnemyStateType.Fall, new EnemyFallState(this));
+            _stateMachine.RegisterState(EnemyStateType.Victory, new EnemyVictoryState(this));
+            _stateMachine.RegisterState(EnemyStateType.Dead, new EnemyDeadState(this));
         }
 
         private void Start()
         {
-            _stateMachine.ChangeState(_idleState);
+            _stateMachine.ChangeState(EnemyStateType.Idle);
         }
 
         private void OnEnable()
@@ -127,7 +110,7 @@ namespace Enemies
                 GameManager.Instance.RegisterEnemy(this);
             }
 
-            GestureResultHandler.OnDrawSymbol += TryPopBalloon;
+            Observer.Subscribe<string>(ObserverEvent.DrawSymbol, TryPopBalloon);
         }
 
         private void OnDisable()
@@ -137,7 +120,7 @@ namespace Enemies
                 GameManager.Instance.UnregisterEnemy(this);
             }
 
-            GestureResultHandler.OnDrawSymbol -= TryPopBalloon;
+            Observer.Unsubscribe<string>(ObserverEvent.DrawSymbol, TryPopBalloon);
         }
 
         private void Update()
@@ -179,9 +162,9 @@ namespace Enemies
             _remainingBalloon = 0;
             _isDespawning = false;
 
-            if (_stateMachine != null && _idleState != null)
+            if (_stateMachine != null)
             {
-                _stateMachine.ChangeState(_idleState);
+                _stateMachine.ChangeState(EnemyStateType.Idle);
             }
         }
 
@@ -196,49 +179,49 @@ namespace Enemies
 
         public void StartFalling()
         {
-            if (_stateMachine.CurrentState == _fallState)
+            if (_stateMachine.CurrentStateType == EnemyStateType.Fall)
             {
                 return;
             }
 
-            if (_stateMachine.CurrentState == _deadState)
+            if (_stateMachine.CurrentStateType == EnemyStateType.Dead)
             {
                 return;
             }
 
-            if (_stateMachine.CurrentState == _victoryState)
+            if (_stateMachine.CurrentStateType == EnemyStateType.Victory)
             {
                 return;
             }
 
-            _stateMachine.ChangeState(_fallState);
+            _stateMachine.ChangeState(EnemyStateType.Fall);
         }
 
         public void Die()
         {
-            if (_stateMachine.CurrentState == _deadState)
+            if (_stateMachine.CurrentStateType == EnemyStateType.Dead)
             {
                 return;
             }
 
-            _stateMachine.ChangeState(_deadState);
-            OnEnemyDie?.Invoke(_scoreReward, _goldReward);
+            _stateMachine.ChangeState(EnemyStateType.Dead);
+            Observer.Publish(ObserverEvent.EnemyDied, new RewardPayload(_scoreReward, _goldReward));
         }
 
         public void InvadeCastle()
         {
-            if (_stateMachine.CurrentState == _victoryState)
+            if (_stateMachine.CurrentStateType == EnemyStateType.Victory)
             {
                 return;
             }
 
-            if (_stateMachine.CurrentState == _deadState)
+            if (_stateMachine.CurrentStateType == EnemyStateType.Dead)
             {
                 return;
             }
 
-            _stateMachine.ChangeState(_victoryState);
-            OnEnemyReachCastle?.Invoke();
+            _stateMachine.ChangeState(EnemyStateType.Victory);
+            Observer.Publish(ObserverEvent.EnemyReachedCastle);
 
             Debug.Log("Enemy reached castle!");
         }
@@ -250,7 +233,7 @@ namespace Enemies
                 return;
             }
 
-            if (_stateMachine.CurrentState == _fallState)
+            if (_stateMachine.CurrentStateType == EnemyStateType.Fall)
             {
                 Die();
             }
@@ -267,7 +250,7 @@ namespace Enemies
                 return;
             }
 
-            if (_stateMachine.CurrentState != _idleState)
+            if (_stateMachine.CurrentStateType != EnemyStateType.Idle)
             {
                 return;
             }
@@ -291,7 +274,7 @@ namespace Enemies
 
                 balloon.Pop();
 
-                OnBalloonPop?.Invoke();
+                Observer.Publish(ObserverEvent.BalloonPopped);
 
                 Debug.Log("Pop balloon has symbol: " + drawnSymbol);
 
@@ -479,7 +462,7 @@ namespace Enemies
 
             yield return null;
 
-            OnReturnEnemyToPool?.Invoke(this);
+            Observer.Publish(ObserverEvent.EnemyReturnedToPool, this);
         }
 
         private ParticleType GetDeathParticleType()
@@ -569,7 +552,7 @@ namespace Enemies
             if (transform.position.y < minY - _offscreenDespawnMargin)
             {
                 _isDespawning = true;
-                OnReturnEnemyToPool?.Invoke(this);
+                Observer.Publish(ObserverEvent.EnemyReturnedToPool, this);
             }
         }
 
@@ -581,3 +564,6 @@ namespace Enemies
         }
     }
 }
+
+
+

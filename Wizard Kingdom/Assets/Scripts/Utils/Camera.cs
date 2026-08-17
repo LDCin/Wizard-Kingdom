@@ -1,6 +1,4 @@
-﻿using System;
-using DG.Tweening;
-using Enemies;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace Utils
@@ -12,15 +10,15 @@ namespace Utils
 
         private void OnEnable()
         {
-            Enemy.OnEnemyDie += Shake;
+            Observer.Subscribe<RewardPayload>(ObserverEvent.EnemyDied, Shake);
         }
 
         private void OnDisable()
         {
-            Enemy.OnEnemyDie -= Shake;
+            Observer.Unsubscribe<RewardPayload>(ObserverEvent.EnemyDied, Shake);
         }
 
-        public void Shake(int score, int gold)
+        public void Shake(RewardPayload reward)
         {
             transform.DOShakePosition(_shakeDuration, _shakeStrength);
         }

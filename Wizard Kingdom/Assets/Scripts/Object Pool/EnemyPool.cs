@@ -4,6 +4,7 @@ using Balloons;
 using SOs;
 using UnityEngine;
 using Enemies;
+using Utils;
 
 namespace ObjectPool
 {
@@ -16,12 +17,12 @@ namespace ObjectPool
 
         private void OnEnable()
         {
-            Enemy.OnReturnEnemyToPool += ReturnEnemyToPool;
+            Observer.Subscribe<Enemy>(ObserverEvent.EnemyReturnedToPool, ReturnEnemyToPool);
         }
 
         private void OnDisable()
         {
-            Enemy.OnReturnEnemyToPool -= ReturnEnemyToPool;
+            Observer.Unsubscribe<Enemy>(ObserverEvent.EnemyReturnedToPool, ReturnEnemyToPool);
         }
 
         private IEnumerator Start()

@@ -12,6 +12,7 @@ namespace SOs
     [CreateAssetMenu(fileName = "New Game Mode Data", menuName = "Game/Game Mode Data")]
     public class GameModeData : ScriptableObject
     {
+        public string id;
         public GameModeType modeType = GameModeType.Arcade;
         public string modeName;
         public string fixedBackgroundId;

@@ -2,6 +2,7 @@
 using Particles;
 using SOs;
 using UnityEngine;
+using Utils;
 
 namespace ObjectPool
 {
@@ -9,12 +10,12 @@ namespace ObjectPool
     {
         private void OnEnable()
         {
-            ParticleEvent.OnParticleRequested += PlayParticle;
+            Observer.Subscribe<ParticleRequestPayload>(ObserverEvent.ParticleRequested, PlayParticle);
         }
 
         private void OnDisable()
         {
-            ParticleEvent.OnParticleRequested -= PlayParticle;
+            Observer.Unsubscribe<ParticleRequestPayload>(ObserverEvent.ParticleRequested, PlayParticle);
         }
 
         private IEnumerator Start()
@@ -37,7 +38,7 @@ namespace ObjectPool
             item.Init(data.particleType, data.particlePrefab);
         }
 
-        private void PlayParticle(ParticleType particleType, Vector3 position)
+        private void PlayParticle(ParticleRequestPayload payload)
         {
             if (!IsReady)
             {
@@ -45,14 +46,14 @@ namespace ObjectPool
                 return;
             }
 
-            Particle particle = Get(particleType);
+            Particle particle = Get(payload.ParticleType);
 
             if (particle == null)
             {
                 return;
             }
 
-            particle.Play(position);
+            particle.Play(payload.Position);
 
             StartCoroutine(ReturnParticleAfterFinished(particle));
         }

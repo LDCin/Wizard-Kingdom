@@ -17,6 +17,7 @@ namespace ObjectPool
 
         private readonly List<TData> _dataList = new();
         private readonly Dictionary<TKey, Queue<TItem>> _poolDict = new();
+        private readonly HashSet<TItem> _activeItems = new();
 
         private AsyncOperationHandle<IList<TData>> _loadHandle;
 
@@ -113,6 +114,7 @@ namespace ObjectPool
             if (queue.Count > 0)
             {
                 TItem itemFromPool = queue.Dequeue();
+                _activeItems.Add(itemFromPool);
                 return itemFromPool;
             }
 
@@ -125,6 +127,7 @@ namespace ObjectPool
             }
 
             TItem newItem = CreateItem(data);
+            _activeItems.Add(newItem);
 
             return newItem;
         }
@@ -132,6 +135,11 @@ namespace ObjectPool
         protected void Return(TItem item)
         {
             if (item == null)
+            {
+                return;
+            }
+
+            if (!_activeItems.Remove(item))
             {
                 return;
             }

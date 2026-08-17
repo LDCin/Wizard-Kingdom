@@ -1,5 +1,6 @@
 ﻿using Managers;
 using UnityEngine;
+using Utils;
 
 namespace BackgroundSystem
 {
@@ -13,7 +14,7 @@ namespace BackgroundSystem
 
         private void OnEnable()
         {
-            GameManager.OnTimeChanged += HandleTimeChanged;
+            Observer.Subscribe<TimePayload>(ObserverEvent.TimeChanged, HandleTimeChanged);
 
             if (GameManager.Instance != null)
             {
@@ -26,13 +27,13 @@ namespace BackgroundSystem
 
         private void OnDisable()
         {
-            GameManager.OnTimeChanged -= HandleTimeChanged;
+            Observer.Unsubscribe<TimePayload>(ObserverEvent.TimeChanged, HandleTimeChanged);
         }
 
-        private void HandleTimeChanged(float remainingTime, float totalTime)
+        private void HandleTimeChanged(TimePayload payload)
         {
-            _totalTime = Mathf.Max(0.01f, totalTime);
-            _remainingTime = Mathf.Clamp(remainingTime, 0f, _totalTime);
+            _totalTime = Mathf.Max(0.01f, payload.TotalTime);
+            _remainingTime = Mathf.Clamp(payload.RemainingTime, 0f, _totalTime);
             _secondsPerRevolution = _totalTime;
             ApplyRotation();
         }

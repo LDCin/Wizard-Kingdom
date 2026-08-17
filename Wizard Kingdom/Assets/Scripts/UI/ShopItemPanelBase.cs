@@ -1,9 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Managers;
 using SOs;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using Utils;
 
@@ -11,8 +10,6 @@ namespace UI
 {
     public abstract class ShopItemPanelBase<TItem> : Panel where TItem : ShopItemData
     {
-        protected const string CatalogAddress = GameConfig.Addressables.ShopCatalog;
-
         [SerializeField] private SpriteAssetNumberText _totalCoinText;
         [SerializeField] private GameObject _priceIcon;
         [SerializeField] private SpriteAssetNumberText _priceText;
@@ -24,8 +21,6 @@ namespace UI
 
         protected IReadOnlyList<TItem> _items;
         protected int _index;
-        private AsyncOperationHandle<ShopCatalog> _catalogHandle;
-        private bool _hasHandle;
         private bool _isNavigating;
 
         protected abstract IReadOnlyList<TItem> GetItemsFrom(ShopCatalog catalog);
@@ -40,12 +35,10 @@ namespace UI
 
         private void OnEnable()
         {
-            DataManager.OnCoinChanged += OnCoinChanged;
-            DataManager.OnBackgroundPurchased += OnInventoryChanged;
-            DataManager.OnWizardPurchased += OnInventoryChanged;
-            DataManager.OnSpellPurchased += OnInventoryChanged;
-            DataManager.OnEquippedBackgroundChanged += OnInventoryChanged;
-            DataManager.OnEquippedWizardChanged += OnInventoryChanged;
+            Observer.Subscribe<int>(ObserverEvent.CoinChanged, OnCoinChanged);
+            Observer.Subscribe<string>(ObserverEvent.InventoryChanged, OnInventoryChanged);
+            Observer.Subscribe<string>(ObserverEvent.EquippedBackgroundChanged, OnInventoryChanged);
+            Observer.Subscribe<string>(ObserverEvent.EquippedWizardChanged, OnInventoryChanged);
 
             RefreshCoin();
             StartCoroutine(LoadCatalogRoutine());
@@ -53,12 +46,10 @@ namespace UI
 
         private void OnDisable()
         {
-            DataManager.OnCoinChanged -= OnCoinChanged;
-            DataManager.OnBackgroundPurchased -= OnInventoryChanged;
-            DataManager.OnWizardPurchased -= OnInventoryChanged;
-            DataManager.OnSpellPurchased -= OnInventoryChanged;
-            DataManager.OnEquippedBackgroundChanged -= OnInventoryChanged;
-            DataManager.OnEquippedWizardChanged -= OnInventoryChanged;
+            Observer.Unsubscribe<int>(ObserverEvent.CoinChanged, OnCoinChanged);
+            Observer.Unsubscribe<string>(ObserverEvent.InventoryChanged, OnInventoryChanged);
+            Observer.Unsubscribe<string>(ObserverEvent.EquippedBackgroundChanged, OnInventoryChanged);
+            Observer.Unsubscribe<string>(ObserverEvent.EquippedWizardChanged, OnInventoryChanged);
 
             ReleaseCatalog();
         }
@@ -67,23 +58,20 @@ namespace UI
         {
             ReleaseCatalog();
 
-            yield return ShopCatalogLoader.Load(CatalogAddress, (catalog, handle) =>
+            bool completed = false;
+            DataManager.Instance.LoadShopCatalog(catalog =>
             {
-                _catalogHandle = handle;
-                _hasHandle = true;
                 _items = catalog != null ? GetItemsFrom(catalog) : null;
                 _index = 0;
                 RefreshItem();
+                completed = true;
             });
+
+            yield return new WaitUntil(() => completed);
         }
 
         private void ReleaseCatalog()
         {
-            if (_hasHandle)
-            {
-                ShopCatalogLoader.Release(_catalogHandle);
-                _hasHandle = false;
-            }
             _items = null;
             _index = 0;
         }
@@ -176,8 +164,8 @@ namespace UI
 
         private void SetPriceVisible(bool visible)
         {
-            // Yellow bar luôn hiển thị (là một phần của Preview Frame sprite).
-            // Chỉ ẩn nội dung bên trong: gold icon + price text.
+            // Yellow bar luÃ´n hiá»ƒn thá»‹ (lÃ  má»™t pháº§n cá»§a Preview Frame sprite).
+            // Chá»‰ áº©n ná»™i dung bÃªn trong: gold icon + price text.
             if (_priceIcon != null) _priceIcon.SetActive(visible);
             if (_priceText != null) _priceText.gameObject.SetActive(visible);
         }
@@ -240,3 +228,4 @@ namespace UI
         }
     }
 }
+

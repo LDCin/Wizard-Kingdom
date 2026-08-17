@@ -1,38 +1,41 @@
-﻿using Managers;
+using Managers;
 using UnityEditor;
 using UnityEngine;
 
-namespace WizardKingdom.Editor
+[CustomEditor(typeof(DataManager))]
+public class DataManagerEditor : Editor
 {
-    [CustomEditor(typeof(DataManager))]
-    public class DataManagerEditor : UnityEditor.Editor
+    public override void OnInspectorGUI()
     {
-        public override void OnInspectorGUI()
+        DrawDefaultInspector();
+
+        if (targets.Length > 1)
         {
-            serializedObject.Update();
-            DrawDefaultInspector();
-            serializedObject.ApplyModifiedProperties();
+            EditorGUILayout.HelpBox("Select one DataManager to edit data.", MessageType.Info);
+            return;
+        }
 
-            DataManager manager = (DataManager)target;
+        EditorGUILayout.Space(12f);
+        EditorGUILayout.LabelField("Data Tools", EditorStyles.boldLabel);
 
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("User Data Tools", EditorStyles.boldLabel);
+        DataManager dataManager = (DataManager)target;
 
-            if (GUILayout.Button("Load User Data Into Editor"))
+        if (GUILayout.Button("Save Data From Inspector"))
+        {
+            dataManager.ApplyEditorDataToUserData();
+            EditorUtility.SetDirty(dataManager);
+        }
+
+        if (GUILayout.Button("Reset Data"))
+        {
+            if (EditorUtility.DisplayDialog(
+                    "Reset Data",
+                    "Reset user data to default values?",
+                    "Reset",
+                    "Cancel"))
             {
-                manager.LoadEditorDataFromUserData();
-                EditorUtility.SetDirty(manager);
-            }
-
-            if (GUILayout.Button("Save Editor Data To User Data"))
-            {
-                manager.ApplyEditorDataToUserData();
-                EditorUtility.SetDirty(manager);
-            }
-
-            if (GUILayout.Button("Save User Data File"))
-            {
-                manager.SaveUserData();
+                dataManager.ResetData();
+                EditorUtility.SetDirty(dataManager);
             }
         }
     }

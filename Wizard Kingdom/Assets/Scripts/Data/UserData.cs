@@ -6,6 +6,7 @@ namespace Data
     [System.Serializable]
     public class UserData
     {
+        public string id;
         public StatsData stats = new();
         public InventoryData inventory = new();
         public SettingsData settings = new();
@@ -39,6 +40,7 @@ namespace Data
     [System.Serializable]
     public class StatsData
     {
+        public string id;
         public Dictionary<string, int> highScores = new();
         public int currentCoin;
     }
@@ -46,6 +48,7 @@ namespace Data
     [System.Serializable]
     public class InventoryData
     {
+        public string id;
         public List<string> ownedBackgrounds = new();
         public List<string> ownedWizards = new();
         public List<string> ownedSpells = new();
@@ -57,6 +60,7 @@ namespace Data
     [System.Serializable]
     public class SettingsData
     {
+        public string id;
         public bool bgmEnabled = true;
         public bool sfxEnabled = true;
         public bool vibrationEnabled = true;

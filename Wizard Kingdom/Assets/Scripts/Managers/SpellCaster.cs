@@ -5,12 +5,12 @@ using Enemies;
 using GestureRecognizer;
 using SOs;
 using UnityEngine;
+using Utils;
 
 namespace Managers
 {
     public class SpellCaster : MonoBehaviour
     {
-        public static event Action<Sprite, int> OnSpellUsageUpdated;
 
         [Serializable]
         private enum SpellActionType
@@ -59,16 +59,19 @@ namespace Managers
         private void OnEnable()
         {
             ResetSpellUses();
-            GameManager.OnSpellCastRequested += Cast;
+            Observer.Subscribe<SpellCastRequestPayload>(ObserverEvent.SpellCastRequested, Cast);
         }
 
         private void OnDisable()
         {
-            GameManager.OnSpellCastRequested -= Cast;
+            Observer.Unsubscribe<SpellCastRequestPayload>(ObserverEvent.SpellCastRequested, Cast);
         }
 
-        private void Cast(GesturePattern pattern, SpellItemData spell)
+        private void Cast(SpellCastRequestPayload payload)
         {
+            GesturePattern pattern = payload.Pattern;
+            SpellItemData spell = payload.Spell;
+
             if (pattern == null) return;
 
             for (int i = 0; i < _bindings.Count; i++)
@@ -80,7 +83,7 @@ namespace Managers
 
                 if (binding.maxUsesPerMatch > 0 && binding.remainingUses <= 0)
                 {
-                    OnSpellUsageUpdated?.Invoke(binding.icon, binding.remainingUses);
+                    Observer.Publish(ObserverEvent.SpellUsageUpdated, new SpellUsagePayload(binding.icon, binding.remainingUses));
                     Debug.LogWarning($"SpellCaster: no uses left for pattern '{pattern.id}'.");
                     return;
                 }
@@ -92,7 +95,7 @@ namespace Managers
                         binding.remainingUses--;
                     }
 
-                    OnSpellUsageUpdated?.Invoke(binding.icon, binding.remainingUses);
+                    Observer.Publish(ObserverEvent.SpellUsageUpdated, new SpellUsagePayload(binding.icon, binding.remainingUses));
                     action.Invoke();
                 }
                 else
@@ -170,3 +173,4 @@ namespace Managers
         }
     }
 }
+

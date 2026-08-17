@@ -1,5 +1,5 @@
-﻿using Managers;
-using UnityEngine;
+﻿using UnityEngine;
+using Utils;
 
 namespace BackgroundSystem
 {
@@ -9,12 +9,12 @@ namespace BackgroundSystem
 
         private void OnEnable()
         {
-            GameManager.OnTimeExpired += HandleTimeExpired;
+            Observer.Subscribe(ObserverEvent.TimeExpired, HandleTimeExpired);
         }
 
         private void OnDisable()
         {
-            GameManager.OnTimeExpired -= HandleTimeExpired;
+            Observer.Unsubscribe(ObserverEvent.TimeExpired, HandleTimeExpired);
         }
 
         private void HandleTimeExpired()
@@ -24,4 +24,3 @@ namespace BackgroundSystem
         }
     }
 }
-

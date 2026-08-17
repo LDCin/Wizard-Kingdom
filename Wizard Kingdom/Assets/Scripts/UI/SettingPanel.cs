@@ -1,4 +1,4 @@
-using Managers;
+﻿using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -38,9 +38,7 @@ namespace UI
         [SerializeField] private ToggleSprites _vibrationVisual;
 
         [Header("Reset (triple-tap)")]
-        [Tooltip("Số click liên tiếp cần để reset data.")]
         [SerializeField] private int _resetClickThreshold = 3;
-        [Tooltip("Thời gian (giây) reset counter nếu user không click tiếp.")]
         [SerializeField] private float _resetClickTimeout = 1f;
 
         private int _resetClickCount;
@@ -48,14 +46,14 @@ namespace UI
 
         private void OnEnable()
         {
-            DataManager.OnSettingsChanged += RefreshAllVisuals;
+            Observer.Subscribe(ObserverEvent.SettingsChanged, RefreshAllVisuals);
             _resetClickCount = 0;
             RefreshAllVisuals();
         }
 
         private void OnDisable()
         {
-            DataManager.OnSettingsChanged -= RefreshAllVisuals;
+            Observer.Unsubscribe(ObserverEvent.SettingsChanged, RefreshAllVisuals);
         }
 
         private void RefreshAllVisuals()
@@ -103,7 +101,7 @@ namespace UI
             if (_resetClickCount >= _resetClickThreshold)
             {
                 _resetClickCount = 0;
-                DataManager.Instance.ResetUserData();
+                DataManager.Instance.ResetData();
                 Debug.Log("SettingPanel: user data reset.");
             }
             else
@@ -119,3 +117,4 @@ namespace UI
         }
     }
 }
+

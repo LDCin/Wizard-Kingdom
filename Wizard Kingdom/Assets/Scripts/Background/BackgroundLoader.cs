@@ -1,8 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using Managers;
 using SOs;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using Utils;
 
 namespace BackgroundSystem
@@ -11,10 +10,8 @@ namespace BackgroundSystem
     {
         [SerializeField] private Transform _backgroundRoot;
 
-        private AsyncOperationHandle<GameplayCatalog> _catalogHandle;
-        private bool _hasCatalogHandle;
         private GameObject _currentInstance;
-        private GameplayCatalog _catalog;
+        private bool _isCatalogReady;
 
         private void Awake()
         {
@@ -23,7 +20,7 @@ namespace BackgroundSystem
 
         private void OnEnable()
         {
-            GameManager.OnModeLoaded += HandleModeLoaded;
+            Observer.Subscribe<GameModeData>(ObserverEvent.ModeLoaded, HandleModeLoaded);
         }
 
         private void Start()
@@ -33,34 +30,27 @@ namespace BackgroundSystem
 
         private void OnDisable()
         {
-            GameManager.OnModeLoaded -= HandleModeLoaded;
-        }
-
-        private void OnDestroy()
-        {
-            if (_hasCatalogHandle)
-            {
-                GameplayCatalogLoader.Release(_catalogHandle);
-                _hasCatalogHandle = false;
-            }
+            Observer.Unsubscribe<GameModeData>(ObserverEvent.ModeLoaded, HandleModeLoaded);
         }
 
         private IEnumerator LoadAndApplyBackground()
         {
-            yield return GameplayCatalogLoader.Load((catalog, handle) =>
+            bool completed = false;
+            DataManager.Instance.LoadGameplayCatalog(catalog =>
             {
-                _catalogHandle = handle;
-                _hasCatalogHandle = true;
-                _catalog = catalog;
-
-                if (_catalog == null) return;
-                ApplyBackground(GameManager.Instance != null ? GameManager.Instance.CurrentModeData : null);
+                _isCatalogReady = catalog != null;
+                completed = true;
             });
+
+            yield return new WaitUntil(() => completed);
+
+            if (!_isCatalogReady) yield break;
+            ApplyBackground(GameManager.Instance != null ? GameManager.Instance.CurrentModeData : null);
         }
 
         private void HandleModeLoaded(GameModeData modeData)
         {
-            if (_catalog == null) return;
+            if (!_isCatalogReady) return;
             ApplyBackground(modeData);
         }
 
@@ -69,7 +59,7 @@ namespace BackgroundSystem
             string id = ResolveBackgroundId(modeData);
             if (string.IsNullOrEmpty(id)) return;
 
-            BackgroundData data = _catalog.FindBackground(id);
+            BackgroundData data = DataManager.Instance.FindBackgroundData(id);
             if (data == null)
             {
                 Debug.LogWarning($"BackgroundLoader: not found BackgroundData for id '{id}' in GameplayCatalog.");
@@ -108,3 +98,4 @@ namespace BackgroundSystem
         }
     }
 }
+
